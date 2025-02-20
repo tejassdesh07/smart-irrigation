@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Irrigation Smart Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+
+        .form-step {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #3e5d71;
+            text-align: center;
+        }
+
+        label {
+            font-size: 16px;
+            color: #333;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .form-section {
+            margin-bottom: 20px;
+        }
+
+        .zone-block {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .zone-block h3 {
+            margin-bottom: 15px;
+            color: #4CAF50;
+        }
+
+        .programHouseFields,
+        .faultsSection,
+        .repairsSection {
+            margin-top: 15px;
+        }
+
+        .zoneList {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #eee;
+            border-radius: 5px;
+        }
+
+        .zoneList li {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .zoneList a {
+            color: #d9534f;
+            text-decoration: none;
+        }
+
+        .zoneList a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        /* General styling for buttons */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Zone Navigation Buttons */
+/* General styling for buttons */
+.zone-nav-btn {
+    background-color: #008CBA;  /* Green */
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 30px;
+    padding: 10px 20px;
+}
+
+.zone-nav-btn:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+/* Page Navigation Buttons */
+.page-nav-btn {
+    background-color: #4CAF50;  /* Blue */
+    color: white;
+    font-weight: bold;
+    min-width: 140px;
+    padding: 10px;
+}
+
+.page-nav-btn:hover {
+    background-color: #007B9E;
+    transform: scale(1.05);
+}
+
+/* Form Styling */
+
+
+
+
+/* Zone Navigation Section */
+.zone-navigation {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Page Navigation Section */
+.page-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .zone-navigation {
+        font-size: x-small;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .zone-nav-btn {
+        width: 50%;
+        font-size: 5px;
+    }
+
+    .page-navigation {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .page-nav-btn {
+        width: 100%;
+    }
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="step1" class="form-step">
+            <h2>Step 1: Irrigation Smart Form</h2>
+            <form id="irrigationForm" onsubmit="return validateForm()">
+                <label>Technician: <input type="text" name="technician" required></label>
+                <label>Customer: <input type="text" name="customer" required></label>
+                <label>Report Type: <input type="text" name="reportType" required></label>
+                <label>Controller Name: <input type="text" name="controllerName" required></label>
+                <label>Date: <input type="date" name="date" required></label>
+        
+                <label>Program Start Times and Seasonal Adjust needed?
+                    <select id="programNeeded" onchange="togglePrograms()">
+                        <option value="no">No</option>
+                        <option value="yes">Yes</option>
+                    </select>
+                </label>
+        
+                <div id="programs" class="hidden">
+                    <div id="programA">
+                        <h3>Program A</h3>
+                        <label>Start Time: <input type="time" name="programA_start"></label>
+                        <label>Season Adjust: <input type="text" name="programA_adjust"></label>
+                        <label>Run Days:
+                            <select name="programA_days">
+                                <option value="monday">Monday</option>
+                                <option value="tuesday">Tuesday</option>
+                                <option value="wednesday">Wednesday</option>
+                                <option value="thursday">Thursday</option>
+                                <option value="friday">Friday</option>
+                            </select>
+                        </label>
+                        <label>Another Program? <select onchange="toggleNextProgram('programB', this.value)">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select></label>
+                    </div>
+        
+                    <div id="programB" class="hidden">
+                        <h3>Program B</h3>
+                        <label>Start Time: <input type="time" name="programB_start"></label>
+                        <label>Season Adjust: <input type="text" name="programB_adjust"></label>
+                        <label>Run Days:
+                            <select name="programB_days">
+                                <option value="monday">Monday</option>
+                                <option value="tuesday">Tuesday</option>
+                                <option value="wednesday">Wednesday</option>
+                                <option value="thursday">Thursday</option>
+                                <option value="friday">Friday</option>
+                            </select>
+                        </label>
+                        <label>Another Program? <select onchange="toggleNextProgram('programC', this.value)">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select></label>
+                    </div>
+        
+                    <div id="programC" class="hidden">
+                        <h3>Program C</h3>
+                        <label>Start Time: <input type="time" name="programC_start"></label>
+                        <label>Season Adjust: <input type="text" name="programC_adjust"></label>
+                        <label>Run Days:
+                            <select name="programC_days">
+                                <option value="monday">Monday</option>
+                                <option value="tuesday">Tuesday</option>
+                                <option value="wednesday">Wednesday</option>
+                                <option value="thursday">Thursday</option>
+                                <option value="friday">Friday</option>
+                            </select>
+                        </label>
+                        <label>Another Program? <select onchange="toggleNextProgram('programD', this.value)">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select></label>
+                    </div>
+        
+                    <div id="programD" class="hidden">
+                        <h3>Program D</h3>
+                        <label>Start Time: <input type="time" name="programD_start"></label>
+                        <label>Season Adjust: <input type="text" name="programD_adjust"></label>
+                        <label>Run Days:
+                            <select name="programD_days">
+                                <option value="monday">Monday</option>
+                                <option value="tuesday">Tuesday</option>
+                                <option value="wednesday">Wednesday</option>
+                                <option value="thursday">Thursday</option>
+                                <option value="friday">Friday</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+        
+                <label>Weather Sensor Checked?
+                    <select id="weatherSensor" onchange="toggleSensorDetails()">
+                        <option value="no">No</option>
+                        <option value="yes">Yes</option>
+                    </select>
+                </label>
+        
+                <div id="sensorDetails" class="hidden">
+                    <label>Weather Sensor Working? <select name="sensorWorking">
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select></label>
+                </div>
+        
+                <label>Controller Make and Model: <input type="text" name="controllerMakeModel" required></label>
+                <label>Controller Status:
+                    <select id="controllerStatus" name="controllerStatus" onchange="toggleControllerDetails()">
+                        <option value="working">Working</option>
+                        <option value="notWorking">Not Working</option>
+                    </select>
+                </label>
+        
+                <div id="controllerDetails" class="hidden">
+                    <label>Controller Make and Model: <input type="text" name="controllerDetailsMakeModel"></label>
+                </div>
+        
+                <label>POC Info:
+                    <select name="pocInfo">
+                        <option value="potable">Potable</option>
+                        <option value="reclaimed">Reclaimed</option>
+                        <option value="well">Well</option>
+                        <option value="lake">Lake</option>
+                    </select>
+                </label>
+        
+                <label>Pump Status & Type:
+                    <select name="pumpStatusType">
+                        <option value="pressurized">Pressurized</option>
+                        <option value="pumpStart">Pump Start</option>
+                        <option value="centrifugal">Centrifugal</option>
+                        <option value="submersible">Submersible</option>
+                    </select>
+                </label>
+        
+                <button type="button" onclick="nextStep(1)">Next ➡️</button>
+            </form>
+        </div>
+        <!-- Step 2: Zone Entry -->
+        <div id="step2" class="form-step hidden">
+            <h2>Step 2: Zone Entry</h2>
+            <form id="zoneForm">
+                <div id="zonesContainer">
+                    <div class="form-section zone-block">
+                        <h3>Zone Entry</h3>
+                        <label>Zone Number or House #: <input type="number" class="zoneNumber" required></label>
+                        <label>Type:
+                            <select class="zoneType">
+                                <option value="Spray">Spray</option>
+                                <option value="Rotor">Rotor</option>
+                                <option value="MP">MP</option>
+                                <option value="Drip">Drip</option>
+                                <option value="Bubbler">Bubbler</option>
+                            </select>
+                        </label>
+                        <label>Which Program?:
+                            <select class="programType" onchange="toggleProgramFields(this)">
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                                <option value="House">House</option>
+                            </select>
+                        </label>
+
+                        <div class="programFields">
+                            <div class="programHouseFields hidden" id="houseFields">
+                                <label>Run Time Schedule: <input type="text" class="runTimeSchedule"></label>
+                                <label>Run Days: <input type="text" class="runDays"></label>
+                            </div>
+                        </div>
+
+                        <div class="programFields" id="nonHouseFields">
+                            <label>Power:
+                                <select class="powerType">
+                                    <option value="Battery">Battery</option>
+                                    <option value="Doubler">Doubler</option>
+                                </select>
+                            </label>
+
+                            <label>Zone Faults or Alarms: <input type="checkbox" class="zoneFaults"
+                                    onchange="toggleFaults(this)"></label>
+
+
+                            <label>Checked Filters: <input type="checkbox" class="checkedFilters"></label>
+                            <label>Clogged Nozzles?: <input type="checkbox" class="cloggedNozzles"></label>
+                            <label>Head Straightened/Adjusted: <input type="checkbox" class="headAdjusted"></label>
+
+                            <label>Billable Repairs:
+                                <select class="billableRepairs" onchange="toggleRepairs(this)">
+                                    <option value="no">No</option>
+                                    <option value="yes">Yes</option>
+                                </select>
+                            </label>
+
+                            <div class="hidden repairsSection">
+                                <label>Head Broken 6": <input type="number" class="headBroken6" min="0"></label>
+                                <label>Head Broken 12": <input type="number" class="headBroken12" min="0"></label>
+                                <label>Broken Riser: <input type="number" class="brokenRiser" min="0"></label>
+                                <label>Upgrade 4-6" pop up: <input type="number" class="upgrade46PopUp" min="0"></label>
+                                <label>Upgrade 6-12" pop up: <input type="number" class="upgrade612PopUp"
+                                        min="0"></label>
+                                <label>Nozzle MPR: <input type="number" class="nozzleMPR" min="0"></label>
+                                <label>Nozzle MP Rotator: <input type="number" class="nozzleMPRotator" min="0"></label>
+                                <label>Spray Nozzle Repair: <input type="checkbox" class="sprayNozzleRepair"></label>
+                                <label>Dripline Break: <input type="checkbox" class="driplineBreak"></label>
+                                <label>Severe Line Clog: <input type="checkbox" class="severeLineClog"></label>
+                                <label>Lateral Line Break: <input type="checkbox" class="lateralLineBreak"></label>
+                                <label>Relocation: <input type="checkbox" class="relocation"></label>
+                                <label>Head Raised or Lowered - Turf: <input type="checkbox"
+                                        class="headRaisedLoweredTurf"></label>
+                                <label>Head Raised or Lowered - Shrub: <input type="checkbox"
+                                        class="headRaisedLoweredShrub"></label>
+                                <label>Damaged Valve Box: <input type="checkbox" class="damagedValveBox"></label>
+                                <label>Valve Operating: <input type="checkbox" class="valveOperating"></label>
+                                <label>Rain Sensor Operating: <input type="checkbox"
+                                        class="rainSensorOperating"></label>
+                                <label>Controller Operating: <input type="checkbox" class="controllerOperating"></label>
+                                <label>Additional Labor/Troubleshoot: <textarea
+                                        class="additionalLabor"></textarea></label>
+                            </div>
+
+
+
+                        </div>
+
+
+                        <label>Another Zone?
+                            <select class="anotherZone" onchange="addAnotherZone(this)">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+                        </label>
+
+                    </div>
+                </div>
+            <!-- Zone Navigation Buttons -->
+<div class="zone-navigation">
+    <button type="button" class="zone-nav-btn" onclick="previousZone()">
+        ⬅️ Previous Zone
+    </button>
+    <button type="button" class="zone-nav-btn" onclick="nextZone()">
+        Next Zone ➡️
+    </button>
+</div>
+
+<!-- Page Navigation Buttons -->
+<div class="page-navigation">
+    <button type="button" onclick="previousStep(2)" class="page-nav-btn">⬅️ Previous Page</button>
+    <button type="button" onclick="nextStep(2)" class="page-nav-btn">Next Page ➡️</button>
+</div>
+
+        </div>
+
+        <!-- Step 3: Account Manager Contact -->
+        <div id="step3" class="form-step hidden">
+            <h2>Step 3: Account Manager Contact</h2>
+            <form id="contactForm">
+                <label>Did you contact the Account Manager?
+                    <select name="contactedManager" onchange="toggleContactDetails(this.value)">
+                        <option value="no">No</option>
+                        <option value="yes">Yes</option>
+                    </select>
+                </label>
+
+                <div id="contactDetails" class="hidden">
+                    <label>What Time? <input type="time" name="contactTime"></label>
+                    <label>How did you communicate?
+                        <select name="communicationType">
+                            <option value="Spoke">Spoke</option>
+                            <option value="Text">Text</option>
+                            <option value="Voice Mail">Voice Mail</option>
+                        </select>
+                    </label>
+                </div>
+                <button type="button" onclick="previousStep(3)">⬅️ Previous</button>
+                <button type="button" onclick="submitForm()">Submit</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        let zonesArray = [];
+        function previousStep(step) {
+            document.getElementById(`step${step}`).classList.add('hidden');
+            document.getElementById(`step${step - 1}`).classList.remove('hidden');
+        }
+        function validateForm() {
+    let isValid = true; // Flag to track validation status
+    let errorMessage = ''; // To accumulate error messages
+    const requiredFields = document.querySelectorAll('input[required], select[required]');
+
+    // Loop through all required fields to check if they're filled out
+    requiredFields.forEach((field) => {
+        if (!field.value) {
+            isValid = false;
+            errorMessage += `${field.name || field.id} is required. \n`; // Add error message for missing fields
+            field.style.borderColor = 'red'; // Highlight missing fields in red
+        } else {
+            field.style.borderColor = ''; // Reset field style if filled
+        }
+    });
+
+    // Display error message if there are missing fields
+    if (!isValid) {
+        alert('Please fill out all required fields:\n\n' + errorMessage);
+    }
+    
+    return isValid; // Return validation status to prevent form submission if invalid
+}
+
+function nextStep(step) {
+    // Validate before moving forward
+    if (validateForm()) {
+        // Proceed to next step if valid
+        document.getElementById(`step${step}`).style.display = 'none';
+        document.getElementById(`step${step + 1}`).style.display = 'block';
+    }
+}
+
+
+        function toggleContactDetails(value) {
+            document.getElementById('contactDetails').classList.toggle('hidden', value === 'no');
+        }
+
+        function togglePrograms() {
+            document.getElementById('programs').classList.toggle('hidden', document.getElementById('programNeeded').value === 'no');
+        }
+
+        function toggleNextProgram(programId, value) {
+            document.getElementById(programId).classList.toggle('hidden', value === 'no');
+        }
+
+        function toggleSensorDetails() {
+            document.getElementById('sensorDetails').classList.toggle('hidden', document.getElementById('weatherSensor').value === 'no');
+        }
+
+        // function toggleFaults(element) {
+        //     let section = element.closest('.zone-block').querySelector('.faultsSection');
+        //     section.classList.toggle("hidden", !element.checked);
+        // }
+
+        function toggleRepairs(element) {
+            let section = element.closest('.zone-block').querySelector('.repairsSection');
+            section.classList.toggle("hidden", element.value !== "yes");
+        }
+
+        function toggleProgramFields(element) {
+            let zoneBlock = element.closest('.zone-block');
+
+            // Get the programType selected
+            let programType = element.value;
+
+            // Find the div containers for both House and non-House fields
+            let houseFields = zoneBlock.querySelector('#houseFields');
+            let nonHouseFields = zoneBlock.querySelector('#nonHouseFields');
+
+            // Show or hide fields based on the program type selected
+            if (programType === "House") {
+                houseFields.classList.remove("hidden");
+                nonHouseFields.classList.add("hidden");
+            } else {
+                houseFields.classList.add("hidden");
+                nonHouseFields.classList.remove("hidden");
+            }
+        }
+
+
+        function addAnotherZone(element) {
+    if (element.value === "yes") {
+        // Clone the zone block
+        let newZone = element.closest('.zone-block').cloneNode(true);
+
+        // Reset form elements in the cloned zone
+        newZone.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.checked = false;  // Uncheck checkboxes
+        });
+        newZone.querySelectorAll('input[type="number"]').forEach(input => {
+            input.value = '';  // Reset number inputs to empty
+        });
+        newZone.querySelectorAll('textarea').forEach(textarea => {
+            textarea.value = '';  // Clear text areas
+        });
+
+        // Optionally, reset the "anotherZone" select to "No" in the cloned zone
+        newZone.querySelector(".anotherZone").value = "no";
+
+        // Hide all other zones and show the new one
+        let allZones = document.querySelectorAll('.zone-block');
+        allZones.forEach(zone => {
+            zone.style.display = 'none';
+        });
+
+        // Append the cloned zone to the container
+        document.getElementById("zonesContainer").appendChild(newZone);
+
+        // Display the newly added zone
+        newZone.style.display = 'block';
+    }
+}
+
+let currentZoneIndex = 0;
+
+function showZone(index) {
+    let zones = document.querySelectorAll('.zone-block');
+    if (zones.length > 0) {
+        // Hide all zones
+        zones.forEach((zone, i) => {
+            zone.style.display = i === index ? 'block' : 'none';
+        });
+    }
+}
+
+function nextZone() {
+    let zones = document.querySelectorAll('.zone-block');
+    if (currentZoneIndex < zones.length - 1) {
+        currentZoneIndex++;
+        showZone(currentZoneIndex);
+    }
+}
+
+function previousZone() {
+    if (currentZoneIndex > 0) {
+        currentZoneIndex--;
+        showZone(currentZoneIndex);
+    }
+}
+
+// Initially, show only the first zone
+document.addEventListener('DOMContentLoaded', () => {
+    showZone(currentZoneIndex);
+});
+
+
+
+        function collectZoneData() {
+            zonesArray = [];
+            document.querySelectorAll('.zone-block').forEach(zone => {
+                let zoneData = {
+                    zoneNumber: zone.querySelector('.zoneNumber').value,
+                    type: zone.querySelector('.zoneType').value,
+                    program: zone.querySelector('.programType').value,
+                    runTimeSchedule: zone.querySelector('.runTimeSchedule')?.value || '',
+                    runDays: zone.querySelector('.runDays')?.value || '',
+                    powerType: zone.querySelector('.powerType').value,
+                    hasFaults: zone.querySelector('.zoneFaults').checked,
+                    checkedFilters: zone.querySelector('.checkedFilters')?.checked || false,
+                    cloggedNozzles: zone.querySelector('.cloggedNozzles')?.checked || false,
+                    headAdjusted: zone.querySelector('.headAdjusted')?.checked || false,
+                    billableRepairs: zone.querySelector('.billableRepairs').checked,
+                    headBroken6: zone.querySelector('.headBroken6')?.value || 0,
+                    headBroken12: zone.querySelector('.headBroken12')?.value || 0,
+                    brokenRiser: zone.querySelector('.brokenRiser')?.value || 0,
+                    sprayNozzleRepair: zone.querySelector('.sprayNozzleRepair')?.checked || false,
+                    driplineBreak: zone.querySelector('.driplineBreak')?.checked || false,
+                    severeLineClog: zone.querySelector('.severeLineClog')?.checked || false,
+                    additionalLabor: zone.querySelector('.additionalLabor')?.value || ''
+                };
+                zonesArray.push(zoneData);
+            });
+        }
+
+        function submitForm() {
+            const formData = {
+                irrigationForm: {},
+                zones: [],
+                contactForm: {}
+            };
+
+            // Collect main irrigation form data
+            document.querySelectorAll('#irrigationForm input, #irrigationForm select').forEach(input => {
+                formData.irrigationForm[input.name] = input.value;
+            });
+
+            // Collect zone form data
+            document.querySelectorAll('.zone-block').forEach(zone => {
+                let zoneData = {};
+                zone.querySelectorAll('input, select, textarea').forEach(input => {
+                    if (input.type === "checkbox") {
+                        zoneData[input.className] = input.checked;
+                    } else {
+                        zoneData[input.className] = input.value;
+                    }
+                });
+                formData.zones.push(zoneData);
+            });
+
+            // Collect account manager contact form data
+            document.querySelectorAll('#contactForm input, #contactForm select').forEach(input => {
+                formData.contactForm[input.name] = input.value;
+            });
+
+            // Convert data to readable text format
+            let data = `Irrigation Form:\n`;
+            for (let key in formData.irrigationForm) {
+                data += `${key}: ${formData.irrigationForm[key]}\n`;
+            }
+
+            data += `\nZones:\n`;
+            formData.zones.forEach((zone, index) => {
+                data += `Zone ${index + 1}:\n`;
+                for (let key in zone) {
+                    data += `${key}: ${zone[key]}\n`;
+                }
+                data += '\n';
+            });
+
+            data += `Account Manager Contact:\n`;
+            for (let key in formData.contactForm) {
+                data += `${key}: ${formData.contactForm[key]}\n`;
+            }
+
+            // Create and trigger download of text file
+            const blob = new Blob([data], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `Irrigation_Report_${new Date().toISOString().slice(0, 10)}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+     
+    </script>
+
+</body>
+
+</html>
