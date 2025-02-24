@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% block title %}Step 1: Irrigation Report{% endblock %}
+{% block content %}
+
+<div class="max-w-2xl mx-auto bg-white shadow-lg rounded-2xl p-6 mt-6">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Step 1: Irrigation Report</h2>
+    
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+
+        <!-- Render Irrigation Report fields -->
+        <div class="space-y-2">
+            {{ form.as_p }}
+        </div>
+
+        <!-- Programs Needed? -->
+        <div class="mt-4">
+            <label class="block text-lg font-medium text-gray-700">Programs Needed?</label>
+            <div class="flex space-x-4 mt-2">
+                <label class="flex items-center space-x-2 cursor-pointer">
+                    <input type="radio" name="programs_needed" value="True" id="programs_yes" class="hidden peer">
+                    <div class="w-6 h-6 border border-gray-400 rounded-full peer-checked:bg-blue-600"></div>
+                    <span class="text-gray-800">Yes</span>
+                </label>
+
+                <label class="flex items-center space-x-2 cursor-pointer">
+                    <input type="radio" name="programs_needed" value="False" id="programs_no" class="hidden peer" checked>
+                    <div class="w-6 h-6 border border-gray-400 rounded-full peer-checked:bg-blue-600"></div>
+                    <span class="text-gray-800">No</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Dynamic Program Fields -->
+        <div id="program-fields" class="hidden bg-gray-50 p-4 rounded-xl shadow-md mt-4">
+            <h3 class="text-lg font-semibold text-gray-700">Program A</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                <div>
+                    <label class="text-gray-700 font-medium">Program Name</label>
+                    <input type="text" name="program_1" class="w-full mt-1 p-2 border rounded-lg focus:ring focus:ring-blue-300">
+                </div>
+                <div>
+                    <label class="text-gray-700 font-medium">Start Time</label>
+                    <input type="time" name="start_time_1" class="w-full mt-1 p-2 border rounded-lg focus:ring focus:ring-blue-300">
+                </div>
+                <div>
+                    <label class="text-gray-700 font-medium">Seasonal Adjustment</label>
+                    <input type="text" name="seasonal_adjustment_1" class="w-full mt-1 p-2 border rounded-lg focus:ring focus:ring-blue-300">
+                </div>
+                <div>
+                    <label class="text-gray-700 font-medium">Run Days</label>
+                    <input type="text" name="run_days_1" class="w-full mt-1 p-2 border rounded-lg focus:ring focus:ring-blue-300">
+                </div>
+            </div>
+
+            <div id="more-programs" class="mt-4"></div>
+            
+            <button type="button" id="add-more-program" class="mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700 transition">
+                ➕ Add More Program
+            </button>
+        </div>
+
+        <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-lg text-lg font-semibold shadow-md hover:bg-green-700 transition">
+            Next ➡️
+        </button>
+    </form>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const programsYes = document.getElementById("programs_yes");
+    const programsNo = document.getElementById("programs_no");
+    const programFields = document.getElementById("program-fields");
+    const addMoreProgramBtn = document.getElementById("add-more-program");
+    const moreProgramsDiv = document.getElementById("more-programs");
+
+    let programCount = 1;  // Program A is already set
+    const maxPrograms = 4; // A to D
+
+    function toggleProgramFields() {
+        programFields.style.display = programsYes.checked ? "block" : "none";
+        moreProgramsDiv.innerHTML = ""; // Clear additional fields
+        programCount = 1;
+    }
+
+    programsYes.addEventListener("change", toggleProgramFields);
+    programsNo.addEventListener("change", toggleProgramFields);
+
+    addMoreProgramBtn.addEventListener("click", function() {
+        if (programCount < maxPrograms) {
+            programCount++;
+            const programLetter = String.fromCharCode(64 + programCount); // A = 65 in ASCII
+            
+            const newField = document.createElement("div");
+            newField.classList.add("bg-gray-100", "p-4", "rounded-lg", "shadow-sm", "mt-4");
+
+            newField.innerHTML = `
+                <h3 class="text-lg font-semibold text-gray-700">Program ${programLetter}</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                    <div>
+                        <label class="text-gray-700 font-medium">Program Name</label>
+                        <input type="text" name="program_${programCount}" class="w-full mt-1 p-2 border rounded-lg focus:ring focus:ring-blue-300">
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Start Time</label>
+                        <input type="time" name="start_time_${programCount}" class="w-full mt-1 p-2 border rounded-lg focus:ring focus:ring-blue-300">
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Seasonal Adjustment</label>
+                        <input type="text" name="seasonal_adjustment_${programCount}" class="w-full mt-1 p-2 border rounded-lg focus:ring focus:ring-blue-300">
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Run Days</label>
+                        <input type="text" name="run_days_${programCount}" class="w-full mt-1 p-2 border rounded-lg focus:ring focus:ring-blue-300">
+                    </div>
+                </div>
+            `;
+            moreProgramsDiv.appendChild(newField);
+        }
+        if (programCount === maxPrograms) {
+            addMoreProgramBtn.style.display = "none";
+        }
+    });
+
+    toggleProgramFields(); // Ensure initial state is correct
+});
+</script>
+
+{% endblock %}

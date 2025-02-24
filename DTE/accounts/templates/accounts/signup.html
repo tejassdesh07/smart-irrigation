@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans">
+
+    <div class="flex items-center justify-center min-h-screen bg-gray-100">
+        <div class="bg-white p-8 rounded-lg shadow-2xl max-w-lg w-full">
+            <h2 class="text-4xl font-extrabold text-center text-gray-800 mb-8">Create an Account</h2>
+            
+            <form method="POST" class="space-y-6">
+                {% csrf_token %}
+                
+                <div class="space-y-4">
+                    <!-- Form Fields -->
+                    <div class="flex flex-col">
+                        <label for="username" class="text-gray-700 font-medium text-lg">Username</label>
+                        <input type="text" name="username" class="mt-2 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Enter your username" required>
+                    </div>
+                    
+                    <div class="flex flex-col">
+                        <label for="email" class="text-gray-700 font-medium text-lg">Email</label>
+                        <input type="email" name="email" class="mt-2 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="flex flex-col">
+                        <label for="password" class="text-gray-700 font-medium text-lg">Password</label>
+                        <input type="password" name="password" class="mt-2 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Enter your password" required>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <button type="submit" class="w-full py-3 px-6 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-200">Sign Up</button>
+                </div>
+            </form>
+
+            <p class="text-center text-gray-600 mt-6">Already have an account? <a href="{% url 'signin' %}" class="text-blue-600 hover:underline">Sign In</a></p>
+        </div>
+    </div>
+
+</body>
+</html>

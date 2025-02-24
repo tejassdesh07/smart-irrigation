@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Step 3: Account Manager Contact{% endblock %}
+{% block content %}
+<div class="form-step">
+    <h2>Step 3: Account Manager Contact</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</div>
+{% endblock %}

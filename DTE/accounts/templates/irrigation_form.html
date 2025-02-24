@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Irrigation Report Form</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <script>
+        function showStep(step) {
+            document.querySelectorAll('.form-step').forEach(stepDiv => stepDiv.classList.add('hidden'));
+            document.getElementById(step).classList.remove('hidden');
+        }
+    </script>
+</head>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+    <div class="bg-white shadow-md rounded-lg p-6 w-full max-w-2xl">
+        <h2 class="text-2xl font-semibold text-center text-gray-700">Irrigation Report</h2>
+        <form method="post" class="mt-4">
+            {% csrf_token %}
+            
+            <!-- Step 1: Report Details -->
+            <div id="step1" class="form-step">
+                <h3 class="text-lg font-medium text-gray-600">Step 1: Report Details</h3>
+                {{ form.technician.label_tag }} {{ form.technician }}
+                {{ form.customer.label_tag }} {{ form.customer }}
+                {{ form.report_type.label_tag }} {{ form.report_type }}
+                {{ form.controller_name.label_tag }} {{ form.controller_name }}
+                {{ form.date.label_tag }} {{ form.date }}
+                
+                <button type="button" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded" onclick="showStep('step2')">Next</button>
+            </div>
+
+            <!-- Step 2: Controller & Sensor Details -->
+            <div id="step2" class="form-step hidden">
+                <h3 class="text-lg font-medium text-gray-600">Step 2: Controller & Sensor Details</h3>
+                {{ form.report_program_needed.label_tag }} {{ form.report_program_needed }}
+                {{ form.weather_sensor_checked.label_tag }} {{ form.weather_sensor_checked }}
+                {{ form.sensor_working.label_tag }} {{ form.sensor_working }}
+                {{ form.controller_status.label_tag }} {{ form.controller_status }}
+                {{ form.controller_details.label_tag }} {{ form.controller_details }}
+                
+                <button type="button" class="mt-4 bg-gray-400 text-white py-2 px-4 rounded" onclick="showStep('step1')">Back</button>
+                <button type="button" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded" onclick="showStep('step3')">Next</button>
+            </div>
+
+            <!-- Step 3: Program Start Times -->
+            <div id="step3" class="form-step hidden">
+                <h3 class="text-lg font-medium text-gray-600">Step 3: Irrigation Program</h3>
+                {% for program in irrigation_programs %}
+                    <label class="block font-medium">Program {{ program.program_name }}</label>
+                    <input type="time" name="program{{ program.program_name }}_start" class="block w-full border rounded p-2">
+                    <input type="text" name="program{{ program.program_name }}_adjust" pattern="^\d+(\.\d{1,2})?%" placeholder="Seasonal Adjust %" class="block w-full border rounded p-2">
+                {% endfor %}
+                
+                <button type="button" class="mt-4 bg-gray-400 text-white py-2 px-4 rounded" onclick="showStep('step2')">Back</button>
+                <button type="submit" class="mt-4 bg-green-500 text-white py-2 px-4 rounded">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

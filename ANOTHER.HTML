@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Step Irrigation Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for hidden content */
+        .hidden { display: none; }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+
+<div class="max-w-7xl mx-auto p-6">
+    <!-- Step 1: Irrigation Smart Form -->
+    <div id="step1" class="form-step p-8 bg-white rounded-lg shadow-md">
+        <h2 class="text-2xl font-semibold text-center text-gray-800 mb-6">Step 1: Irrigation Smart Form</h2>
+        <form id="irrigationForm">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex flex-col">
+                    <label class="text-gray-700">Technician:</label>
+                    <input type="text" name="technician" class="p-3 mt-1 border border-gray-300 rounded-md" required>
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-gray-700">Customer:</label>
+                    <input type="text" name="customer" class="p-3 mt-1 border border-gray-300 rounded-md" required>
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-gray-700">Report Type:</label>
+                    <input type="text" name="reportType" class="p-3 mt-1 border border-gray-300 rounded-md" required>
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-gray-700">Controller Name:</label>
+                    <input type="text" name="controllerName" class="p-3 mt-1 border border-gray-300 rounded-md" required>
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-gray-700">Date:</label>
+                    <input type="date" name="date" class="p-3 mt-1 border border-gray-300 rounded-md" required>
+                </div>
+            </div>
+
+            <div class="mt-6">
+                <label class="block text-gray-700">Program Start Times and Seasonal Adjust needed?</label>
+                <select id="programNeeded" onchange="togglePrograms()" class="w-full p-3 mt-2 border border-gray-300 rounded-md">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+
+            <div id="programs" class="hidden mt-6 space-y-6">
+                <div id="programA">
+                    <h3 class="text-xl font-semibold text-gray-800">Program A</h3>
+                    <label class="text-gray-700">Start Time:</label>
+                    <input type="time" name="programA_start" class="p-3 mt-1 border border-gray-300 rounded-md">
+                    <label class="text-gray-700">Season Adjust:</label>
+                    <input type="text" name="programA_adjust" class="p-3 mt-1 border border-gray-300 rounded-md">
+                    <label class="text-gray-700">Run Days:</label>
+                    <input type="text" name="programA_days" class="p-3 mt-1 border border-gray-300 rounded-md">
+                    <label class="text-gray-700">Another Program?</label>
+                    <select onchange="toggleNextProgram('programB', this.value)" class="w-full p-3 mt-1 border border-gray-300 rounded-md">
+                        <option value="no">No</option>
+                        <option value="yes">Yes</option>
+                    </select>
+                </div>
+                <div id="programB" class="hidden">
+                    <h3 class="text-xl font-semibold text-gray-800">Program B</h3>
+                    <label class="text-gray-700">Start Time:</label>
+                    <input type="time" name="programB_start" class="p-3 mt-1 border border-gray-300 rounded-md">
+                    <label class="text-gray-700">Season Adjust:</label>
+                    <input type="text" name="programB_adjust" class="p-3 mt-1 border border-gray-300 rounded-md">
+                    <label class="text-gray-700">Run Days:</label>
+                    <input type="text" name="programB_days" class="p-3 mt-1 border border-gray-300 rounded-md">
+                    <label class="text-gray-700">Another Program?</label>
+                    <select onchange="toggleNextProgram('programC', this.value)" class="w-full p-3 mt-1 border border-gray-300 rounded-md">
+                        <option value="no">No</option>
+                        <option value="yes">Yes</option>
+                    </select>
+                </div>
+                <div id="programC" class="hidden">
+                    <h3 class="text-xl font-semibold text-gray-800">Program C</h3>
+                    <label class="text-gray-700">Start Time:</label>
+                    <input type="time" name="programC_start" class="p-3 mt-1 border border-gray-300 rounded-md">
+                    <label class="text-gray-700">Season Adjust:</label>
+                    <input type="text" name="programC_adjust" class="p-3 mt-1 border border-gray-300 rounded-md">
+                    <label class="text-gray-700">Run Days:</label>
+                    <input type="text" name="programC_days" class="p-3 mt-1 border border-gray-300 rounded-md">
+                    <label class="text-gray-700">Another Program?</label>
+                    <select onchange="toggleNextProgram('programD', this.value)" class="w-full p-3 mt-1 border border-gray-300 rounded-md">
+                        <option value="no">No</option>
+                        <option value="yes">Yes</option>
+                    </select>
+                </div>
+                <div id="programD" class="hidden">
+                    <h3 class="text-xl font-semibold text-gray-800">Program D</h3>
+                    <label class="text-gray-700">Start Time:</label>
+                    <input type="time" name="programD_start" class="p-3 mt-1 border border-gray-300 rounded-md">
+                    <label class="text-gray-700">Season Adjust:</label>
+                    <input type="text" name="programD_adjust" class="p-3 mt-1 border border-gray-300 rounded-md">
+                    <label class="text-gray-700">Run Days:</label>
+                    <input type="text" name="programD_days" class="p-3 mt-1 border border-gray-300 rounded-md">
+                </div>
+            </div>
+
+            <div class="mt-6">
+                <label class="block text-gray-700">Weather Sensor Checked?</label>
+                <select id="weatherSensor" onchange="toggleSensorDetails()" class="w-full p-3 mt-2 border border-gray-300 rounded-md">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+
+            <div id="sensorDetails" class="hidden mt-6">
+                <label class="text-gray-700">Weather Sensor Working?</label>
+                <select name="sensorWorking" class="w-full p-3 mt-1 border border-gray-300 rounded-md">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+
+            <div class="mt-6">
+                <label class="text-gray-700">Controller Make and Model:</label>
+                <input type="text" name="controllerMakeModel" class="p-3 mt-1 border border-gray-300 rounded-md">
+            </div>
+
+            <div class="mt-6">
+                <label class="text-gray-700">Controller Status:</label>
+                <select id="controllerStatus" name="controllerStatus" onchange="toggleControllerDetails()" class="w-full p-3 mt-2 border border-gray-300 rounded-md">
+                    <option value="working">Working</option>
+                    <option value="notWorking">Not Working</option>
+                </select>
+            </div>
+
+            <div id="controllerDetails" class="hidden mt-6">
+                <label class="text-gray-700">Controller Make and Model:</label>
+                <input type="text" name="controllerDetailsMakeModel" class="p-3 mt-1 border border-gray-300 rounded-md">
+            </div>
+
+            <div class="mt-6">
+                <label class="text-gray-700">POC Info:</label>
+                <select name="pocInfo" class="w-full p-3 mt-1 border border-gray-300 rounded-md">
+                    <option value="potable">Potable</option>
+                    <option value="reclaimed">Reclaimed</option>
+                    <option value="well">Well</option>
+                    <option value="lake">Lake</option>
+                </select>
+            </div>
+
+            <div class="mt-6">
+                <label class="text-gray-700">Pump Status & Type:</label>
+                <select name="pumpStatusType" class="w-full p-3 mt-1 border border-gray-300 rounded-md">
+                    <option value="pressurized">Pressurized</option>
+                    <option value="pumpStart">Pump Start</option>
+                    <option value="centrifugal">Centrifugal</option>
+                    <option value="submersible">Submersible</option>
+                </select>
+            </div>
+
+            <button type="button" onclick="nextStep(1)" class="mt-6 w-full bg-blue-600 text-white p-3 rounded-md shadow hover:bg-blue-500 transition">Next</button>
+        </form>
+    </div>
+    <div id="step2" class="form-step hidden">
+        <h2 class="text-3xl font-semibold mb-6 text-center text-blue-600">Step 2: Zone Entry</h2>
+        <form id="zoneForm" class="space-y-6">
+            <div id="zonesContainer">
+                <div class="form-section zone-block p-6 bg-gray-100 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-blue-700 mb-4">Zone Entry</h3>
+                    
+                    <div class="space-y-4">
+                        <label class="block font-medium text-gray-700">Zone Number or House #:</label>
+                        <input type="number" class="zoneNumber block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+    
+                        <label class="block font-medium text-gray-700">Type:</label>
+                        <select class="zoneType block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="Spray">Spray</option>
+                            <option value="Rotor">Rotor</option>
+                            <option value="MP">MP</option>
+                            <option value="Drip">Drip</option>
+                            <option value="Bubbler">Bubbler</option>
+                        </select>
+    
+                        <label class="block font-medium text-gray-700">Which Program?:</label>
+                        <select class="programType block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" onchange="toggleProgramFields(this)">
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="House">House</option>
+                        </select>
+    
+                        <div class="hidden programHouseFields space-y-4 mt-4">
+                            <label class="block font-medium text-gray-700">Run Time Schedule:</label>
+                            <input type="text" class="runTimeSchedule block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+    
+                            <label class="block font-medium text-gray-700">Run Days:</label>
+                            <input type="text" class="runDays block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+    
+                        <label class="block font-medium text-gray-700">Power:</label>
+                        <select class="powerType block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="Battery">Battery</option>
+                            <option value="Doubler">Doubler</option>
+                            <option value="Add-a-Zone">Add-a-Zone</option>
+                        </select>
+    
+                        <label class="block font-medium text-gray-700">Zone Faults or Alarms:</label>
+                        <input type="checkbox" class="zoneFaults" onchange="toggleFaults(this)">
+    
+                        <div class="hidden faultsSection space-y-4 mt-4">
+                            <label class="block font-medium text-gray-700">Checked Filters:</label>
+                            <input type="checkbox" class="checkedFilters">
+    
+                            <label class="block font-medium text-gray-700">Clogged Nozzles?:</label>
+                            <input type="checkbox" class="cloggedNozzles">
+    
+                            <label class="block font-medium text-gray-700">Head Straightened/Adjusted:</label>
+                            <input type="checkbox" class="headAdjusted">
+                        </div>
+    
+                        <label class="block font-medium text-gray-700">Billable Repairs:</label>
+                        <input type="checkbox" class="billableRepairs" onchange="toggleRepairs(this)">
+    
+                        <div class="hidden repairsSection space-y-4 mt-4">
+                            <label class="block font-medium text-gray-700">Head Broken 6":</label>
+                            <input type="number" class="headBroken6 w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" min="0">
+    
+                            <label class="block font-medium text-gray-700">Head Broken 12":</label>
+                            <input type="number" class="headBroken12 w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" min="0">
+    
+                            <label class="block font-medium text-gray-700">Broken Riser:</label>
+                            <input type="number" class="brokenRiser w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" min="0">
+                        </div>
+    
+                        <label class="block font-medium text-gray-700">Spray Nozzle Repair:</label>
+                        <input type="checkbox" class="sprayNozzleRepair">
+    
+                        <label class="block font-medium text-gray-700">Dripline Break:</label>
+                        <input type="checkbox" class="driplineBreak">
+    
+                        <label class="block font-medium text-gray-700">Severe Line Clog:</label>
+                        <input type="checkbox" class="severeLineClog">
+    
+                        <label class="block font-medium text-gray-700">Additional Labor/Troubleshoot:</label>
+                        <textarea class="additionalLabor w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+    
+                        <label class="block font-medium text-gray-700">Another Zone?</label>
+                        <input type="checkbox" class="anotherZone" onchange="addAnotherZone(this)">
+                    </div>
+                </div>
+            </div>
+    
+            <button type="button" onclick="nextStep(2)" class="w-full p-3 mt-6 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                Next
+            </button>
+        </form>
+    </div>
+    
+
+    <!-- Step 3: Account Manager Contact -->
+    <div id="step3" class="form-step hidden">
+        <h2>Step 3: Account Manager Contact</h2>
+        <form id="contactForm">
+            <label>Did you contact the Account Manager? 
+                <select name="contactedManager" onchange="toggleContactDetails(this.value)">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </label>
+
+            <div id="contactDetails" class="hidden">
+                <label>What Time? <input type="time" name="contactTime"></label>
+                <label>How did you communicate?
+                    <select name="communicationType">
+                        <option value="Spoke">Spoke</option>
+                        <option value="Text">Text</option>
+                        <option value="Voice Mail">Voice Mail</option>
+                    </select>
+                </label>
+            </div>
+
+            <button type="button" onclick="submitForm()">Submit</button>
+        </form>
+    </div>
+    <!-- Step 2 and Step 3 -->
+    <!-- The structure for Steps 2 and 3 will be similar to Step 1, just following the pattern laid out here for the forms -->
+    <!-- You can apply the same design pattern to make them consistent and modern as well -->
+
+</div>
+
+<script>
+    function nextStep(step) {
+        document.getElementById('step' + step).classList.add('hidden');
+        document.getElementById('step' + (step + 1)).classList.remove('hidden');
+    }
+
+    function toggleContactDetails(value) {
+        document.getElementById('contactDetails').classList.toggle('hidden', value === 'no');
+    }
+
+    function togglePrograms() {
+        document.getElementById('programs').classList.toggle('hidden', document.getElementById('programNeeded').value === 'no');
+    }
+
+    function toggleNextProgram(programId, value) {
+        document.getElementById(programId).classList.toggle('hidden', value === 'no');
+    }
+
+    function toggleSensorDetails() {
+        document.getElementById('sensorDetails').classList.toggle('hidden', document.getElementById('weatherSensor').value === 'no');
+    }
+
+    function toggleControllerDetails() {
+        document.getElementById('controllerDetails').classList.toggle('hidden', document.getElementById('controllerStatus').value === 'working');
+    }
+</script>
+
+</body>
+</html>

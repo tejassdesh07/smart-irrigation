@@ -283,34 +283,6 @@ select {
 #programs .hidden {
     display: none;
 }
-    .zone-block {
-        display: none;
-        transition: opacity 0.3s ease-in-out; /* Smooth transition */
-    }
-
-    .zone-block.active {
-        display: block;
-        opacity: 1;
-    }
-
-    .zone-navigation button {
-        transition: background-color 0.3s ease-in-out;
-    }
-
-    .zone-navigation button:hover {
-        background-color: #4CAF50; /* Change color on hover for better visibility */
-    }
-
-    .zone-navigation button:focus {
-        outline: none;
-    }
-
-    .zone-indicator {
-        font-size: 18px;
-        font-weight: bold;
-        color: #555;
-    }
-</style>
 
     </style>
 </head>
@@ -660,19 +632,12 @@ select {
                     </div>
                 </div>
                 <!-- Zone Navigation Buttons -->
-                <div class="zone-indicator" id="zoneIndicator">Zone 1 of X</div>
-
-                <!-- Zone Navigation -->
                 <div class="zone-navigation">
-                    <button type="button" class="zone-nav-btn" id="prevZoneBtn" onclick="previousZone()">⬅️ Previous Zone</button>
-                    <button type="button" class="zone-nav-btn" id="nextZoneBtn" onclick="nextZone()">Next Zone ➡️</button>
-                </div>
-                <div class="zone-navigation">
-                    <!-- <button type="button" class="zone-nav-btn" onclick="previousZone()">
+                    <button type="button" class="zone-nav-btn" onclick="previousZone()">
                         ⬅️ Previous Zone
-                    </button> -->
+                    </button>
                     <button type="button" class="zone-nav-btn" onclick="nextZone()">
-                       SAVE ➡️
+                        Next Zone ➡️
                     </button>
                 </div>
 
@@ -716,84 +681,6 @@ select {
         </div>
     </div>
     <script>
-let currentZoneIndex = 0;
-
-function showZone(index) {
-    let zones = document.querySelectorAll('.zone-block');
-    let zoneIndicator = document.getElementById('zoneIndicator');
-    let totalZones = zones.length;
-
-    if (zones.length > 0) {
-        // Hide all zones
-        zones.forEach((zone, i) => {
-            zone.classList.remove('active');  // Remove active class
-            zone.style.display = 'none';  // Hide zone
-        });
-
-        // Show current zone
-        zones[index].classList.add('active');  // Add active class
-        zones[index].style.display = 'block';  // Show the active zone
-
-        // Update the zone indicator
-        zoneIndicator.innerHTML = `Zone ${index + 1} of ${totalZones}`;
-
-        // Show or hide navigation buttons based on zone index
-        document.getElementById('prevZoneBtn').style.display = index > 0 ? 'inline-block' : 'none';
-        document.getElementById('nextZoneBtn').style.display = index < zones.length - 1 ? 'inline-block' : 'none';
-    }
-}
-
-function nextZone() {
-    let zones = document.querySelectorAll('.zone-block');
-    if (currentZoneIndex < zones.length - 1) {
-        currentZoneIndex++;
-        showZone(currentZoneIndex);
-    }
-}
-
-function previousZone() {
-    if (currentZoneIndex > 0) {
-        currentZoneIndex--;
-        showZone(currentZoneIndex);
-    }
-}
-
-// For adding new zones dynamically
-function addAnotherZone(element) {
-    if (element.value === "yes") {
-        // Clone the zone block
-        let newZone = element.closest('.zone-block').cloneNode(true);
-
-        // Reset form elements in the cloned zone
-        newZone.querySelectorAll('input[type="checkbox"]').forEach(checkbox => checkbox.checked = false);
-        newZone.querySelectorAll('input[type="number"]').forEach(input => input.value = '');
-        newZone.querySelectorAll('textarea').forEach(textarea => textarea.value = '');
-
-        // Optionally, reset the "anotherZone" select to "No" in the cloned zone
-        newZone.querySelector(".anotherZone").value = "no";
-
-        // Append the cloned zone to the container
-        document.getElementById("zonesContainer").appendChild(newZone);
-
-        // Update the total zones and the zone indicator
-        let totalZones = document.querySelectorAll('.zone-block').length;
-        let zoneIndicator = document.getElementById('zoneIndicator');
-        zoneIndicator.innerHTML = `Zone 1 of ${totalZones}`; // Reset the zone indicator for the first zone
-
-        // Display the newly added zone and update the zone index
-        currentZoneIndex = totalZones - 1;
-        showZone(currentZoneIndex); // Show the newly added zone by default
-    }
-}
-
-// Initially, show only the first zone
-document.addEventListener('DOMContentLoaded', () => {
-    showZone(currentZoneIndex);
-});
-
-
-
-
         let zonesArray = [];
        
         function validateForm() {
@@ -925,40 +812,40 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-      
-//  let prevButton = document.getElementById('prevZoneBtn');
-//     let nextButton = document.getElementById('nextZoneBtn');
-//     function showZone(index) {
-//     let zones = document.querySelectorAll('.zone-block');
-//     if (zones.length > 0) {
-//         // Hide all zones
-//         zones.forEach((zone, i) => {
-//             zone.style.display = i === index ? 'block' : 'none';
-//         });
+        let currentZoneIndex = 0;
+ let prevButton = document.getElementById('prevZoneBtn');
+    let nextButton = document.getElementById('nextZoneBtn');
+    function showZone(index) {
+    let zones = document.querySelectorAll('.zone-block');
+    if (zones.length > 0) {
+        // Hide all zones
+        zones.forEach((zone, i) => {
+            zone.style.display = i === index ? 'block' : 'none';
+        });
 
-//         // Show or hide navigation buttons based on available zones
-//         document.getElementById('prevZoneBtn').style.display = index > 0 ? 'inline-block' : 'none';
-//         document.getElementById('nextZoneBtn').style.display = index < zones.length - 1 ? 'inline-block' : 'none';
-//     }
-// }
-
-
+        // Show or hide navigation buttons based on available zones
+        document.getElementById('prevZoneBtn').style.display = index > 0 ? 'inline-block' : 'none';
+        document.getElementById('nextZoneBtn').style.display = index < zones.length - 1 ? 'inline-block' : 'none';
+    }
+}
 
 
-//         function nextZone() {
-//             let zones = document.querySelectorAll('.zone-block');
-//             if (currentZoneIndex < zones.length - 1) {
-//                 currentZoneIndex++;
-//                 showZone(currentZoneIndex);
-//             }
-//         }
 
-//         function previousZone() {
-//             if (currentZoneIndex > 0) {
-//                 currentZoneIndex--;
-//                 showZone(currentZoneIndex);
-//             }
-//         }
+
+        function nextZone() {
+            let zones = document.querySelectorAll('.zone-block');
+            if (currentZoneIndex < zones.length - 1) {
+                currentZoneIndex++;
+                showZone(currentZoneIndex);
+            }
+        }
+
+        function previousZone() {
+            if (currentZoneIndex > 0) {
+                currentZoneIndex--;
+                showZone(currentZoneIndex);
+            }
+        }
 
         // Initially, show only the first zone
         document.addEventListener('DOMContentLoaded', () => {
