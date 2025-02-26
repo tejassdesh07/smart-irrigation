@@ -1,129 +1,273 @@
 {% extends 'base.html' %}
 {% block title %}Step 1: Irrigation Report{% endblock %}
 {% block content %}
+{% load widget_tweaks %}
 
-<div class="max-w-2xl mx-auto bg-white shadow-lg rounded-2xl p-6 mt-6">
-    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Step 1: Irrigation Report</h2>
+<div class="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-6 mt-6">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Step 1: Irrigation Report</h2>
     
     <form method="post" class="space-y-4">
         {% csrf_token %}
-
-        <!-- Render Irrigation Report fields -->
-        <div class="space-y-2">
-            {{ form.as_p }}
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+                <label class="text-gray-700 font-medium">Technician</label>
+                {{ form.technician|add_class:"w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200" }}
+            </div>
+            <div>
+                <label class="text-gray-700 font-medium">Customer</label>
+                {{ form.customer|add_class:"w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200" }}
+            </div>
+            <div>
+                <label class="text-gray-700 font-medium">Report Type</label>
+                {{ form.report_type|add_class:"w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200" }}
+            </div>
+            <div>
+                <label class="text-gray-700 font-medium">Controller Name</label>
+                {{ form.controller_name|add_class:"w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200" }}
+            </div>
+            <div>
+                <label class="text-gray-700 font-medium">Date</label>
+                {{ form.date|add_class:"w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200" }}
+            </div>
         </div>
 
-        <!-- Programs Needed? -->
-        <div class="mt-4">
-            <label class="block text-lg font-medium text-gray-700">Programs Needed?</label>
+        <div>
+            <label class="text-lg font-medium text-gray-700">Programs Needed?</label>
             <div class="flex space-x-4 mt-2">
                 <label class="flex items-center space-x-2 cursor-pointer">
                     <input type="radio" name="programs_needed" value="True" id="programs_yes" class="hidden peer">
-                    <div class="w-6 h-6 border border-gray-400 rounded-full peer-checked:bg-blue-600"></div>
+                    <div class="w-5 h-5 border-2 border-gray-400 rounded-full peer-checked:bg-blue-600 transition duration-200"></div>
                     <span class="text-gray-800">Yes</span>
                 </label>
-
                 <label class="flex items-center space-x-2 cursor-pointer">
                     <input type="radio" name="programs_needed" value="False" id="programs_no" class="hidden peer" checked>
-                    <div class="w-6 h-6 border border-gray-400 rounded-full peer-checked:bg-blue-600"></div>
+                    <div class="w-5 h-5 border-2 border-gray-400 rounded-full peer-checked:bg-blue-600 transition duration-200"></div>
                     <span class="text-gray-800">No</span>
                 </label>
             </div>
         </div>
 
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+                <label class="text-lg font-medium text-gray-700">Weather Sensor Checked?</label>
+                <div class="flex space-x-4 mt-2">
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                        <input type="radio" name="weather_sensor_checked" value="True" id="sensor_yes" class="hidden peer">
+                        <div class="w-5 h-5 border-2 border-gray-400 rounded-full peer-checked:bg-blue-600 transition duration-200"></div>
+                        <span class="text-gray-800">Yes</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                        <input type="radio" name="weather_sensor_checked" value="False" id="sensor_no" class="hidden peer" checked>
+                        <div class="w-5 h-5 border-2 border-gray-400 rounded-full peer-checked:bg-blue-600 transition duration-200"></div>
+                        <span class="text-gray-800">No</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div id="sensor-working-field" class="hidden">
+                <label class="text-gray-700 font-medium">Weather Sensor Working</label>
+                {{ form.weather_sensor_working|add_class:"w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200" }}
+            </div>
+            
+        </div>
+        
+        <div>
+            <label class="text-gray-700 font-medium">Controller Status</label>
+            {{ form.controller_status|add_class:"w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200" }}
+        </div>
+        
+        <div id="controller-make-model-field" class="hidden">
+            <label class="text-gray-700 font-medium">Controller Make/Model</label>
+            {{ form.controller_make_model|add_class:"w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200" }}
+        </div>
+        
+        
+        <div>
+            <label class="text-gray-700 font-medium">POC Info</label>
+            {{ form.poc_info|add_class:"w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200" }}
+        </div>
+        
+        <div>
+            <label class="text-gray-700 font-medium">Pump Status Type</label>
+            {{ form.pump_status_type|add_class:"w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200" }}
+        </div>
+
         <!-- Dynamic Program Fields -->
-        <div id="program-fields" class="hidden bg-gray-50 p-4 rounded-xl shadow-md mt-4">
+        <div id="program-fields" class="hidden bg-gray-50 p-4 rounded-md shadow-md mt-6">
             <h3 class="text-lg font-semibold text-gray-700">Program A</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                 <div>
                     <label class="text-gray-700 font-medium">Program Name</label>
-                    <input type="text" name="program_1" class="w-full mt-1 p-2 border rounded-lg focus:ring focus:ring-blue-300">
+                    <input type="text" name="program_1" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
                 </div>
                 <div>
                     <label class="text-gray-700 font-medium">Start Time</label>
-                    <input type="time" name="start_time_1" class="w-full mt-1 p-2 border rounded-lg focus:ring focus:ring-blue-300">
+                    <input type="time" name="start_time_1" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
                 </div>
                 <div>
                     <label class="text-gray-700 font-medium">Seasonal Adjustment</label>
-                    <input type="text" name="seasonal_adjustment_1" class="w-full mt-1 p-2 border rounded-lg focus:ring focus:ring-blue-300">
+                    <input type="text" name="seasonal_adjustment_1" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
                 </div>
                 <div>
                     <label class="text-gray-700 font-medium">Run Days</label>
-                    <input type="text" name="run_days_1" class="w-full mt-1 p-2 border rounded-lg focus:ring focus:ring-blue-300">
+                    <select name="run_days_1" multiple class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
+                        <option value="monday">Monday</option>
+                        <option value="tuesday">Tuesday</option>
+                        <option value="wednesday">Wednesday</option>
+                        <option value="thursday">Thursday</option>
+                        <option value="friday">Friday</option>
+                        <option value="saturday">Saturday</option>
+                        <option value="sunday">Sunday</option>
+                    </select>
                 </div>
             </div>
 
-            <div id="more-programs" class="mt-4"></div>
+            <div id="more-programs" class="mt-6"></div>
             
-            <button type="button" id="add-more-program" class="mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700 transition">
+            <button type="button" id="add-more-program" class="mt-4 bg-blue-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-700 transition duration-200">
                 ➕ Add More Program
             </button>
         </div>
 
-        <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-lg text-lg font-semibold shadow-md hover:bg-green-700 transition">
+        <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-md text-lg font-semibold shadow-md hover:bg-green-700 transition duration-200">
             Next ➡️
         </button>
     </form>
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const programsYes = document.getElementById("programs_yes");
-    const programsNo = document.getElementById("programs_no");
-    const programFields = document.getElementById("program-fields");
-    const addMoreProgramBtn = document.getElementById("add-more-program");
-    const moreProgramsDiv = document.getElementById("more-programs");
-
-    let programCount = 1;  // Program A is already set
-    const maxPrograms = 4; // A to D
-
-    function toggleProgramFields() {
-        programFields.style.display = programsYes.checked ? "block" : "none";
-        moreProgramsDiv.innerHTML = ""; // Clear additional fields
-        programCount = 1;
-    }
-
-    programsYes.addEventListener("change", toggleProgramFields);
-    programsNo.addEventListener("change", toggleProgramFields);
-
-    addMoreProgramBtn.addEventListener("click", function() {
-        if (programCount < maxPrograms) {
-            programCount++;
-            const programLetter = String.fromCharCode(64 + programCount); // A = 65 in ASCII
-            
-            const newField = document.createElement("div");
-            newField.classList.add("bg-gray-100", "p-4", "rounded-lg", "shadow-sm", "mt-4");
-
-            newField.innerHTML = `
-                <h3 class="text-lg font-semibold text-gray-700">Program ${programLetter}</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
-                    <div>
-                        <label class="text-gray-700 font-medium">Program Name</label>
-                        <input type="text" name="program_${programCount}" class="w-full mt-1 p-2 border rounded-lg focus:ring focus:ring-blue-300">
-                    </div>
-                    <div>
-                        <label class="text-gray-700 font-medium">Start Time</label>
-                        <input type="time" name="start_time_${programCount}" class="w-full mt-1 p-2 border rounded-lg focus:ring focus:ring-blue-300">
-                    </div>
-                    <div>
-                        <label class="text-gray-700 font-medium">Seasonal Adjustment</label>
-                        <input type="text" name="seasonal_adjustment_${programCount}" class="w-full mt-1 p-2 border rounded-lg focus:ring focus:ring-blue-300">
-                    </div>
-                    <div>
-                        <label class="text-gray-700 font-medium">Run Days</label>
-                        <input type="text" name="run_days_${programCount}" class="w-full mt-1 p-2 border rounded-lg focus:ring focus:ring-blue-300">
-                    </div>
-                </div>
-            `;
-            moreProgramsDiv.appendChild(newField);
+    document.addEventListener("DOMContentLoaded", function() {
+        const programsYes = document.getElementById("programs_yes");
+        const programsNo = document.getElementById("programs_no");
+        const programFields = document.getElementById("program-fields");
+        const addMoreProgramBtn = document.getElementById("add-more-program");
+        const moreProgramsDiv = document.getElementById("more-programs");
+    
+        let programCount = 1;  // Program A is already set
+        const maxPrograms = 4; // A to D
+    
+        // Map of days for easy display in the form
+        const dayNames = {
+            "monday": "Monday",
+            "tuesday": "Tuesday",
+            "wednesday": "Wednesday",
+            "thursday": "Thursday",
+            "friday": "Friday",
+            "saturday": "Saturday",
+            "sunday": "Sunday"
+        };
+    
+        function toggleProgramFields() {
+            programFields.style.display = programsYes.checked ? "block" : "none";
+            moreProgramsDiv.innerHTML = ""; // Clear additional fields
+            programCount = 1;
         }
-        if (programCount === maxPrograms) {
-            addMoreProgramBtn.style.display = "none";
+    
+        programsYes.addEventListener("change", toggleProgramFields);
+        programsNo.addEventListener("change", toggleProgramFields);
+    
+        addMoreProgramBtn.addEventListener("click", function() {
+            if (programCount < maxPrograms) {
+                programCount++;
+                const programLetter = String.fromCharCode(64 + programCount); // A = 65 in ASCII
+                
+                const newField = document.createElement("div");
+                newField.classList.add("bg-gray-100", "p-4", "rounded-md", "shadow-sm", "mt-6");
+    
+                newField.innerHTML = `
+                    <h3 class="text-lg font-semibold text-gray-700">Program ${programLetter}</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                        <div>
+                            <label class="text-gray-700 font-medium">Program Name</label>
+                            <input type="text" name="program_${programCount}" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
+                        </div>
+                        <div>
+                            <label class="text-gray-700 font-medium">Start Time</label>
+                            <input type="time" name="start_time_${programCount}" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
+                        </div>
+                        <div>
+                            <label class="text-gray-700 font-medium">Seasonal Adjustment</label>
+                            <input type="text" name="seasonal_adjustment_${programCount}" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
+                        </div>
+                        <div>
+                            <label class="text-gray-700 font-medium">Run Days</label>
+                            <select name="run_days_${programCount}" multiple class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
+                                <option value="monday">Monday</option>
+                                <option value="tuesday">Tuesday</option>
+                                <option value="wednesday">Wednesday</option>
+                                <option value="thursday">Thursday</option>
+                                <option value="friday">Friday</option>
+                                <option value="saturday">Saturday</option>
+                                <option value="sunday">Sunday</option>
+                            </select>
+                        </div>
+                    </div>
+                `;
+                moreProgramsDiv.appendChild(newField);
+            }
+            if (programCount === maxPrograms) {
+                addMoreProgramBtn.style.display = "none";
+            }
+        });
+    
+        toggleProgramFields(); // Ensure initial state is correct
+    
+        // Map selected run days to full names when form is submitted
+        function getSelectedDays(selectElement) {
+            const selectedOptions = Array.from(selectElement.selectedOptions);
+            // Map selected values to full day names
+            return selectedOptions.map(option => dayNames[option.value]).join(", ");
         }
+    
+        // Capture and log all selected run days as one string before form submission
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(event) {
+            let allSelectedDays = [];
+            const runDayFields = document.querySelectorAll('[name^="run_days_"]');
+            runDayFields.forEach(field => {
+                const selectedDays = getSelectedDays(field);
+                allSelectedDays.push(selectedDays); // Add each selected day string
+            });
+    
+            // Log all selected run days as one string
+            console.log("All selected run days: " + allSelectedDays.join(", "));
+        });
     });
-
-    toggleProgramFields(); // Ensure initial state is correct
-});
-</script>
-
+    </script>
+    
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Weather Sensor Checked
+        const sensorYes = document.getElementById("sensor_yes");
+        const sensorNo = document.getElementById("sensor_no");
+        const sensorWorkingField = document.getElementById("sensor-working-field");
+    
+        function toggleSensorWorking() {
+            sensorWorkingField.style.display = sensorYes.checked ? "block" : "none";
+        }
+    
+        sensorYes.addEventListener("change", toggleSensorWorking);
+        sensorNo.addEventListener("change", toggleSensorWorking);
+    
+        // Controller Status
+        const controllerStatus = document.querySelector("[name='controller_status']");
+        const controllerMakeModelField = document.getElementById("controller-make-model-field");
+    
+        function toggleControllerModel() {
+            if (controllerStatus.value.toLowerCase() === "working") {
+                controllerMakeModelField.style.display = "block";
+            } else {
+                controllerMakeModelField.style.display = "none";
+            }
+        }
+    
+        controllerStatus.addEventListener("change", toggleControllerModel);
+    
+        // Initialize fields on load
+        toggleSensorWorking();
+        toggleControllerModel();
+    });
+    </script>
+    
 {% endblock %}

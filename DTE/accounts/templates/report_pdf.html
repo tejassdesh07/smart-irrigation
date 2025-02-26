@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /* Reset default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            background-color: #F5F5F5;
+            padding: 20px;
+            font-size: 10px;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: #2C3E50;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #34495E;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #2C3E50;
+            padding-bottom: 5px;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+            font-size: 9px;
+            color: #333;
+        }
+
+        th {
+            background-color: #ECF0F1;
+            font-weight: bold;
+            color: #2C3E50;
+        }
+
+        tr:nth-child(even) {
+            background-color: #F9F9F9;
+        }
+
+        tr:hover {
+            background-color: #F1F1F1;
+        }
+
+        /* Section Styling */
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section p {
+            font-size: 10px;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        .section strong {
+            font-weight: bold;
+            color: #2C3E50;
+        }
+
+        /* Card-like styling for account manager */
+        .account-manager {
+            background-color: #fff;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .account-manager h3 {
+            font-size: 1.4rem;
+            color: #2980B9;
+            margin-bottom: 10px;
+        }
+
+        .account-manager p {
+            font-size: 10px;
+            color: #7F8C8D;
+            margin-bottom: 8px;
+        }
+
+        .account-manager p strong {
+            color: #2C3E50;
+        }
+
+        /* Header for title */
+        .report-header {
+            background: linear-gradient(135deg, #2980B9, #8E44AD);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .report-header h2 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        /* Layout tweak for better use of space */
+        .table-container {
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="report-header">
+        <h2>Irrigation Service Report</h2>
+        <p>Professional Irrigation Solutions for Your Landscape</p>
+    </div>
+
+    <div class="section">
+        <h3>General Information</h3>
+        <p><strong>Technician:</strong> {{ report.technician }}</p>
+        <p><strong>Customer:</strong> {{ report.customer }}</p>
+        <p><strong>Report Type:</strong> {{ report.report_type }}</p>
+        <p><strong>Controller Name:</strong> {{ report.controller_name }}</p>
+        <p><strong>Date:</strong> {{ report.date }}</p>
+        <p><strong>Programs Needed:</strong> {{ report.programs_needed|yesno:"Yes,No" }}</p>
+        <p><strong>Weather Sensor Checked:</strong> {{ report.weather_sensor_checked|yesno:"Yes,No" }}</p>
+        <p><strong>Weather Sensor Working:</strong> {{ report.weather_sensor_working|yesno:"Yes,No" }}</p>
+        <p><strong>Controller Status:</strong> {{ report.get_controller_status_display }}</p>
+        <p><strong>Controller Make/Model:</strong> {{ report.controller_make_model }}</p>
+        <p><strong>POC Info:</strong> {{ report.get_poc_info_display }}</p>
+        <p><strong>Pump Status Type:</strong> {{ report.get_pump_status_type_display }}</p>
+    </div>
+
+    <div class="table-container">
+        <h3>Programs</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Program Name</th>
+                    <th>Start Time</th>
+                    <th>Seasonal Adjustment</th>
+                    <th>Run Days</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for program in report.programs.all %}
+                    <tr>
+                        <td>{{ program.program_name }}</td>
+                        <td>{{ program.start_time }}</td>
+                        <td>{{ program.seasonal_adjustment }}</td>
+                        <td>{{ program.run_days|join:", " }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-container">
+        <h3>Irrigation Zones</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Zone Number</th>
+                    <th>Zone Type</th>
+                    <th>Program Type</th>
+                    <th>Run Time Schedule</th>
+                    <th>Run Days</th>
+                    <th>Power Type</th>
+                    <th>Zone Faults</th>
+                    <th>Checked Filters</th>
+                    <th>Clogged Nozzles</th>
+                    <th>Head Adjusted</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for zone in report.zones.all %}
+                    <tr>
+                        <td>{{ zone.zone_number }}</td>
+                        <td>{{ zone.get_zone_type_display }}</td>
+                        <td>{{ zone.get_program_type_display }}</td>
+                        <td>{{ zone.run_time_schedule }}</td>
+                        <td>{{ zone.run_days }}</td>
+                        <td>{{ zone.get_power_type_display }}</td>
+                        <td>{{ zone.zone_faults|yesno:"Yes,No" }}</td>
+                        <td>{{ zone.checked_filters|yesno:"Yes,No" }}</td>
+                        <td>{{ zone.clogged_nozzles|yesno:"Yes,No" }}</td>
+                        <td>{{ zone.head_adjusted|yesno:"Yes,No" }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="account-manager">
+        <h3>Account Manager Contact</h3>
+        {% for contact in report.account_manager_contact.all %}
+            <p><strong>Contacted Manager:</strong> {{ contact.contacted_manager|yesno:"Yes,No" }}</p>
+            <p><strong>Contact Time:</strong> {{ contact.contact_time }}</p>
+            <p><strong>Communication Type:</strong> {{ contact.get_communication_type_display }}</p>
+            <p><strong>Additional Comments:</strong> {{ contact.additional_comments }}</p>
+        {% empty %}
+            <p>No contact details available.</p>
+        {% endfor %}
+    </div>
+
+</body>
+</html>

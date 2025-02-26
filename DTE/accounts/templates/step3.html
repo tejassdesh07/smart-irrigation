@@ -1,12 +1,61 @@
 {% extends 'base.html' %}
 {% block title %}Step 3: Account Manager Contact{% endblock %}
+
 {% block content %}
-<div class="form-step">
-    <h2>Step 3: Account Manager Contact</h2>
-    <form method="post">
+<div class="container mx-auto max-w-lg p-6 bg-white shadow-lg rounded-2xl mt-8">
+    <h2 class="text-2xl font-semibold text-center mb-4 text-gray-800">Step 3: Account Manager Contact</h2>
+
+    <form method="post" class="space-y-4">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
+
+        <!-- Contacted Manager (Yes/No) -->
+        <div class="flex items-center space-x-3">
+            <input type="checkbox" id="contacted_manager" name="contacted_manager" 
+                class="h-5 w-5 text-blue-600 border-gray-300 rounded">
+            <label for="contacted_manager" class="text-gray-700 font-medium">Contacted Manager</label>
+        </div>
+
+        <!-- Contact Time -->
+        <div class="flex flex-col">
+            <label for="contact_time" class="text-gray-700 font-medium">Contact Time</label>
+            <input type="time" id="contact_time" name="contact_time" 
+                class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+
+        <!-- Communication Type -->
+        <div class="flex flex-col">
+            <label for="communication_type" class="text-gray-700 font-medium">Communication Type</label>
+            <select id="communication_type" name="communication_type"
+                class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none">
+                <option value="">Select Type</option>
+                <option value="Spoke">Spoke</option>
+                <option value="Text">Text</option>
+                <option value="Voice Mail">Voice Mail</option>
+            </select>
+        </div>
+
+        <!-- Additional Comments -->
+        <div class="flex flex-col">
+            <label for="additional_comments" class="text-gray-700 font-medium">Additional Comments</label>
+            <textarea id="additional_comments" name="additional_comments" rows="4"
+                class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+                placeholder="Enter any additional details..."></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center">
+            <button type="submit" 
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
+                Submit
+            </button>
+        </div>
     </form>
 </div>
+
+<style>
+    body {
+        background-color: #f4f4f4;
+        font-family: 'Inter', sans-serif;
+    }
+</style>
 {% endblock %}

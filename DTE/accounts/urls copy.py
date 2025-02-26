@@ -13,5 +13,4 @@ urlpatterns = [
     path('success/', views.success, name='success'),
     path('reports/', views.report_list, name='report_list'),
     path('reports/<int:report_id>/', views.report_detail, name='report_detail'),
-    path('report/<int:report_id>/pdf/', views.generate_pdf, name='generate_pdf'),
 ]

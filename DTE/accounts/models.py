@@ -40,6 +40,8 @@ class IrrigationReport(models.Model):
             ('submersible', 'Submersible')
         ]
     )
+
+
 class IrrigationProgram(models.Model):
     report = models.ForeignKey(IrrigationReport, on_delete=models.CASCADE, related_name="programs", null=True, blank=True)
     program_name = models.CharField(max_length=10)
@@ -48,42 +50,42 @@ class IrrigationProgram(models.Model):
     run_days = models.JSONField(default=list)
 
 class IrrigationZone(models.Model):
-    report = models.ForeignKey(IrrigationReport, on_delete=models.CASCADE, related_name="zones")
-    zone_number = models.IntegerField()
+    report = models.ForeignKey(IrrigationReport, on_delete=models.CASCADE, related_name="zones", null=True, blank=True)
+    zone_number = models.IntegerField(blank=True)
     zone_type = models.CharField(max_length=50, choices=[
         ('Spray', 'Spray'), ('Rotor', 'Rotor'), ('MP', 'MP'), ('Drip', 'Drip'), ('Bubbler', 'Bubbler')
-    ])
-    program_type = models.CharField(max_length=10, choices=[('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D'), ('House', 'House')])
+    ], null=True, blank=True)
+    program_type = models.CharField(max_length=10, choices=[('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D'), ('House', 'House')], null=True, blank=True)
     run_time_schedule = models.CharField(max_length=255, blank=True, null=True)
     run_days = models.CharField(max_length=255, blank=True, null=True)
     
     power_type = models.CharField(max_length=50, choices=[('Battery', 'Battery'), ('Doubler', 'Doubler')], blank=True, null=True)
-    zone_faults = models.BooleanField(default=False)
-    checked_filters = models.BooleanField(default=False)
-    clogged_nozzles = models.BooleanField(default=False)
-    head_adjusted = models.BooleanField(default=False)
+    zone_faults = models.BooleanField(default=False, null=True, blank=True)
+    checked_filters = models.BooleanField(default=False, null=True, blank=True)
+    clogged_nozzles = models.BooleanField(default=False, null=True, blank=True)
+    head_adjusted = models.BooleanField(default=False, null=True, blank=True)
     
-    billable_repairs = models.BooleanField(default=False)
-    head_broken_6 = models.IntegerField(default=0)
-    head_broken_12 = models.IntegerField(default=0)
-    broken_riser = models.IntegerField(default=0)
-    upgrade_46_popup = models.IntegerField(default=0)
-    upgrade_612_popup = models.IntegerField(default=0)
-    nozzle_mpr = models.IntegerField(default=0)
-    nozzle_mp_rotator = models.IntegerField(default=0)
+    billable_repairs = models.BooleanField(default=False, null=True, blank=True)
+    head_broken_6 = models.IntegerField(default=0, null=True, blank=True)
+    head_broken_12 = models.IntegerField(default=0, null=True, blank=True)
+    broken_riser = models.IntegerField(default=0, null=True, blank=True)
+    upgrade_46_popup = models.IntegerField(default=0, null=True, blank=True)
+    upgrade_612_popup = models.IntegerField(default=0, null=True, blank=True)
+    nozzle_mpr = models.IntegerField(default=0, null=True, blank=True)
+    nozzle_mp_rotator = models.IntegerField(default=0, null=True, blank=True)
     
-    spray_nozzle_repair = models.BooleanField(default=False)
-    dripline_break = models.BooleanField(default=False)
-    severe_line_clog = models.BooleanField(default=False)
-    lateral_line_break = models.BooleanField(default=False)
-    relocation = models.BooleanField(default=False)
-    head_raised_lowered_turf = models.BooleanField(default=False)
-    head_raised_lowered_shrub = models.BooleanField(default=False)
+    spray_nozzle_repair = models.BooleanField(default=False, null=True, blank=True)
+    dripline_break = models.BooleanField(default=False, null=True, blank=True)
+    severe_line_clog = models.BooleanField(default=False, null=True, blank=True)
+    lateral_line_break = models.BooleanField(default=False, null=True, blank=True)
+    relocation = models.BooleanField(default=False, null=True, blank=True)
+    head_raised_lowered_turf = models.BooleanField(default=False, null=True, blank=True)
+    head_raised_lowered_shrub = models.BooleanField(default=False, null=True, blank=True)
     
-    damaged_valve_box = models.BooleanField(default=False)
-    valve_operating = models.BooleanField(default=False)
-    rain_sensor_operating = models.BooleanField(default=False)
-    controller_operating = models.BooleanField(default=False)
+    damaged_valve_box = models.BooleanField(default=False, null=True, blank=True)
+    valve_operating = models.BooleanField(default=False, null=True, blank=True)
+    rain_sensor_operating = models.BooleanField(default=False, null=True, blank=True)
+    controller_operating = models.BooleanField(default=False, null=True, blank=True)
     additional_labor = models.TextField(blank=True, null=True)
 
 class AccountManagerContact(models.Model):

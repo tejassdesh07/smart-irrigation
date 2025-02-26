@@ -1,0 +1,14 @@
+<div class="flex space-x-6">
+    {% for group, options, index in widget.optgroups %}
+        {% for option in options %}
+            <label class="flex items-center cursor-pointer space-x-3">
+                <input type="radio" name="{{ widget.name }}" value="{{ option.value }}" id="{{ option.attrs.id }}"
+                    class="hidden peer" {% if option.attrs.checked %}checked{% endif %}>
+                <div class="w-6 h-6 rounded-full border-2 border-gray-400 flex items-center justify-center peer-checked:border-blue-600 peer-checked:bg-blue-600 transition-all duration-200">
+                    <div class="w-3 h-3 bg-white rounded-full opacity-0 peer-checked:opacity-100 transition-all duration-200"></div>
+                </div>
+                <span class="text-gray-800 text-lg font-medium">{{ option.label }}</span>
+            </label>
+        {% endfor %}
+    {% endfor %}
+</div>

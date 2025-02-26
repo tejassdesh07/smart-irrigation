@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+
+{% block title %}Report Details{% endblock %}
+
+{% block content %}
+<div class="container mx-auto max-w-6xl p-6 bg-white shadow-lg rounded-2xl mt-8">
+    <div class="flex flex-row justify-between items-center mb-6">
+        <!-- Title -->
+        <h2 class="text-3xl font-semibold text-gray-800 text-left">Irrigation Report Details</h2>
+        
+        <!-- Generate PDF Button -->
+        <div class="mt-6">
+            <a href="{% url 'generate_pdf' report.id %}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-800 transition">
+                Download PDF
+            </a>
+        </div>
+    </div>
+    
+    <!-- General Information Section -->
+    <div class="border-b pb-4 mb-6">
+        <h3 class="text-xl font-semibold text-gray-700">General Information</h3>
+        <p><strong>Technician:</strong> {{ report.technician }}</p>
+        <p><strong>Customer:</strong> {{ report.customer }}</p>
+        <p><strong>Report Type:</strong> {{ report.report_type }}</p>
+        <p><strong>Controller Name:</strong> {{ report.controller_name }}</p>
+        <p><strong>Date:</strong> {{ report.date }}</p>
+        <p><strong>Programs Needed:</strong> {{ report.programs_needed|yesno:"Yes,No" }}</p>
+        <p><strong>Weather Sensor Checked:</strong> {{ report.weather_sensor_checked|yesno:"Yes,No" }}</p>
+        <p><strong>Weather Sensor Working:</strong> {{ report.weather_sensor_working|yesno:"Yes,No" }}</p>
+        <p><strong>Controller Status:</strong> {{ report.get_controller_status_display }}</p>
+        <p><strong>Controller Make/Model:</strong> {{ report.controller_make_model }}</p>
+        <p><strong>POC Info:</strong> {{ report.get_poc_info_display }}</p>
+        <p><strong>Pump Status Type:</strong> {{ report.get_pump_status_type_display }}</p>
+    </div>
+
+    <div class="mt-6 border-b pb-4">
+        <h3 class="text-xl font-semibold text-gray-700 mb-4">Irrigation Programs</h3>
+        {% if report.programs.all %}
+            <table class="table-auto w-full border-collapse border border-gray-300">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="px-4 py-2 text-left border border-gray-300">Program Name</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Start Time</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Seasonal Adjustment</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Run Days</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for program in report.programs.all %}
+                        <tr>
+                            <td class="px-4 py-2 border border-gray-300">{{ program.program_name }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ program.start_time }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ program.seasonal_adjustment }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ program.run_days|join:", " }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-gray-500">No programs available.</p>
+        {% endif %}
+    </div>
+    <!-- Irrigation Zones Section -->
+    <div class="mt-6">
+        <h3 class="text-xl font-semibold text-gray-700 mb-4">Irrigation Zones</h3>
+        <div class="overflow-x-auto">
+            <table class="table-auto min-w-full border-collapse border border-gray-300">
+                <thead>
+                    <tr class="bg-gray-200 text-xs sm:text-sm">
+                        <th class="px-4 py-2 text-left border border-gray-300">Zone Number</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Zone Type</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Program Type</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Run Time Schedule</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Run Days</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Power Type</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Zone Faults</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Checked Filters</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Clogged Nozzles</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Head Adjusted</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Billable Repairs</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Head Broken (6)</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Head Broken (12)</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Broken Riser</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Upgrade 46 Popup</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Upgrade 612 Popup</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Nozzle MPR</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Nozzle MP Rotator</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Spray Nozzle Repair</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Dripline Break</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Severe Line Clog</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Lateral Line Break</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Relocation</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Head Raised/Lowered (Turf)</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Head Raised/Lowered (Shrub)</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Damaged Valve Box</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Valve Operating</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Rain Sensor Operating</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Controller Operating</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Additional Labor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for zone in report.zones.all %}
+                    <tr class="text-xs sm:text-sm">
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.zone_number }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.get_zone_type_display }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.get_program_type_display }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.run_time_schedule }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.run_days }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.get_power_type_display }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.zone_faults|yesno:"Yes,No" }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.checked_filters|yesno:"Yes,No" }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.clogged_nozzles|yesno:"Yes,No" }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.head_adjusted|yesno:"Yes,No" }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.billable_repairs|yesno:"Yes,No" }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.head_broken_6 }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.head_broken_12 }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.broken_riser }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.upgrade_46_popup }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.upgrade_612_popup }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.nozzle_mpr }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.nozzle_mp_rotator }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.spray_nozzle_repair|yesno:"Yes,No" }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.dripline_break|yesno:"Yes,No" }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.severe_line_clog|yesno:"Yes,No" }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.lateral_line_break|yesno:"Yes,No" }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.relocation|yesno:"Yes,No" }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.head_raised_lowered_turf|yesno:"Yes,No" }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.head_raised_lowered_shrub|yesno:"Yes,No" }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.damaged_valve_box|yesno:"Yes,No" }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.valve_operating|yesno:"Yes,No" }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.rain_sensor_operating|yesno:"Yes,No" }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.controller_operating|yesno:"Yes,No" }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.additional_labor }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-6">
+            <h3 class="text-xl font-semibold text-gray-700 mb-4">Account Manager Contact</h3>
+            {% for contact in report.account_manager_contact.all %}
+                <p><strong>Contacted Manager:</strong> {{ contact.contacted_manager|yesno:"Yes,No" }}</p>
+                <p><strong>Contact Time:</strong> {{ contact.contact_time }}</p>
+                <p><strong>Communication Type:</strong> {{ contact.get_communication_type_display }}</p>
+                <p><strong>Additional Comments:</strong> {{ contact.additional_comments }}</p>
+            {% empty %}
+                <p class="text-gray-500">No contact details available.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+
+</div>
+{% endblock %}

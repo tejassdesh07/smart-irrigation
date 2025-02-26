@@ -1,12 +1,323 @@
 {% extends 'base.html' %}
 {% block title %}Step 2: Zone Entry{% endblock %}
 {% block content %}
-<div class="form-step">
-    <h2>Step 2: Zone Entry</h2>
-    <form method="post">
+{% load widget_tweaks %}
+
+<div class="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-6 mt-6">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Step 2: Zone Entry</h2>
+
+    <form method="post" id="zone-form" class="space-y-4">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Next ➡️</button>
+
+        <div id="zone-entries">
+            <div class="zone-entry bg-gray-50 p-4 rounded-md shadow-md mb-4" data-zone-index="0">
+                <!-- <h3 class="text-lg font-semibold text-gray-700">Zone 1</h3> -->
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-gray-700 font-medium">Zone Number</label>
+                        {{ form.zone_number|add_class:"w-full p-2 border rounded-md" }} 
+                    </div>
+                    
+                    <div>
+                        <label class="text-gray-700 font-medium">Zone Type</label>
+                        {{ form.zone_type|add_class:"w-full p-2 border rounded-md" }}
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Program Type</label>
+                        <select name="program_type_0" class="program-type w-full p-2 border rounded-md">
+                            <option value="House">House</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- House-Specific Fields -->
+                <div class="house-fields hidden grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                    <div>
+                        <label class="text-gray-700 font-medium">Run Time Schedule</label>
+                        <input type="text" name="run_time_schedule_0" class="w-full p-2 border rounded-md">
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Run Days</label>
+                        <input type="text" name="run_days_0" class="w-full p-2 border rounded-md">
+                    </div>
+                </div>
+
+                <!-- General Fields -->
+                <div class="general-fields hidden grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                    <div>
+                        <label class="text-gray-700 font-medium">Power Type</label>
+                        {{ form.power_type|add_class:"w-full p-2 border rounded-md" }}
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Zone Faults</label>
+                        {{ form.zone_faults|add_class:"w-full" }}
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Checked Filters</label>
+                        {{ form.checked_filters|add_class:"w-full" }}
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Clogged Nozzles</label>
+                        {{ form.clogged_nozzles|add_class:"w-full" }}
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Head Adjusted</label>
+                        {{ form.head_adjusted|add_class:"w-full" }}
+                    </div>
+                </div>
+
+                <!-- Billable Repairs Section -->
+                <div class="billable-section hidden mt-4">
+                    <label class="text-lg font-medium text-gray-700">Billable Repairs?</label>
+                    <div class="flex space-x-4 mt-2">
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="radio" name="billable_repairs_0" value="True" class="billable-repairs hidden peer">
+                            <div class="w-5 h-5 border-2 border-gray-400 rounded-full peer-checked:bg-blue-600"></div>
+                            <span class="text-gray-800">Yes</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="radio" name="billable_repairs_0" value="False" class="billable-repairs hidden peer" checked>
+                            <div class="w-5 h-5 border-2 border-gray-400 rounded-full peer-checked:bg-blue-600"></div>
+                            <span class="text-gray-800">No</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Billable Fields -->
+                <div class="billable-fields hidden grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                    <div>
+                        <label class="text-gray-700 font-medium">Head Broken (6")</label>
+                        {{ form.head_broken_6|add_class:"w-full p-2 border rounded-md" }}
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Head Broken (12")</label>
+                        {{ form.head_broken_12|add_class:"w-full p-2 border rounded-md" }}
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Broken Riser</label>
+                        {{ form.broken_riser|add_class:"w-full p-2 border rounded-md" }}
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Upgrade 4-6" Popup</label>
+                        {{ form.upgrade_46_popup|add_class:"w-full p-2 border rounded-md" }}
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Upgrade 6-12" Popup</label>
+                        {{ form.upgrade_612_popup|add_class:"w-full p-2 border rounded-md" }}
+                    </div>
+                    
+                    <div>
+                        <label class="text-gray-700 font-medium">Nozzle MPR</label>
+                        {{ form.nozzle_mpr|add_class:"w-full p-2 border rounded-md" }}
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Nozzle MP Rotator</label>
+                        {{ form.nozzle_mp_rotator|add_class:"w-full p-2 border rounded-md" }}
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Spray Nozzle Repair</label>
+                        {{ form.spray_nozzle_repair|add_class:"w-full p-2 border rounded-md" }}
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Dripline Break</label>
+                        {{ form.dripline_break|add_class:"w-full p-2 border rounded-md" }}
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Severe Line Clog</label>
+                        {{ form.severe_line_clog|add_class:"w-full p-2 border rounded-md" }}
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Lateral Line Break</label>
+                        {{ form.lateral_line_break|add_class:"w-full p-2 border rounded-md" }}
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Relocation</label>
+                        {{ form.relocation|add_class:"w-full p-2 border rounded-md" }}
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Head Raised/Lowered (Turf)</label>
+                        {{ form.head_raised_lowered_turf|add_class:"w-full p-2 border rounded-md" }}
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Head Raised/Lowered (Shrub)</label>
+                        {{ form.head_raised_lowered_shrub|add_class:"w-full p-2 border rounded-md" }}
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Damaged Valve Box</label>
+                        {{ form.damaged_valve_box|add_class:"w-full p-2 border rounded-md" }}
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Valve Operating</label>
+                        {{ form.valve_operating|add_class:"w-full p-2 border rounded-md" }}
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Rain Sensor Operating</label>
+                        {{ form.rain_sensor_operating|add_class:"w-full p-2 border rounded-md" }}
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Controller Operating</label>
+                        {{ form.controller_operating|add_class:"w-full p-2 border rounded-md" }}
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Additional Labor</label>
+                        {{ form.additional_labor|add_class:"w-full p-2 border rounded-md" }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-between mt-4">
+            {% if prev_zone %}
+                <button name="prevbtn" class="w-full bg-blue-500 text-white py-2 rounded-md font-semibold shadow-md hover:bg-blue-700">
+                    ⬅ Previous Zone
+                </button>
+            {% endif %}
+            {% if next_zone %}
+                <button name="next_zone" class="w-full bg-blue-500 text-white py-2 rounded-md font-semibold shadow-md hover:bg-blue-700">
+                    Next Zone ➡
+                </button>
+            {% endif %}
+        </div>
+        
+       <!-- Button to Add Another Zone -->
+<button 
+type="submit" 
+name="add_another_zone" 
+class="w-full bg-blue-500 text-white py-2 rounded-md font-semibold shadow-md hover:bg-blue-700">
++ Add Another Zone
+</button>
+
+<!-- Button to Proceed to Step 3 -->
+<button 
+type="submit" 
+name="next_button_clicked" 
+class="w-full bg-green-600 text-white py-3 rounded-md text-lg font-semibold shadow-md hover:bg-green-700 mt-4">
+Next ➡️
+</button>
+
+
+
     </form>
 </div>
+
+<script>
+   document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("zone-form");
+    const addZoneBtn = document.getElementById("add-zone");
+
+    function getCSRFToken() {
+        return document.querySelector("[name=csrfmiddlewaretoken]").value;
+    }
+
+    function attachListeners(zone) {
+        let programType = zone.querySelector(".program-type");
+        let houseFields = zone.querySelector(".house-fields");
+        let generalFields = zone.querySelector(".general-fields");
+        let billableSection = zone.querySelector(".billable-section");
+        let billableFields = zone.querySelector(".billable-fields");
+        let billableRadios = zone.querySelectorAll(`input[name^="billable_repairs_"]`);
+
+        // Program Type Logic
+        programType.addEventListener("change", function () {
+            if (programType.value === "House") {
+                houseFields.classList.remove("hidden");
+                generalFields.classList.add("hidden");
+                billableSection.classList.add("hidden");
+                billableFields.classList.add("hidden");
+            } else {
+                houseFields.classList.add("hidden");
+                generalFields.classList.remove("hidden");
+                billableSection.classList.remove("hidden");
+            }
+        });
+
+        // Billable Repairs Logic
+        billableRadios.forEach(radio => {
+            radio.addEventListener("change", function () {
+                if (radio.checked && radio.value === "True") {
+                    billableFields.classList.remove("hidden");
+                } else {
+                    billableFields.classList.add("hidden");
+                }
+            });
+        });
+    }
+
+    // Attach listeners to the initial zone entry
+    attachListeners(document.querySelector(".zone-entry"));
+
+    addZoneBtn.addEventListener("click", function (event) {
+        event.preventDefault(); // Prevent full form submission
+
+        let formData = new FormData(form);
+
+        fetch(form.action, {
+            method: "POST",
+            body: formData,
+            headers: {
+                "X-CSRFToken": getCSRFToken(),
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log("Zone saved:", data);
+                resetZoneForm();  // Clear form for new entry
+            } else {
+                console.error("Errors:", data.errors);
+                alert("Error saving zone. Please check input.");
+            }
+        })
+        .catch(error => console.error("Error:", error));
+    });
+
+    function resetZoneForm() {
+        document.querySelectorAll("#zone-form input, #zone-form select").forEach(field => {
+            if (field.type !== "hidden") {
+                field.value = "";
+            }
+        });
+
+        // Reset hidden field logic when clearing
+        document.querySelector(".house-fields").classList.add("hidden");
+        document.querySelector(".general-fields").classList.remove("hidden");
+        document.querySelector(".billable-section").classList.remove("hidden");
+        document.querySelector(".billable-fields").classList.add("hidden");
+    }
+
+    // Handle "Next" button to navigate to step 3
+    const nextButton = document.querySelector("#next-button");
+    if (nextButton) {
+        nextButton.addEventListener("click", function (event) {
+            event.preventDefault();
+            
+            let formData = new FormData(form);
+            fetch(form.action, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-CSRFToken": getCSRFToken(),
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = "/step3/"; // Redirect to step3
+                } else {
+                    console.error("Errors:", data.errors);
+                    alert("Error saving zone. Please check input.");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    }
+});
+
+    </script>
+    
+    
 {% endblock %}

@@ -7,7 +7,73 @@
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-
+<style>/* Style for custom radio buttons */
+    .custom-radio {
+        display: none;
+    }
+    
+    .custom-radio + label {
+        position: relative;
+        padding-left: 35px; /* space for custom radio button */
+        cursor: pointer;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #4a4a4a;
+        display: inline-block;
+    }
+    
+    .custom-radio + label:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: #fff;
+        border: 2px solid #bbb;
+        transition: all 0.3s;
+    }
+    
+    .custom-radio:checked + label:before {
+        background-color: #007bff; /* Blue when selected */
+        border-color: #007bff;
+    }
+    
+    .custom-radio:checked + label:after {
+        content: '';
+        position: absolute;
+        left: 6px;
+        top: 6px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: #fff;
+    }
+    
+    /* Hover effect */
+    .custom-radio + label:hover:before {
+        border-color: #007bff;
+    }
+    
+    .custom-radio:checked + label:hover:before {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+    
+    /* Focus effect for accessibility */
+    .custom-radio:focus + label:before {
+        outline: 2px solid #0056b3;
+    }
+    
+    /* Aligning the radio buttons and labels */
+    .grid-cols-1 sm:grid-cols-2 .custom-radio + label {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    
+    </style>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
 
