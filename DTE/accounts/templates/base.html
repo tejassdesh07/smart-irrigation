@@ -34,8 +34,12 @@
                     </div>
                     <div class="hidden sm:block sm:ml-4">
                         <div class="flex space-x-4">
+                            {% if request.user.is_staff %}
+                            <a href="{% url 'user_list' %}" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-lg font-medium">User</a>
+                        {% endif %}
+
                             <a href="{% url 'report_list' %}" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-lg font-medium">Report List</a>
-                            <a href="{% url 'step1' %}" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-lg font-medium">Step 1</a>
+                            <a href="{% url 'step1' %}" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-lg font-medium">Form</a>
                             <a href="{% url 'logout' %}" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-lg font-medium">Logout</a>
                         </div>
                     </div>

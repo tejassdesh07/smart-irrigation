@@ -10,7 +10,7 @@ from django.contrib import messages
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from .models import IrrigationProgram, IrrigationReport, IrrigationZone, AccountManagerContact
-from .forms import SignupForm, SigninForm, IrrigationReportForm, IrrigationZoneForm, AccountManagerContactForm
+from .forms import EditUserForm, SignupForm, SigninForm, IrrigationReportForm, IrrigationZoneForm, AccountManagerContactForm
 
 # ------------------- Authentication Views -------------------
 
@@ -24,7 +24,7 @@ def signup(request):
             user.save()
             login(request, user)  # Auto login
             messages.success(request, "Signup successful. Welcome!")
-            return redirect('step1')
+            return redirect('user_list')
         else:
             messages.error(request, "Signup failed. Please correct the errors below.")
     else:
@@ -46,6 +46,41 @@ def signin(request):
     else:
         form = SigninForm()
     return render(request, 'accounts/signin.html', {'form': form})
+
+
+def user_list(request):
+    """Displays all users and allows the admin to create, edit, or delete users."""
+    if not request.user.is_staff:
+        messages.error(request, "You do not have permission to view this page.")
+        return redirect('step1')  # Redirect to a safe page for non-admin users
+
+    users = User.objects.exclude(groups__name='Admin').exclude(is_staff=True)
+    return render(request, 'accounts/user_list.html', {'users': users})
+def delete_user(request, user_id):
+    """Delete a user account."""
+    if not request.user.is_staff:
+        messages.error(request, "You do not have permission to delete users.")
+        return redirect('user_list')
+
+    user = get_object_or_404(User, pk=user_id)
+    user.delete()
+    messages.success(request, "User has been deleted.")
+    return redirect('user_list')
+
+
+def update_user(request, user_id):
+    """Edit user details."""
+    user = get_object_or_404(User, pk=user_id)
+    if request.method == 'POST':
+        form = EditUserForm(request.POST, instance=user)
+        if form.is_valid():
+            user = form.save()
+            messages.success(request, "User details updated successfully.")
+            return redirect('user_list')
+    else:
+        form = EditUserForm(instance=user)
+    
+    return render(request, 'accounts/update_user.html', {'form': form, 'user': user})
 
 def logout_view(request):
     """Logs out the user and redirects to sign-in."""

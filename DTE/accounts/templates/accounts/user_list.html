@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Users</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+<h1 class="text-2xl text-center text-gray-800 mt-8">All Users</h1>
+
+<!-- Buttons -->
+<div class="flex justify-center space-x-4 mt-8">
+    <a href="{% url 'signup' %}" class="px-6 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600">Create New User</a>
+    <a href="{% url 'step1' %}" class="px-6 py-2 bg-green-500 text-white font-semibold rounded-md shadow-md hover:bg-green-600">Go Back to Main Menu</a>
+</div>
+
+<!-- Table of Users -->
+<div class="overflow-x-auto mt-8 px-4">
+    <table class="min-w-full bg-white shadow-md rounded-lg">
+        <thead>
+            <tr class="bg-green-500 text-white">
+                <th class="px-6 py-4 text-left text-sm font-medium">Username</th>
+                <th class="px-6 py-4 text-left text-sm font-medium">Email</th>
+                <th class="px-6 py-4 text-left text-sm font-medium">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr class="border-b hover:bg-gray-100">
+                <td class="px-6 py-4 text-sm">{{ user.username }}</td>
+                <td class="px-6 py-4 text-sm">{{ user.email }}</td>
+                <td class="px-6 py-4 text-sm">
+                    <a href="{% url 'update_user' user.id %}" class="text-blue-500 hover:text-blue-700">Edit</a> |
+                    <a href="{% url 'delete_user' user.id %}" onclick="return confirm('Are you sure?');" class="text-red-500 hover:text-red-700">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

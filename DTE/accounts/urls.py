@@ -14,4 +14,7 @@ urlpatterns = [
     path('reports/', views.report_list, name='report_list'),
     path('reports/<int:report_id>/', views.report_detail, name='report_detail'),
     path('report/<int:report_id>/pdf/', views.generate_pdf, name='generate_pdf'),
+    path('user/edit/<int:user_id>/', views.update_user, name='update_user'),
+    path('user/delete/<int:user_id>/', views.delete_user, name='delete_user'),
+    path('user-list/', views.user_list, name='user_list'),
 ]

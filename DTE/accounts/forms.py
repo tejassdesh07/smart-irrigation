@@ -12,6 +12,13 @@ class SignupForm(forms.ModelForm):
         model = User
         fields = ['username', 'email', 'password']
 
+
+class EditUserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email','password']  # Add fields that can be edited
+
+    password = forms.CharField(widget=forms.PasswordInput, required=False) 
 # Sign-in form
 class SigninForm(forms.Form):
     username = forms.CharField()
