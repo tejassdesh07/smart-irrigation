@@ -15,7 +15,7 @@
                 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="text-gray-700 font-medium">Zone Number</label>
+                        <label class="text-gray-700 font-medium">Zone Number <span class="text-red-500">*</span></label>
                         {{ form.zone_number|add_class:"w-full p-2 border rounded-md" }} 
                     </div>
                     
@@ -26,6 +26,7 @@
                     <div>
                         <label class="text-gray-700 font-medium">Program Type</label>
                         <select name="program_type_0" class="program-type w-full p-2 border rounded-md">
+                            <option value="">Select Option</option>
                             <option value="House">House</option>
                             <option value="A">A</option>
                             <option value="B">B</option>

@@ -10,20 +10,30 @@
 
         <!-- Contacted Manager (Yes/No) -->
         <div class="flex items-center space-x-3">
-            <input type="checkbox" id="contacted_manager" name="contacted_manager" 
-                class="h-5 w-5 text-blue-600 border-gray-300 rounded">
-            <label for="contacted_manager" class="text-gray-700 font-medium">Contacted Manager</label>
+            <label for="contacted_manager_yes" class="text-gray-700 font-medium">Did you contact the Account Manager?</label>
+            <div class="flex items-center space-x-4">
+                <label for="contacted_manager_yes" class="flex items-center">
+                    <input type="radio" id="contacted_manager_yes" name="contacted_manager" value="yes"
+                        class="h-5 w-5 text-blue-600 border-gray-300 rounded">
+                    <span class="ml-2">Yes</span>
+                </label>
+                <label for="contacted_manager_no" class="flex items-center">
+                    <input type="radio" id="contacted_manager_no" name="contacted_manager" value="no"
+                        class="h-5 w-5 text-blue-600 border-gray-300 rounded">
+                    <span class="ml-2">No</span>
+                </label>
+            </div>
         </div>
 
-        <!-- Contact Time -->
-        <div class="flex flex-col">
+        <!-- Contact Time (Only shown if "Yes" is selected) -->
+        <div id="contact_time_div" class="flex flex-col hidden">
             <label for="contact_time" class="text-gray-700 font-medium">Contact Time</label>
-            <input type="time" id="contact_time" name="contact_time" 
+            <input type="time" id="contact_time" name="contact_time"
                 class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none">
         </div>
 
-        <!-- Communication Type -->
-        <div class="flex flex-col">
+        <!-- Communication Type (Only shown if "Yes" is selected) -->
+        <div id="communication_type_div" class="flex flex-col hidden">
             <label for="communication_type" class="text-gray-700 font-medium">Communication Type</label>
             <select id="communication_type" name="communication_type"
                 class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none">
@@ -54,8 +64,50 @@
 
 <style>
     body {
-        background-color: #f4f4f4;
-        font-family: 'Inter', sans-serif;
+        background-color: #f7fafc;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .container {
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .container input, .container select, .container textarea {
+        transition: all 0.3s ease;
+    }
+
+    .container input:focus, .container select:focus, .container textarea:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
     }
 </style>
+
+<script>
+    // Get elements for radio buttons
+    const contactedManagerYes = document.getElementById('contacted_manager_yes');
+    const contactedManagerNo = document.getElementById('contacted_manager_no');
+    
+    // Get elements for contact time and communication type divs
+    const contactTimeDiv = document.getElementById('contact_time_div');
+    const communicationTypeDiv = document.getElementById('communication_type_div');
+    
+    // Function to toggle visibility based on radio button selection
+    function toggleFields() {
+        if (contactedManagerYes.checked) {
+            contactTimeDiv.classList.remove('hidden');
+            communicationTypeDiv.classList.remove('hidden');
+        } else {
+            contactTimeDiv.classList.add('hidden');
+            communicationTypeDiv.classList.add('hidden');
+        }
+    }
+
+    // Event listeners for radio buttons
+    contactedManagerYes.addEventListener('change', toggleFields);
+    contactedManagerNo.addEventListener('change', toggleFields);
+
+    // Initial call to set the correct visibility state
+    toggleFields();
+</script>
 {% endblock %}

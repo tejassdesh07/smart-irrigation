@@ -212,27 +212,44 @@ def success(request):
 
 
 def report_list(request):
-    reports = IrrigationReport.objects.all()
+    reports = IrrigationReport.objects.all().order_by('-id')
     return render(request, 'reports/report_list.html', {'reports': reports})
+
 
 def report_detail(request, report_id):
     report = get_object_or_404(IrrigationReport, id=report_id)
     return render(request, 'reports/report_detail.html', {'report': report})
 
 def generate_pdf(request, report_id):
+    # Get the IrrigationReport instance based on the report_id
     report = get_object_or_404(IrrigationReport, id=report_id)
-    template_path = 'report_pdf.html'
-    context = {'report': report}
+    
+    # Get all the zones related to the report
+    zones = report.zones.all()
+    
+    # Split the zones into chunks of 5
+    chunk_size = 5
+    zone_chunks = [zones[i:i + chunk_size] for i in range(0, len(zones), chunk_size)]
+    
+    # Add the zone_chunks to the context
+    context = {
+        'report': report,
+        'zone_chunks': zone_chunks,
+    }
 
-    # Render HTML to string
+    # Define the path to the template
+    template_path = 'report_pdf.html'
+    
+    # Load the template and render the context to it
     template = get_template(template_path)
     html = template.render(context)
-
-    # Generate PDF
+    
+    # Create a PDF from the rendered HTML
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="report.pdf"'
     pisa_status = pisa.CreatePDF(html, dest=response)
 
+    # Handle errors during PDF generation
     if pisa_status.err:
         return HttpResponse('Error generating PDF', status=500)
     

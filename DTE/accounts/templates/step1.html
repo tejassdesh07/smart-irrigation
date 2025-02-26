@@ -11,42 +11,28 @@
         
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-                <label class="text-gray-700 font-medium">Technician</label>
+                <label class="text-gray-700 font-medium">Technician <span class="text-red-500">*</span></label>
                 {{ form.technician|add_class:"w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200" }}
             </div>
             <div>
-                <label class="text-gray-700 font-medium">Customer</label>
+                <label class="text-gray-700 font-medium">Customer <span class="text-red-500">*</span></label>
                 {{ form.customer|add_class:"w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200" }}
             </div>
             <div>
-                <label class="text-gray-700 font-medium">Report Type</label>
+                <label class="text-gray-700 font-medium">Report Type <span class="text-red-500">*</span></label>
                 {{ form.report_type|add_class:"w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200" }}
             </div>
             <div>
-                <label class="text-gray-700 font-medium">Controller Name</label>
+                <label class="text-gray-700 font-medium">Controller Name <span class="text-red-500">*</span></label>
                 {{ form.controller_name|add_class:"w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200" }}
             </div>
             <div>
-                <label class="text-gray-700 font-medium">Date</label>
+                <label class="text-gray-700 font-medium">Date <span class="text-red-500">*</span></label>
                 {{ form.date|add_class:"w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200" }}
             </div>
         </div>
 
-        <div>
-            <label class="text-lg font-medium text-gray-700">Programs Needed?</label>
-            <div class="flex space-x-4 mt-2">
-                <label class="flex items-center space-x-2 cursor-pointer">
-                    <input type="radio" name="programs_needed" value="True" id="programs_yes" class="hidden peer">
-                    <div class="w-5 h-5 border-2 border-gray-400 rounded-full peer-checked:bg-blue-600 transition duration-200"></div>
-                    <span class="text-gray-800">Yes</span>
-                </label>
-                <label class="flex items-center space-x-2 cursor-pointer">
-                    <input type="radio" name="programs_needed" value="False" id="programs_no" class="hidden peer" checked>
-                    <div class="w-5 h-5 border-2 border-gray-400 rounded-full peer-checked:bg-blue-600 transition duration-200"></div>
-                    <span class="text-gray-800">No</span>
-                </label>
-            </div>
-        </div>
+      
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
@@ -89,10 +75,24 @@
         </div>
         
         <div>
-            <label class="text-gray-700 font-medium">Pump Status Type</label>
+            <label class="text-gray-700 font-medium">Pump Status Type <span class="text-red-500">*</span></label>
             {{ form.pump_status_type|add_class:"w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200" }}
         </div>
-
+        <div>
+            <label class="text-lg font-medium text-gray-700">Report Program Start Times and Seasonal Adjustment?</label>
+            <div class="flex space-x-4 mt-2">
+                <label class="flex items-center space-x-2 cursor-pointer">
+                    <input type="radio" name="programs_needed" value="True" id="programs_yes" class="hidden peer">
+                    <div class="w-5 h-5 border-2 border-gray-400 rounded-full peer-checked:bg-blue-600 transition duration-200"></div>
+                    <span class="text-gray-800">Yes</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer">
+                    <input type="radio" name="programs_needed" value="False" id="programs_no" class="hidden peer" checked>
+                    <div class="w-5 h-5 border-2 border-gray-400 rounded-full peer-checked:bg-blue-600 transition duration-200"></div>
+                    <span class="text-gray-800">No</span>
+                </label>
+            </div>
+        </div>
         <!-- Dynamic Program Fields -->
         <div id="program-fields" class="hidden bg-gray-50 p-4 rounded-md shadow-md mt-6">
             <h3 class="text-lg font-semibold text-gray-700">Program A</h3>

@@ -4,152 +4,224 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        /* Reset default styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+     /* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
-            background-color: #F5F5F5;
-            padding: 20px;
-            font-size: 10px;
-            color: #333;
-        }
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    background-color: #F5F5F5;
+    padding: 20px;
+    font-size: 10px;
+    color: #333;
+}
 
-        h2 {
-            text-align: center;
-            font-size: 2rem;
-            color: #2C3E50;
-            margin-bottom: 20px;
-        }
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-family: 'Arial', sans-serif;
+}
 
-        h3 {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #34495E;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #2C3E50;
-            padding-bottom: 5px;
-        }
+th, td {
+    padding: 4px 6px;  /* Increased padding for better spacing */
+    border: 1px solid #ddd;
+    text-align: left;
+    font-size: 12px; /* Slightly larger font for better readability */
+    color: #333;
+    word-wrap: break-word; /* Ensures long text does not overflow */
+}
 
-        /* Table Styling */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
+/* Table Headers */
+th {
+    background-color: #F1F5F9;
+    color: #334155;
+    font-size: 14px;
+    font-weight: bold;
+    border-bottom: 2px solid #D1D5DB;
+}
 
-        th, td {
-            padding: 10px 15px;
-            border: 1px solid #ddd;
-            text-align: left;
-            font-size: 9px;
-            color: #333;
-        }
+/* Alternating row colors */
+tbody tr:nth-child(odd) {
+    background-color: #F9FAFB;
+}
 
-        th {
-            background-color: #ECF0F1;
-            font-weight: bold;
-            color: #2C3E50;
-        }
+tbody tr:nth-child(even) {
+    background-color: #FFFFFF;
+}
 
-        tr:nth-child(even) {
-            background-color: #F9F9F9;
-        }
+/* Table Row Highlight on Hover */
+tbody tr:hover {
+    background-color: #E4E7EC;
+}
 
-        tr:hover {
-            background-color: #F1F1F1;
-        }
+/* Column Widths */
+th.attribute-column {
+    width: 30%; /* Ensure attribute columns have enough space */
+}
 
-        /* Section Styling */
-        .section {
-            margin-bottom: 20px;
-        }
+th.zone-columns {
+    width: 30%; /* Reduced width of the zone columns, adjust as needed */
+}
 
-        .section p {
-            font-size: 10px;
-            margin-bottom: 8px;
-            color: #555;
-        }
+td {
+    font-size: 12px;
+    width: 25%; /* Make td text slightly larger for readability */
+}
 
-        .section strong {
-            font-weight: bold;
-            color: #2C3E50;
-        }
+/* Responsive Table */
+.table-container {
+    overflow-x: auto;
+}
 
-        /* Card-like styling for account manager */
-        .account-manager {
-            background-color: #fff;
-            padding: 20px;
-            margin-top: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+/* Header for title */
+.report-header {
+    background: linear-gradient(135deg, #2980B9, #8E44AD);
+    /* color: white; */
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
 
-        .account-manager h3 {
-            font-size: 1.4rem;
-            color: #2980B9;
-            margin-bottom: 10px;
-        }
+.report-header h2 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
 
-        .account-manager p {
-            font-size: 10px;
-            color: #7F8C8D;
-            margin-bottom: 8px;
-        }
+/* Heading styling */
+h3 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 20px;
+}
 
-        .account-manager p strong {
-            color: #2C3E50;
-        }
+/* Section Styling */
+/* Section Styling */
+.section {
+    margin-bottom: 20px;
+    background-color: #f9f9f9;  /* Light background for contrast */
+    padding: 20px;
+   
+}
 
-        /* Header for title */
-        .report-header {
-            background: linear-gradient(135deg, #2980B9, #8E44AD);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            border-radius: 8px;
-            margin-bottom: 30px;
-        }
+/* Header Styling */
+.section h3 {
+    font-size: 24px;
+    color: #2C3E50;  /* Dark blue color for header */
+    margin-bottom: 15px;
+    font-weight: bold;
+    border-bottom: 2px solid #3498db;  /* Light blue border for the header */
+    padding-bottom: 5px;
+}
 
-        .report-header h2 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-        }
+/* Grid Layout */
+.grid-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
 
-        /* Layout tweak for better use of space */
-        .table-container {
-            overflow-x: auto;
-        }
+/* Individual Grid Items */
+.grid-item {
+    background-color: #fff;
+    padding: 12px;
+}
+
+/* Paragraph Styling */
+.section p {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+/* Strong Text Styling */
+.section strong {
+    font-weight: bold;
+    color: #2980b9;  /* Light blue color for labels */
+}
+/* Card-like styling for account manager */
+.account-manager {
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 25px;
+
+}
+
+.account-manager h3 {
+    font-size: 1.4rem;
+    color: #2980B9;
+    margin-bottom: 10px;
+}
+
+.account-manager p {
+    font-size: 12px;
+    color: #7F8C8D;
+    margin-bottom: 8px;
+}
+
+.account-manager p strong {
+    color: #2C3E50;
+}
+
+/* Layout tweaks for better use of space */
+.zone-table-container {
+    margin-top: 20px;
+}
+
+td {
+    word-wrap: break-word;
+    max-width: 150px; /* Add max-width for better layout */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Table borders */
+th, td {
+    border: 1px solid #E5E7EB; /* Lighten border color for subtle look */
+}
+
+/* Table Row Highlight on Hover */
+tbody tr:hover {
+    background-color: #F1F1F1;
+}
+
     </style>
 </head>
 <body>
 
     <div class="report-header">
         <h2>Irrigation Service Report</h2>
-        <p>Professional Irrigation Solutions for Your Landscape</p>
     </div>
 
     <div class="section">
         <h3>General Information</h3>
-        <p><strong>Technician:</strong> {{ report.technician }}</p>
-        <p><strong>Customer:</strong> {{ report.customer }}</p>
-        <p><strong>Report Type:</strong> {{ report.report_type }}</p>
-        <p><strong>Controller Name:</strong> {{ report.controller_name }}</p>
-        <p><strong>Date:</strong> {{ report.date }}</p>
-        <p><strong>Programs Needed:</strong> {{ report.programs_needed|yesno:"Yes,No" }}</p>
-        <p><strong>Weather Sensor Checked:</strong> {{ report.weather_sensor_checked|yesno:"Yes,No" }}</p>
-        <p><strong>Weather Sensor Working:</strong> {{ report.weather_sensor_working|yesno:"Yes,No" }}</p>
-        <p><strong>Controller Status:</strong> {{ report.get_controller_status_display }}</p>
-        <p><strong>Controller Make/Model:</strong> {{ report.controller_make_model }}</p>
-        <p><strong>POC Info:</strong> {{ report.get_poc_info_display }}</p>
-        <p><strong>Pump Status Type:</strong> {{ report.get_pump_status_type_display }}</p>
+        <div class="grid-container">
+            <div class="grid-item">
+                <p><strong>Technician:</strong> {{ report.technician }}</p>
+                <p><strong>Customer:</strong> {{ report.customer }}</p>
+                <p><strong>Report Type:</strong> {{ report.report_type }}</p>
+                <p><strong>Controller Name:</strong> {{ report.controller_name }}</p>
+                <p><strong>Date:</strong> {{ report.date }}</p>
+            </div>
+            <div class="grid-item">
+                <p><strong>Programs Needed:</strong> {{ report.programs_needed|yesno:"Yes,No" }}</p>
+                <p><strong>Weather Sensor Checked:</strong> {{ report.weather_sensor_checked|yesno:"Yes,No" }}</p>
+                <p><strong>Weather Sensor Working:</strong> {{ report.weather_sensor_working|yesno:"Yes,No" }}</p>
+                <p><strong>Controller Status:</strong> {{ report.get_controller_status_display }}</p>
+                <p><strong>Controller Make/Model:</strong> {{ report.controller_make_model }}</p>
+                <p><strong>POC Info:</strong> {{ report.get_poc_info_display }}</p>
+                <p><strong>Pump Status Type:</strong> {{ report.get_pump_status_type_display }}</p>
+            </div>
+        </div>
     </div>
-
+    
     <div class="table-container">
         <h3>Programs</h3>
         <table>
@@ -174,41 +246,260 @@
         </table>
     </div>
 
-    <div class="table-container">
-        <h3>Irrigation Zones</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Zone Number</th>
-                    <th>Zone Type</th>
-                    <th>Program Type</th>
-                    <th>Run Time Schedule</th>
-                    <th>Run Days</th>
-                    <th>Power Type</th>
-                    <th>Zone Faults</th>
-                    <th>Checked Filters</th>
-                    <th>Clogged Nozzles</th>
-                    <th>Head Adjusted</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for zone in report.zones.all %}
+   
+    
+  
+    <div class="zone-table-container">
+        <h3 class="text-xl font-semibold text-gray-700">Irrigation Zones</h3>
+    
+        {% for chunk in zone_chunks %}
+            <table>
+                <thead>
                     <tr>
-                        <td>{{ zone.zone_number }}</td>
-                        <td>{{ zone.get_zone_type_display }}</td>
-                        <td>{{ zone.get_program_type_display }}</td>
-                        <td>{{ zone.run_time_schedule }}</td>
-                        <td>{{ zone.run_days }}</td>
-                        <td>{{ zone.get_power_type_display }}</td>
-                        <td>{{ zone.zone_faults|yesno:"Yes,No" }}</td>
-                        <td>{{ zone.checked_filters|yesno:"Yes,No" }}</td>
-                        <td>{{ zone.clogged_nozzles|yesno:"Yes,No" }}</td>
-                        <td>{{ zone.head_adjusted|yesno:"Yes,No" }}</td>
+                        <th class="attribute-column">Attribute</th>
+                        {% for zone in chunk %}
+                            <th class="zone-columns">{{ zone.zone_number }}</th>
+                        {% endfor %}
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <!-- Zone Type -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Zone Type</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.get_zone_type_display }}</td>
+                        {% endfor %}
+                    </tr>
+                    
+                    <!-- Program Type -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Program Type</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.get_program_type_display }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Run Time Schedule -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Run Time Schedule</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.run_time_schedule }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Run Days -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Run Days</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.run_days }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Power Type -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Power Type</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.get_power_type_display }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Zone Faults -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Zone Faults</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.zone_faults|yesno:"Yes,No" }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Checked Filters -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Checked Filters</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.checked_filters|yesno:"Yes,No" }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Clogged Nozzles -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Clogged Nozzles</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.clogged_nozzles|yesno:"Yes,No" }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Head Adjusted -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Head Adjusted</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.head_adjusted|yesno:"Yes,No" }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Billable Repairs -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Billable Repairs</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.billable_repairs|yesno:"Yes,No" }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Head Broken (6) -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Head Broken (6)</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.head_broken_6 }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Head Broken (12) -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Head Broken (12)</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.head_broken_12 }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Broken Riser -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Broken Riser</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.broken_riser }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Upgrade 46 Popup -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Upgrade 46 Popup</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.upgrade_46_popup }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Upgrade 612 Popup -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Upgrade 612 Popup</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.upgrade_612_popup }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Nozzle MPR -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Nozzle MPR</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.nozzle_mpr }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Nozzle MP Rotator -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Nozzle MP Rotator</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.nozzle_mp_rotator }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Spray Nozzle Repair -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Spray Nozzle Repair</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.spray_nozzle_repair|yesno:"Yes,No" }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Dripline Break -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Dripline Break</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.dripline_break|yesno:"Yes,No" }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Severe Line Clog -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Severe Line Clog</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.severe_line_clog|yesno:"Yes,No" }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Lateral Line Break -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Lateral Line Break</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.lateral_line_break|yesno:"Yes,No" }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Relocation -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Relocation</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.relocation|yesno:"Yes,No" }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Head Raised/Lowered (Turf) -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Head Raised/Lowered (Turf)</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.head_raised_lowered_turf|yesno:"Yes,No" }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Head Raised/Lowered (Shrub) -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Head Raised/Lowered (Shrub)</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.head_raised_lowered_shrub|yesno:"Yes,No" }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Damaged Valve Box -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Damaged Valve Box</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.damaged_valve_box|yesno:"Yes,No" }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Valve Operating -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Valve Operating</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.valve_operating|yesno:"Yes,No" }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Rain Sensor Operating -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Rain Sensor Operating</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.rain_sensor_operating|yesno:"Yes,No" }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Controller Operating -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Controller Operating</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.controller_operating|yesno:"Yes,No" }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Additional Labor -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Additional Labor</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.additional_labor }}</td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        {% endfor %}
     </div>
+    
+    
 
     <div class="account-manager">
         <h3>Account Manager Contact</h3>

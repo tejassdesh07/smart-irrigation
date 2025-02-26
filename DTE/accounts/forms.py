@@ -25,7 +25,7 @@ class IrrigationReportForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),
-            'report_type': forms.Select(choices=[('Monthly', 'Monthly'), ('Annual', 'Annual')]),
+            
         }
 
 from django import forms
