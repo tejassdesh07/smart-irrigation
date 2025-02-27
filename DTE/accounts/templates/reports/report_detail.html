@@ -4,17 +4,18 @@
 
 {% block content %}
 <div class="container mx-auto max-w-6xl p-6 bg-white shadow-lg rounded-2xl mt-8">
-    <div class="flex flex-row justify-between items-center mb-6">
+    <div class="flex flex-col sm:flex-row justify-between items-center mb-6 px-4 sm:px-0">
         <!-- Title -->
-        <h2 class="text-3xl font-semibold text-gray-800 text-left">Irrigation Report Details</h2>
+        <h2 class="text-2xl sm:text-3xl font-semibold text-gray-800 text-left mb-4 sm:mb-0">Irrigation Report Details</h2>
         
         <!-- Generate PDF Button -->
-        <div class="mt-6">
-            <a href="{% url 'generate_pdf' report.id %}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-800 transition">
+        <div class="w-full sm:w-auto">
+            <a href="{% url 'generate_pdf' report.id %}" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-800 transition w-full sm:w-auto text-center">
                 Download PDF
             </a>
         </div>
     </div>
+    
     
     <!-- General Information Section -->
     <div class="border-b pb-4 mb-6">
@@ -33,7 +34,7 @@
         <p><strong>Pump Status Type:</strong> {{ report.get_pump_status_type_display }}</p>
     </div>
 
-    <div class="mt-6 border-b pb-4">
+    <div class="mt-6 border-b pb-4 overflow-x-auto">
         <h3 class="text-xl font-semibold text-gray-700 mb-4">Irrigation Programs</h3>
         {% if report.programs.all %}
             <table class="table-auto w-full border-collapse border border-gray-300">
@@ -51,7 +52,7 @@
                             <td class="px-4 py-2 border border-gray-300">{{ program.program_name }}</td>
                             <td class="px-4 py-2 border border-gray-300">{{ program.start_time }}</td>
                             <td class="px-4 py-2 border border-gray-300">{{ program.seasonal_adjustment }}</td>
-                            <td class="px-4 py-2 border border-gray-300">{{ program.run_days|join:", " }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ program.run_days}}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
