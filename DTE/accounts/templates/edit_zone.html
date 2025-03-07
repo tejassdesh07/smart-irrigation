@@ -1,0 +1,382 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load widget_tweaks %}
+    <div class="max-w-4xl mx-auto py-8 px-4 bg-white shadow-md rounded-lg">
+        <h2 class="text-2xl font-semibold text-gray-800 text-center mb-6">Edit Irrigation Zone</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            <div id="zone-entries">
+                <div class="zone-entry bg-gray-50 p-6 rounded-lg shadow-md mb-6" data-zone-index="0">
+                    <!-- <h3 class="text-lg font-semibold text-gray-700">Zone 1</h3> -->
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="text-gray-700 font-medium">Zone Number <span class="text-red-500">*</span></label>
+                            {{ form.zone_number|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+
+                        <div>
+                            <label class="text-gray-700 font-medium">Zone Type</label>
+                            {{ form.zone_type|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+
+                        <div>
+                            <label class="text-gray-700 font-medium">Which Program?:</label>
+                            <select name="program_type_0" class="program-type w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Select Option</option>
+                                <option value="House">House</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- House-Specific Fields -->
+                    <div class="house-fields hidden grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+                        <div>
+                            <label class="text-gray-700 font-medium">Run Time Schedule</label>
+                            <input type="text" name="run_time_schedule_0" class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        
+                        <div>
+                            <label class="text-gray-700 font-medium">Run days <span class="text-red-500">*</span></label>
+                    <button id="dropdownButton" class="w-full p-2 border rounded-md flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
+                        <span id="selectedValues">Select Days</span>
+                        <svg class="w-4 h-4 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                
+                    
+<div id="dropdownMenu" class="absolute w-[17rem] bg-white border rounded-md shadow-md hidden mt-1 z-10">
+    <div class="p-2 max-h-48 overflow-y-auto">
+        <label class="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
+            <input type="checkbox" name="run_days_1" value="monday" class="form-checkbox text-blue-500 prevent-submit">
+            <span>Monday</span>
+        </label>
+        <label class="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
+            <input type="checkbox" name="run_days_1" value="tuesday" class="form-checkbox text-blue-500 prevent-submit">
+            <span>Tuesday</span>
+        </label>
+        <label class="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
+            <input type="checkbox" name="run_days_1" value="wednesday" class="form-checkbox text-blue-500 prevent-submit">
+            <span>Wednesday</span>
+        </label>
+        <label class="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
+            <input type="checkbox" name="run_days_1" value="thursday" class="form-checkbox text-blue-500 prevent-submit">
+            <span>Thursday</span>
+        </label>
+        <label class="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
+            <input type="checkbox" name="run_days_1" value="friday" class="form-checkbox text-blue-500 prevent-submit">
+            <span>Friday</span>
+        </label>
+        <label class="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
+            <input type="checkbox" name="run_days_1" value="saturday" class="form-checkbox text-blue-500 prevent-submit">
+            <span>Saturday</span>
+        </label>
+        <label class="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
+            <input type="checkbox" name="run_days_1" value="sunday" class="form-checkbox text-blue-500 prevent-submit">
+            <span>Sunday</span>
+        </label>
+    </div>
+                        </div>
+                         
+                            
+                            
+                        </div>
+                        </div>
+              
+
+                    <!-- General Fields -->
+                    <div class="general-fields  grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+                        <div>
+                            <label class="text-gray-700 font-medium">Power Type</label>
+                            {{ form.power_type|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+                        <div>
+                            <label class="text-gray-700 font-medium">Zone Faults</label>
+                            {{ form.zone_faults|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+                        <div>
+                            <label class="text-gray-700 font-medium">Checked Filters</label>
+                            {{ form.checked_filters|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+                        <div>
+                            <label class="text-gray-700 font-medium">Clogged Nozzles</label>
+                            {{ form.clogged_nozzles|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+                        <div>
+                            <label class="text-gray-700 font-medium">Head Adjusted</label>
+                            {{ form.head_adjusted|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+                    </div>
+
+                    <!-- Billable Repairs Section -->
+                    <div class="billable-section  mt-6">
+                        <label class="text-lg font-medium text-gray-700">Billable Repairs?</label>
+                        <div class="flex space-x-6 mt-2">
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="billable_repairs_0" value="True" class="billable-repairs hidden peer">
+                                <div class="w-5 h-5 border-2 border-gray-400 rounded-full peer-checked:bg-blue-600"></div>
+                                <span class="text-gray-800">Yes</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="billable_repairs_0" value="False" class="billable-repairs hidden peer" checked>
+                                <div class="w-5 h-5 border-2 border-gray-400 rounded-full peer-checked:bg-blue-600"></div>
+                                <span class="text-gray-800">No</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Billable Fields -->
+                    <div class="billable-fields hidden grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+                        <div>
+                            <label class="text-gray-700 font-medium">Head Broken (6")</label>
+                            {{ form.head_broken_6|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+                        <div>
+                            <label class="text-gray-700 font-medium">Head Broken (12")</label>
+                            {{ form.head_broken_12|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+                        <div>
+                            <label class="text-gray-700 font-medium">Broken Riser</label>
+                            {{ form.broken_riser|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+                        <div>
+                            <label class="text-gray-700 font-medium">Upgrade 4" Popup</label>
+                            {{ form.upgrade_4_popup|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+                        <div>
+                            <label class="text-gray-700 font-medium">Upgrade 6" Popup</label>
+                            {{ form.upgrade_6_popup|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+                        <div>
+                            <label class="text-gray-700 font-medium">Upgrade 12" Popup</label>
+                            {{ form.upgrade_12_popup|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+
+                        <div>
+                            <label class="text-gray-700 font-medium">Nozzle MPR</label>
+                            {{ form.nozzle_mpr|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+                        <div>
+                            <label class="text-gray-700 font-medium">Nozzle MP Rotator</label>
+                            {{ form.nozzle_mp_rotator|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+                        <div>
+                            <label class="text-gray-700 font-medium">Spray Nozzle Repair</label>
+                            {{ form.spray_nozzle_repair|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+                        <div>
+                            <label class="text-gray-700 font-medium">Dripline Break</label>
+                            {{ form.dripline_break|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+                        <div>
+                            <label class="text-gray-700 font-medium">Severe Line Clog</label>
+                            {{ form.severe_line_clog|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+                        <div>
+                            <label class="text-gray-700 font-medium">Lateral Line Break</label>
+                            {{ form.lateral_line_break|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+                        <div>
+                            <label class="text-gray-700 font-medium">Relocation</label>
+                            {{ form.relocation|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+                        <div>
+                            <label class="text-gray-700 font-medium">Head Raised/Lowered (Turf)</label>
+                            {{ form.head_raised_lowered_turf|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+                        <div>
+                            <label class="text-gray-700 font-medium">Head Raised/Lowered (Shrub)</label>
+                            {{ form.head_raised_lowered_shrub|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+                        <div>
+                            <label class="text-gray-700 font-medium">Damaged Valve Box</label>
+                            {{ form.damaged_valve_box|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+                        <div>
+                            <label class="text-gray-700 font-medium">Valve Operating</label>
+                            {{ form.valve_operating|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+                        <div>
+                            <label class="text-gray-700 font-medium">Rain Sensor Operating</label>
+                            {{ form.rain_sensor_operating|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+                        <div>
+                            <label class="text-gray-700 font-medium">Controller Operating</label>
+                            {{ form.controller_operating|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+                        <div>
+                            <label class="text-gray-700 font-medium">Additional Labor</label>
+                            {{ form.additional_labor|add_class:"w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center">
+                <button type="submit" class="btn btn-primary bg-blue-600 text-white p-4 rounded-lg hover:bg-blue-700 transition duration-300">Save</button>
+                <a href="{% url 'delete_zone' zone.id %}" class="btn btn-danger bg-red-600 text-white p-4 rounded-lg hover:bg-red-700 transition duration-300">Delete</a>
+            </div>
+        </form>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const dropdownButton = document.getElementById("dropdownButton");
+            const dropdownMenu = document.getElementById("dropdownMenu");
+            const checkboxes = dropdownMenu.querySelectorAll("input[type='checkbox']");
+            const selectedValues = document.getElementById("selectedValues");
+        
+            // Prevent checkboxes from submitting the form
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener("click", function (event) {
+                    event.stopPropagation(); // Stop event from bubbling
+                });
+            });
+        
+            // Toggle dropdown visibility
+            dropdownButton.addEventListener("click", function (event) {
+                event.preventDefault(); // Prevent default button behavior
+                dropdownMenu.classList.toggle("hidden");
+            });
+        
+            // Update selected values display
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener("change", function () {
+                    let selectedOptions = [];
+                    checkboxes.forEach(chk => {
+                        if (chk.checked) {
+                            selectedOptions.push(chk.nextElementSibling.innerText);
+                        }
+                    });
+                    selectedValues.innerText = selectedOptions.length > 0 ? selectedOptions.join(", ") : "Select Days";
+                });
+            });
+        
+            // Close dropdown when clicking outside
+            document.addEventListener("click", function (event) {
+                if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                    dropdownMenu.classList.add("hidden");
+                }
+            });
+        });
+        </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("zone-form");
+            const addZoneBtn = document.getElementById("add-zone");
+    
+            function getCSRFToken() {
+                return document.querySelector("[name=csrfmiddlewaretoken]").value;
+            }
+    
+            function attachListeners(zone) {
+                let programType = zone.querySelector(".program-type");
+                let houseFields = zone.querySelector(".house-fields");
+                let generalFields = zone.querySelector(".general-fields");
+                let billableSection = zone.querySelector(".billable-section");
+                let billableFields = zone.querySelector(".billable-fields");
+                let billableRadios = zone.querySelectorAll(`input[name^="billable_repairs_"]`);
+    
+                // Program Type Logic
+                programType.addEventListener("change", function () {
+                    if (programType.value === "House") {
+                        houseFields.classList.remove("hidden");
+                        // generalFields.classList.add("hidden");
+                        billableFields.classList.add("hidden");
+                    } else {
+                        houseFields.classList.add("hidden");
+                        // generalFields.classList.remove("hidden");
+                    }
+                });
+    
+                // Billable Repairs Logic
+                billableRadios.forEach(radio => {
+                    radio.addEventListener("change", function () {
+                        if (radio.checked && radio.value === "True") {
+                            billableFields.classList.remove("hidden");
+                        } else {
+                            billableFields.classList.add("hidden");
+                        }
+                    });
+                });
+            }
+    
+            // Attach listeners to the initial zone entry
+            attachListeners(document.querySelector(".zone-entry"));
+    
+            addZoneBtn.addEventListener("click", function (event) {
+                event.preventDefault(); // Prevent full form submission
+    
+                let formData = new FormData(form);
+    
+                fetch(form.action, {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        "X-CSRFToken": getCSRFToken(),
+                    },
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            console.log("Zone saved:", data);
+                            resetZoneForm();  // Clear form for new entry
+                        } else {
+                            console.error("Errors:", data.errors);
+                            alert("Error saving zone. Please check input.");
+                        }
+                    })
+                    .catch(error => console.error("Error:", error));
+            });
+    
+            function resetZoneForm() {
+                document.querySelectorAll("#zone-form input, #zone-form select").forEach(field => {
+                    if (field.type !== "hidden") {
+                        field.value = "";
+                    }
+                });
+    
+                // Reset hidden field logic when clearing
+                document.querySelector(".house-fields").classList.add("hidden");
+                // document.querySelector(".general-fields").classList.remove("hidden");
+                // document.querySelector(".billable-section").classList.remove("hidden");
+                document.querySelector(".billable-fields").classList.add("hidden");
+            }
+    
+            // Handle "Next" button to navigate to step 3
+            const nextButton = document.querySelector("#next-button");
+            if (nextButton) {
+                nextButton.addEventListener("click", function (event) {
+                    event.preventDefault();
+    
+                    let formData = new FormData(form);
+                    fetch(form.action, {
+                        method: "POST",
+                        body: formData,
+                        headers: {
+                            "X-CSRFToken": getCSRFToken(),
+                        },
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                window.location.href = "/step3/"; // Redirect to step3
+                            } else {
+                                console.error("Errors:", data.errors);
+                                alert("Error saving zone. Please check input.");
+                            }
+                        })
+                        .catch(error => console.error("Error:", error));
+                });
+            }
+        });
+    
+    </script>
+
+
+{% endblock %}

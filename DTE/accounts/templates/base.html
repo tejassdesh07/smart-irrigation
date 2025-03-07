@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Irrigation Smart Form{% endblock %}</title>
+    <!-- Include Toastr CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+
+    <!-- Include Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-100 font-sans">
 
     <!-- Breadcrumb (always visible) -->
-  
+
 
     <!-- Navbar -->
     <nav class="bg-blue-600 p-4">
@@ -20,10 +27,14 @@
                 <!-- Mobile menu button aligned to the right -->
                 <div class="absolute inset-y-0 right-0 flex items-center sm:hidden">
                     <!-- Mobile menu button-->
-                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+                    <button id="mobile-menu-button"
+                        class="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                        aria-controls="mobile-menu" aria-expanded="false">
                         <span class="sr-only">Open main menu</span>
-                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
                     </button>
                 </div>
@@ -35,12 +46,17 @@
                     <div class="hidden sm:block sm:ml-4">
                         <div class="flex space-x-4">
                             {% if request.user.is_staff %}
-                            <a href="{% url 'user_list' %}" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-lg font-medium">User</a>
-                        {% endif %}
+                            <a href="{% url 'user_list' %}"
+                                class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-lg font-medium">User</a>
+                            {% endif %}
 
-                            <a href="{% url 'report_list' %}" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-lg font-medium">Report List</a>
-                            <a href="{% url 'step1' %}" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-lg font-medium">Form</a>
-                            <a href="{% url 'logout' %}" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-lg font-medium">Logout</a>
+                            <a href="{% url 'report_list' %}"
+                                class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-lg font-medium">Report
+                                List</a>
+                            <a href="{% url 'step1' %}"
+                                class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-lg font-medium">Form</a>
+                            <a href="{% url 'logout' %}"
+                                class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-lg font-medium">Logout</a>
                         </div>
                     </div>
                 </div>
@@ -50,9 +66,12 @@
         <!-- Mobile menu, show/hide based on menu state. -->
         <div id="mobile-menu" class="sm:hidden hidden">
             <div class="space-y-1 px-2 pt-2 pb-3">
-                <a href="{% url 'report_list' %}" class="text-white block px-3 py-2 rounded-md text-base font-medium">Report List</a>
-                <a href="{% url 'step1' %}" class="text-white block px-3 py-2 rounded-md text-base font-medium">Step 1</a>
-                <a href="{% url 'logout' %}" class="text-white block px-3 py-2 rounded-md text-base font-medium">Logout</a>
+                <a href="{% url 'report_list' %}"
+                    class="text-white block px-3 py-2 rounded-md text-base font-medium">Report List</a>
+                <a href="{% url 'step1' %}" class="text-white block px-3 py-2 rounded-md text-base font-medium">Step
+                    1</a>
+                <a href="{% url 'logout' %}"
+                    class="text-white block px-3 py-2 rounded-md text-base font-medium">Logout</a>
             </div>
         </div>
     </nav>
@@ -67,7 +86,7 @@
         // Mobile menu toggle script
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
-        
+
         mobileMenuButton.addEventListener('click', function () {
             const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
             mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
@@ -76,4 +95,5 @@
     </script>
 
 </body>
+
 </html>

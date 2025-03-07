@@ -22,7 +22,7 @@ def signup(request):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password'])  # Encrypt password
             user.save()
-            login(request, user)  # Auto login
+            # login(request, user)  # Auto login
             messages.success(request, "Signup successful. Welcome!")
             return redirect('user_list')
         else:
@@ -99,14 +99,18 @@ def home(request):
 
 
 
+
+
 @login_required
 def step1(request):
     """Handles Step 1: Irrigation Report."""
     if request.method == "POST":
-        form = IrrigationReportForm(request.POST)
-
+        form = IrrigationReportForm(request.POST, user=request.user)  # Pass user
+        print(request.user)
         if form.is_valid():
             report = form.save(commit=False)
+            report.technician = f"{request.user}"  # Ensure technician field is filled
+            print( report.technician)
             report.save()  # Save the report instance first
             request.session['report_id'] = report.id  # Store report ID in session
 
@@ -121,7 +125,7 @@ def step1(request):
                     
                     # Retrieve multiple selected values for run_days
                     run_days = request.POST.getlist(f"run_days_{program_count}")  # Retrieves a list
-                    print(run_days)
+
                     if program_name:  # Ensure valid program entry before saving
                         IrrigationProgram.objects.create(
                             report=report,
@@ -133,19 +137,15 @@ def step1(request):
 
                     program_count += 1
             
-            return redirect('step2')
+            return redirect('step2')  # Redirect to step2 after saving data
         else:
             messages.error(request, "Please correct the errors below.")
     else:
-        form = IrrigationReportForm()
+        form = IrrigationReportForm(user=request.user)  # Pass user here too
+    user_data= request.user
+    print(user_data)
+    return render(request, 'step1.html', {'form': form, 'user': user_data})
 
-    return render(request, 'step1.html', {'form': form})
-
-from django.shortcuts import render, redirect
-from django.http import JsonResponse
-from django.contrib import messages
-from .models import IrrigationReport, IrrigationZone
-from .forms import IrrigationZoneForm
 
 
 @login_required
@@ -169,11 +169,24 @@ def step2(request, zone_id=None):
 
     # Handle form submission
     if request.method == "POST":
-        form = IrrigationZoneForm(request.POST, instance=current_zone)
+        form = IrrigationZoneForm(request.POST, instance=current_zone,  report=report)
         
         if form.is_valid():
             zone = form.save(commit=False)
             zone.report = report  # Associate the zone with the report
+         
+            # **Checking for existing zone with the same number**
+            existing_zone = IrrigationZone.objects.filter(
+                report=report, zone_number=zone.zone_number
+            ).exclude(id=zone.id if zone.id else None).first()
+
+            print(f"Checking for existing zone with number: {zone.zone_number}")
+            print(f"Existing zone found: {existing_zone}")
+
+            if existing_zone:
+                messages.error(request, f"Zone number {zone.zone_number} already exists!")
+                return render(request, "step2.html", {"form": form, "report": report})
+
             zone.save()
 
             if "next_button_clicked" in request.POST:
@@ -190,14 +203,16 @@ def step2(request, zone_id=None):
                 prev_zone = IrrigationZone.objects.filter(report=report, id__lt=current_zone.id).order_by("-id").first()
                 if prev_zone:
                     return redirect('step2', zone_id=prev_zone.id)  # Redirect to the previous zone
-
+    else:
+        form = IrrigationZoneForm(instance=current_zone, report=report)
     # Get previous and next zones for navigation
     prev_zone = IrrigationZone.objects.filter(report=report).order_by("-id").first() if current_zone else None
     next_zone = IrrigationZone.objects.filter(report=report, id__gt=current_zone.id).order_by("id").first() if current_zone else None
 
     # Check if it's a new zone (no zone ID provided)
     is_new_zone = current_zone is None
-
+    all_zones = IrrigationZone.objects.filter(report=report)
+    print(all_zones)
     return render(
         request,
         "step2.html",
@@ -206,7 +221,9 @@ def step2(request, zone_id=None):
             "current_zone": current_zone,
             "prev_zone": prev_zone,
             "next_zone": next_zone,
+            "zones": all_zones,
             "is_new_zone": is_new_zone,
+            "report": report
         },
     )
 
@@ -263,7 +280,7 @@ def generate_pdf(request, report_id):
     zones = report.zones.all()
     
     # Split the zones into chunks of 5
-    chunk_size = 5
+    chunk_size = 7
     zone_chunks = [zones[i:i + chunk_size] for i in range(0, len(zones), chunk_size)]
     
     # Add the zone_chunks to the context
@@ -289,3 +306,22 @@ def generate_pdf(request, report_id):
         return HttpResponse('Error generating PDF', status=500)
     
     return response
+
+
+def edit_zone(request, zone_id):
+    zone = get_object_or_404(IrrigationZone, id=zone_id)
+    if request.method == 'POST':
+        form = IrrigationZoneForm(request.POST, instance=zone)
+        if form.is_valid():
+            form.save()
+            return redirect('step2')  # Redirect to the list of zones or another page
+    else:
+        form = IrrigationZoneForm(instance=zone)
+    return render(request, 'edit_zone.html', {'form': form, 'zone': zone})
+    
+def delete_zone(request, zone_id):
+    zone = get_object_or_404(IrrigationZone, id=zone_id)
+    if request.method == 'POST':
+        zone.delete()
+        return redirect('step2')  # Redirect to the list of zones or another page
+    return render(request, 'confirm_delete.html', {'zone': zone})

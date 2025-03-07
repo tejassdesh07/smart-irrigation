@@ -2,6 +2,14 @@
 {% block title %}Step 2: Zone Entry{% endblock %}
 {% block content %}
 {% load widget_tweaks %}
+<!-- Toastr CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+<!-- jQuery (Required for Toastr) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Toastr JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+
 
 <div class="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-6 mt-6">
     <h2 class="text-2xl font-semibold text-gray-800 mb-6">Step 2: Zone Entry</h2>
@@ -12,19 +20,19 @@
         <div id="zone-entries">
             <div class="zone-entry bg-gray-50 p-4 rounded-md shadow-md mb-4" data-zone-index="0">
                 <!-- <h3 class="text-lg font-semibold text-gray-700">Zone 1</h3> -->
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                <div class="grid grid-cols-1 sm:grid-cols-1 gap-4">
                     <div>
                         <label class="text-gray-700 font-medium">Zone Number <span class="text-red-500">*</span></label>
-                        {{ form.zone_number|add_class:"w-full p-2 border rounded-md" }} 
+                        {{ form.zone_number|add_class:"w-full p-2 border rounded-md" }}
                     </div>
-                    
+
                     <div>
                         <label class="text-gray-700 font-medium">Zone Type</label>
                         {{ form.zone_type|add_class:"w-full p-2 border rounded-md" }}
                     </div>
                     <div>
-                        <label class="text-gray-700 font-medium">Program Type</label>
+                        <label class="text-gray-700 font-medium">Which Program?:</label>
                         <select name="program_type_0" class="program-type w-full p-2 border rounded-md">
                             <option value="">Select Option</option>
                             <option value="House">House</option>
@@ -49,7 +57,7 @@
                 </div>
 
                 <!-- General Fields -->
-                <div class="general-fields hidden grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                <div class="general-fields  grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                     <div>
                         <label class="text-gray-700 font-medium">Power Type</label>
                         {{ form.power_type|add_class:"w-full p-2 border rounded-md" }}
@@ -73,16 +81,18 @@
                 </div>
 
                 <!-- Billable Repairs Section -->
-                <div class="billable-section hidden mt-4">
+                <div class="billable-section  mt-4">
                     <label class="text-lg font-medium text-gray-700">Billable Repairs?</label>
                     <div class="flex space-x-4 mt-2">
                         <label class="flex items-center space-x-2 cursor-pointer">
-                            <input type="radio" name="billable_repairs_0" value="True" class="billable-repairs hidden peer">
+                            <input type="radio" name="billable_repairs_0" value="True"
+                                class="billable-repairs hidden peer">
                             <div class="w-5 h-5 border-2 border-gray-400 rounded-full peer-checked:bg-blue-600"></div>
                             <span class="text-gray-800">Yes</span>
                         </label>
                         <label class="flex items-center space-x-2 cursor-pointer">
-                            <input type="radio" name="billable_repairs_0" value="False" class="billable-repairs hidden peer" checked>
+                            <input type="radio" name="billable_repairs_0" value="False"
+                                class="billable-repairs hidden peer" checked>
                             <div class="w-5 h-5 border-2 border-gray-400 rounded-full peer-checked:bg-blue-600"></div>
                             <span class="text-gray-800">No</span>
                         </label>
@@ -90,7 +100,7 @@
                 </div>
 
                 <!-- Billable Fields -->
-                <div class="billable-fields hidden grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                <div class="billable-fields hidden grid grid-cols-1 sm:grid-cols-2 gap-2 mt-4">
                     <div>
                         <label class="text-gray-700 font-medium">Head Broken (6")</label>
                         {{ form.head_broken_6|add_class:"w-full p-2 border rounded-md" }}
@@ -104,14 +114,18 @@
                         {{ form.broken_riser|add_class:"w-full p-2 border rounded-md" }}
                     </div>
                     <div>
-                        <label class="text-gray-700 font-medium">Upgrade 4-6" Popup</label>
-                        {{ form.upgrade_46_popup|add_class:"w-full p-2 border rounded-md" }}
+                        <label class="text-gray-700 font-medium">Upgrade 4" Popup</label>
+                        {{ form.upgrade_4_popup|add_class:"w-full p-2 border rounded-md" }}
                     </div>
                     <div>
-                        <label class="text-gray-700 font-medium">Upgrade 6-12" Popup</label>
-                        {{ form.upgrade_612_popup|add_class:"w-full p-2 border rounded-md" }}
+                        <label class="text-gray-700 font-medium">Upgrade 6" Popup</label>
+                        {{ form.upgrade_6_popup|add_class:"w-full p-2 border rounded-md" }}
                     </div>
-                    
+                    <div>
+                        <label class="text-gray-700 font-medium">Upgrade 12" Popup</label>
+                        {{ form.upgrade_12_popup|add_class:"w-full p-2 border rounded-md" }}
+                    </div>
+
                     <div>
                         <label class="text-gray-700 font-medium">Nozzle MPR</label>
                         {{ form.nozzle_mpr|add_class:"w-full p-2 border rounded-md" }}
@@ -157,7 +171,7 @@
                         {{ form.valve_operating|add_class:"w-full p-2 border rounded-md" }}
                     </div>
                     <div>
-                        <label class="text-gray-700 font-medium">Rain Sensor Operating</label>
+                        <label class="text-gray-700 font-medium">Rain Sensor Operating </label>
                         {{ form.rain_sensor_operating|add_class:"w-full p-2 border rounded-md" }}
                     </div>
                     <div>
@@ -171,132 +185,457 @@
                 </div>
             </div>
         </div>
-        <div class="flex justify-between mt-4">
-            {% if prev_zone %}
-                <button name="prevbtn" class="w-full bg-blue-500 text-white py-2 rounded-md font-semibold shadow-md hover:bg-blue-700">
-                    ⬅ Previous Zone
-                </button>
-            {% endif %}
-            {% if next_zone %}
-                <button name="next_zone" class="w-full bg-blue-500 text-white py-2 rounded-md font-semibold shadow-md hover:bg-blue-700">
-                    Next Zone ➡
-                </button>
-            {% endif %}
-        </div>
-        
-       <!-- Button to Add Another Zone -->
-<button 
-type="submit" 
-name="add_another_zone" 
-class="w-full bg-blue-500 text-white py-2 rounded-md font-semibold shadow-md hover:bg-blue-700">
-+ Add Another Zone
-</button>
 
-<!-- Button to Proceed to Step 3 -->
-<button 
-type="submit" 
-name="next_button_clicked" 
-class="w-full bg-green-600 text-white py-3 rounded-md text-lg font-semibold shadow-md hover:bg-green-700 mt-4">
-Next ➡️
-</button>
+
+        <!-- Button to Add Another Zone -->
+        <button type="submit" name="add_another_zone"
+            class="w-full bg-blue-500 text-white py-2 rounded-md font-semibold shadow-md hover:bg-blue-700">
+            + Add Another Zone
+        </button>
+
+        <!-- Button to Proceed to Step 3 -->
+        <button type="submit" name="next_button_clicked"
+            class="w-full bg-green-600 text-white py-3 rounded-md text-lg font-semibold shadow-md hover:bg-green-700 mt-4">
+            Next ➡️
+        </button>
 
 
 
     </form>
+    <form method="post" id="update-zone-form" class="space-y-2 bg-white p-4 rounded-lg shadow-lg">
+        {% csrf_token %}
+
+        {% for zone in zones %}
+        <div class="zone-entry bg-gray-100 p-4 rounded-md shadow-sm mb-4" id="zone-form-{{ forloop.counter0 }}"
+            data-zone-index="{{ forloop.counter0 }}">
+
+            <div class="flex justify-between items-center mb-4">
+                <!-- Zone ID and action buttons -->
+                <div class="flex space-x-2">
+                    <a href="{% url 'edit_zone' zone.id %}"
+                        class="bg-blue-500 text-white px-3 py-1 rounded-md text-xs sm:text-sm">Edit</a>
+                    <a href="{% url 'delete_zone' zone.id %}"
+                        class="bg-red-500 text-white px-3 py-1 rounded-md text-xs sm:text-sm">Delete</a>
+                    
+                </div>
+            </div>
+
+            <!-- Display Zone Data -->
+            <div class="zone-info">
+                <!-- First 5 fields in a 2-column grid layout -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4">
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold text-gray-700 text-xs sm:text-sm">Zone Number:</span>
+                        <span class="text-xs sm:text-sm">{{ zone.zone_number }}</span>
+                    </div>
+
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold text-gray-700 text-xs sm:text-sm">Zone Type:</span>
+                        <span class="text-xs sm:text-sm">{{ zone.zone_type }}</span>
+                    </div>
+
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold text-gray-700 text-xs sm:text-sm">Power Type:</span>
+                        <span class="text-xs sm:text-sm">{{ zone.power_type }}</span>
+                    </div>
+
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold text-gray-700 text-xs sm:text-sm">Zone Faults:</span>
+                        <span class="text-xs sm:text-sm">{{ zone.zone_faults }}</span>
+                    </div>
+
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold text-gray-700 text-xs sm:text-sm">Checked Filters:</span>
+                        <span class="text-xs sm:text-sm">{{ zone.checked_filters }}</span>
+                    </div>
+
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold text-gray-700 text-xs sm:text-sm">Clogged Nozzles:</span>
+                        <span class="text-xs sm:text-sm">{{ zone.clogged_nozzles }}</span>
+                    </div>
+                </div>
+
+                <!-- Collapsible Section: More Details -->
+                <div class="more-info">
+                    <button type="button" class="text-blue-600 text-xs sm:text-sm"
+                        onclick="toggleMoreInfo(event, {{ forloop.counter0 }})">See More</button>
+
+                    <div class="more-info-content hidden mt-2">
+                        <!-- Additional Zone Information -->
+                        <div class="grid grid-cols-1 gap-2 mb-4">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700 text-xs sm:text-sm">Program Type:</span>
+                                <span class="text-xs sm:text-sm">{{ zone.program_type }}</span>
+                            </div>
+
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700 text-xs sm:text-sm">Run Time Schedule:</span>
+                                <span class="text-xs sm:text-sm">{{ zone.run_time_schedule }}</span>
+                            </div>
+
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700 text-xs sm:text-sm">Run Days:</span>
+                                <span class="text-xs sm:text-sm">{{ zone.run_days }}</span>
+                            </div>
+
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700 text-xs sm:text-sm">Head Adjusted:</span>
+                                <span class="text-xs sm:text-sm">{{ zone.head_adjusted }}</span>
+                            </div>
+
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700 text-xs sm:text-sm">Billable Repairs:</span>
+                                <span class="text-xs sm:text-sm">{{ zone.billable_repairs }}</span>
+                            </div>
+
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700 text-xs sm:text-sm">Head Broken (6"):</span>
+                                <span class="text-xs sm:text-sm">{{ zone.head_broken_6 }}</span>
+                            </div>
+
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700 text-xs sm:text-sm">Head Broken (12"):</span>
+                                <span class="text-xs sm:text-sm">{{ zone.head_broken_12 }}</span>
+                            </div>
+
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700 text-xs sm:text-sm">Broken Riser:</span>
+                                <span class="text-xs sm:text-sm">{{ zone.broken_riser }}</span>
+                            </div>
+
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700 text-xs sm:text-sm">Upgrade 4" Popup:</span>
+                                <span class="text-xs sm:text-sm">{{ zone.upgrade_4_popup }}</span>
+                            </div>
+
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700 text-xs sm:text-sm">Upgrade 6" Popup:</span>
+                                <span class="text-xs sm:text-sm">{{ zone.upgrade_6_popup }}</span>
+                            </div>
+
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700 text-xs sm:text-sm">Upgrade 12" Popup:</span>
+                                <span class="text-xs sm:text-sm">{{ zone.upgrade_12_popup }}</span>
+                            </div>
+
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700 text-xs sm:text-sm">Nozzle MPR:</span>
+                                <span class="text-xs sm:text-sm">{{ zone.nozzle_mpr }}</span>
+                            </div>
+
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700 text-xs sm:text-sm">Nozzle MP Rotator:</span>
+                                <span class="text-xs sm:text-sm">{{ zone.nozzle_mp_rotator }}</span>
+                            </div>
+
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700 text-xs sm:text-sm">Spray Nozzle Repair:</span>
+                                <span class="text-xs sm:text-sm">{{ zone.spray_nozzle_repair }}</span>
+                            </div>
+
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700 text-xs sm:text-sm">Dripline Break:</span>
+                                <span class="text-xs sm:text-sm">{{ zone.dripline_break }}</span>
+                            </div>
+
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700 text-xs sm:text-sm">Severe Line Clog:</span>
+                                <span class="text-xs sm:text-sm">{{ zone.severe_line_clog }}</span>
+                            </div>
+
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700 text-xs sm:text-sm">Lateral Line Break:</span>
+                                <span class="text-xs sm:text-sm">{{ zone.lateral_line_break }}</span>
+                            </div>
+
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700 text-xs sm:text-sm">Relocation:</span>
+                                <span class="text-xs sm:text-sm">{{ zone.relocation }}</span>
+                            </div>
+
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700 text-xs sm:text-sm">Head Raised/Lowered
+                                    (Turf):</span>
+                                <span class="text-xs sm:text-sm">{{ zone.head_raised_lowered_turf }}</span>
+                            </div>
+
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700 text-xs sm:text-sm">Head Raised/Lowered
+                                    (Shrub):</span>
+                                <span class="text-xs sm:text-sm">{{ zone.head_raised_lowered_shrub }}</span>
+                            </div>
+
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700 text-xs sm:text-sm">Damaged Valve Box:</span>
+                                <span class="text-xs sm:text-sm">{{ zone.damaged_valve_box }}</span>
+                            </div>
+
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700 text-xs sm:text-sm">Valve Operating:</span>
+                                <span class="text-xs sm:text-sm">{{ zone.valve_operating }}</span>
+                            </div>
+
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700 text-xs sm:text-sm">Rain Sensor
+                                    Operating:</span>
+                                <span class="text-xs sm:text-sm">{{ zone.rain_sensor_operating }}</span>
+                            </div>
+
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700 text-xs sm:text-sm">Controller
+                                    Operating:</span>
+                                <span class="text-xs sm:text-sm">{{ zone.controller_operating }}</span>
+                            </div>
+
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700 text-xs sm:text-sm">Additional Labor:</span>
+                                <span class="text-xs sm:text-sm">{{ zone.additional_labor }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+
+        <script>
+            // Toggle visibility of more info content
+            function toggleMoreInfo(event, zoneIndex) {
+                const moreInfoContent = document.querySelector(`#zone-form-${zoneIndex} .more-info-content`);
+                moreInfoContent.classList.toggle('hidden');
+                event.textContent = moreInfoContent.classList.contains('hidden') ? 'See More' : 'See Less';
+            }
+        </script>
+
+
+
+<div class="flex justify-between mt-6 flex-wrap">
+    <button type="button" id="prev-button"
+        class="w-full sm:w-1/3 bg-blue-600 text-white py-2 px-4 text-sm rounded-md font-semibold shadow-md hover:bg-blue-700 mb-4 sm:mb-0" disabled>
+        ⬅ Go Back
+    </button>
+
+    <button type="button" id="next-button"
+        class="w-full sm:w-1/3 bg-blue-600 text-white py-2 px-4 text-sm rounded-md font-semibold shadow-md hover:bg-blue-700 sm:ml-4">
+        See Previous Zones ➡️
+    </button>
 </div>
 
-<script>
-   document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("zone-form");
-    const addZoneBtn = document.getElementById("add-zone");
 
-    function getCSRFToken() {
-        return document.querySelector("[name=csrfmiddlewaretoken]").value;
-    }
+<div id="confirmDeleteModal" class="fixed inset-0 flex justify-center items-center bg-gray-600 bg-opacity-50 hidden z-50" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="bg-white p-6 rounded-md w-11/12 sm:w-1/3" role="document">
+        <h3 id="confirmDeleteModalLabel" class="text-xl font-semibold mb-4 text-center">Are you sure you want to delete this zone?</h3>
+        <p id="modalMessage" class="text-center mb-4 text-sm text-gray-700">This action cannot be undone.</p>
+        <div class="flex justify-center sm:justify-end space-x-4">
+            <button id="cancelDeleteBtn" class="bg-gray-500 text-white px-4 py-2 rounded-md" aria-label="Cancel deletion">Cancel</button>
+            <button id="confirmDeleteBtn" class="bg-red-500 text-white px-4 py-2 rounded-md" aria-label="Confirm deletion">Delete</button>
+        </div>
+    </div>
+</div>
 
-    function attachListeners(zone) {
-        let programType = zone.querySelector(".program-type");
-        let houseFields = zone.querySelector(".house-fields");
-        let generalFields = zone.querySelector(".general-fields");
-        let billableSection = zone.querySelector(".billable-section");
-        let billableFields = zone.querySelector(".billable-fields");
-        let billableRadios = zone.querySelectorAll(`input[name^="billable_repairs_"]`);
+    </form>
+    <!-- Modal Structure -->
+   
+    
+    
 
-        // Program Type Logic
-        programType.addEventListener("change", function () {
-            if (programType.value === "House") {
-                houseFields.classList.remove("hidden");
-                generalFields.classList.add("hidden");
-                billableSection.classList.add("hidden");
-                billableFields.classList.add("hidden");
+    <script>
+        let zoneIdToDelete = null;
+    
+        // Function to open the confirmation modal
+        function showConfirmDeleteModal(zoneId) {
+            zoneIdToDelete = zoneId; // Store the zone ID for later use
+            const modal = document.getElementById('confirmDeleteModal');
+            modal.classList.remove('hidden'); // Show the modal
+        }
+    
+        // Function to handle cancel action
+        function closeModal() {
+            const modal = document.getElementById('confirmDeleteModal');
+            modal.classList.add('hidden'); // Hide the modal
+        }
+    
+        // Event handler for cancel button in modal
+        document.getElementById('cancelDeleteBtn').addEventListener('click', closeModal);
+    
+        // Event handler for confirm button in modal
+        document.querySelectorAll('.deleteBtn').forEach(button => {
+    button.addEventListener('click', function () {
+        const zoneIdToDelete = this.dataset.zoneId;  // Assume your delete button has a data attribute like `data-zone-id`
+        const modal = document.getElementById('confirmDeleteModal');
+        
+        // Set the zone ID on the modal
+        modal.dataset.zoneId = zoneIdToDelete;
+
+        // Open the modal
+        modal.classList.remove('hidden');
+        modal.setAttribute('aria-hidden', 'false');
+    });
+});
+
+document.getElementById('cancelDeleteBtn').addEventListener('click', function () {
+    // Close the modal
+    const modal = document.getElementById('confirmDeleteModal');
+    modal.classList.add('hidden');
+    modal.setAttribute('aria-hidden', 'true');
+});
+
+document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
+    const modal = document.getElementById('confirmDeleteModal');
+    const zoneIdToDelete = modal.dataset.zoneId;  // Retrieve the zone ID from the modal's data attribute
+    
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    
+    const formData = new FormData();
+    formData.append('zone_id', zoneIdToDelete);
+    formData.append('csrfmiddlewaretoken', csrfToken);
+
+    fetch(`/zone/delete/102/`, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const zoneRow = document.getElementById(`zone-row-${zoneIdToDelete}`);
+            if (zoneRow) zoneRow.remove();
+            modal.classList.add('hidden');
+            modal.setAttribute('aria-hidden', 'true');
+        } else {
+            alert('Failed to delete the zone: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+
+    
+        // Function to handle the delete button click
+        function confirmDelete(event) {
+            event.preventDefault();  // Prevent the default link action
+            const zoneId = event.target.getAttribute('data-zone-id');  // Get the zone ID from the data attribute
+            showConfirmDeleteModal(zoneId);  // Show the confirmation modal
+        }
+    </script>
+    
+    
+
+    <script>
+        let currentIndex = 0;
+        let zoneForms = document.querySelectorAll('.zone-entry');
+        const prevButton = document.getElementById('prev-button');
+        const nextButton = document.getElementById('next-button');
+        const addAnotherZoneBtn = document.querySelector('button[name="add_another_zone"]');
+
+        function updateForms() {
+            zoneForms = document.querySelectorAll('.zone-entry');
+        }
+
+        function showForm(index) {
+            updateForms(); // Update form list
+
+            if (zoneForms.length > 1) {
+                prevButton.style.display = 'inline-block';
+                nextButton.style.display = 'inline-block';
             } else {
-                houseFields.classList.add("hidden");
-                generalFields.classList.remove("hidden");
-                billableSection.classList.remove("hidden");
+                prevButton.style.display = 'none';
+                nextButton.style.display = 'none';
+            }
+
+            zoneForms.forEach((form, i) => {
+                form.classList.toggle('hidden', i !== index);
+            });
+
+            prevButton.disabled = index === 0;
+            nextButton.disabled = index >= zoneForms.length - 1;
+        }
+
+        prevButton.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                showForm(currentIndex);
             }
         });
 
-        // Billable Repairs Logic
-        billableRadios.forEach(radio => {
-            radio.addEventListener("change", function () {
-                if (radio.checked && radio.value === "True") {
-                    billableFields.classList.remove("hidden");
-                } else {
+        nextButton.addEventListener('click', () => {
+            if (currentIndex < zoneForms.length - 1) {
+                currentIndex++;
+                showForm(currentIndex);
+            }
+        });
+
+        showForm(currentIndex);
+    </script>
+
+
+
+    <div>
+        {% if messages %}
+        {% for message in messages %}
+        {% if message.tags == 'success'%}
+        <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+        {% elif message.tags == 'info' %}
+        <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+        {% elif message.tags == 'warning' %}
+        <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+        {% elif message.tags == 'error' %}
+        <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("zone-form");
+        const addZoneBtn = document.getElementById("add-zone");
+
+        function getCSRFToken() {
+            return document.querySelector("[name=csrfmiddlewaretoken]").value;
+        }
+
+        function attachListeners(zone) {
+            let programType = zone.querySelector(".program-type");
+            let houseFields = zone.querySelector(".house-fields");
+            let generalFields = zone.querySelector(".general-fields");
+            let billableSection = zone.querySelector(".billable-section");
+            let billableFields = zone.querySelector(".billable-fields");
+            let billableRadios = zone.querySelectorAll(`input[name^="billable_repairs_"]`);
+
+            // Program Type Logic
+            programType.addEventListener("change", function () {
+                if (programType.value === "House") {
+                    houseFields.classList.remove("hidden");
                     billableFields.classList.add("hidden");
+                } else {
+                    houseFields.classList.add("hidden");
                 }
             });
-        });
-    }
 
-    // Attach listeners to the initial zone entry
-    attachListeners(document.querySelector(".zone-entry"));
+            // Billable Repairs Logic
+            billableRadios.forEach(radio => {
+                radio.addEventListener("change", function () {
+                    if (radio.checked && radio.value === "True") {
+                        billableFields.classList.remove("hidden");
+                    } else {
+                        billableFields.classList.add("hidden");
+                    }
+                });
+            });
+        }
 
-    addZoneBtn.addEventListener("click", function (event) {
-        event.preventDefault(); // Prevent full form submission
+        // Attach listeners to the initial zone entry
+        attachListeners(document.querySelector(".zone-entry"));
 
-        let formData = new FormData(form);
+        addZoneBtn.addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent full form submission
 
-        fetch(form.action, {
-            method: "POST",
-            body: formData,
-            headers: {
-                "X-CSRFToken": getCSRFToken(),
-            },
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                console.log("Zone saved:", data);
-                resetZoneForm();  // Clear form for new entry
-            } else {
-                console.error("Errors:", data.errors);
-                alert("Error saving zone. Please check input.");
-            }
-        })
-        .catch(error => console.error("Error:", error));
-    });
-
-    function resetZoneForm() {
-        document.querySelectorAll("#zone-form input, #zone-form select").forEach(field => {
-            if (field.type !== "hidden") {
-                field.value = "";
-            }
-        });
-
-        // Reset hidden field logic when clearing
-        document.querySelector(".house-fields").classList.add("hidden");
-        document.querySelector(".general-fields").classList.remove("hidden");
-        document.querySelector(".billable-section").classList.remove("hidden");
-        document.querySelector(".billable-fields").classList.add("hidden");
-    }
-
-    // Handle "Next" button to navigate to step 3
-    const nextButton = document.querySelector("#next-button");
-    if (nextButton) {
-        nextButton.addEventListener("click", function (event) {
-            event.preventDefault();
-            
             let formData = new FormData(form);
+
             fetch(form.action, {
                 method: "POST",
                 body: formData,
@@ -304,21 +643,61 @@ Next ➡️
                     "X-CSRFToken": getCSRFToken(),
                 },
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    window.location.href = "/step3/"; // Redirect to step3
-                } else {
-                    console.error("Errors:", data.errors);
-                    alert("Error saving zone. Please check input.");
-                }
-            })
-            .catch(error => console.error("Error:", error));
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Zone saved:", data);
+                        resetZoneForm();  // Clear form for new entry
+                    } else {
+                        console.error("Errors:", data.errors);
+                        alert("Error saving zone. Please check input.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
         });
-    }
-});
 
-    </script>
-    
-    
+        function resetZoneForm() {
+            document.querySelectorAll("#zone-form input, #zone-form select").forEach(field => {
+                if (field.type !== "hidden") {
+                    field.value = "";
+                }
+            });
+
+            // Reset hidden field logic when clearing
+            document.querySelector(".house-fields").classList.add("hidden");
+            document.querySelector(".general-fields").classList.remove("hidden");
+            document.querySelector(".billable-section").classList.remove("hidden");
+            document.querySelector(".billable-fields").classList.add("hidden");
+        }
+
+        // Handle "Next" button to navigate to step 3
+        const nextButton = document.querySelector("#next-button");
+        if (nextButton) {
+            nextButton.addEventListener("click", function (event) {
+                event.preventDefault();
+
+                let formData = new FormData(form);
+                fetch(form.action, {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        "X-CSRFToken": getCSRFToken(),
+                    },
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            window.location.href = "/step3/"; // Redirect to step3
+                        } else {
+                            console.error("Errors:", data.errors);
+                            alert("Error saving zone. Please check input.");
+                        }
+                    })
+                    .catch(error => console.error("Error:", error));
+            });
+        }
+    });
+
+</script>
+
 {% endblock %}

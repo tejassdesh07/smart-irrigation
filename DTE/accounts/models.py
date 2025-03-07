@@ -1,12 +1,15 @@
 from django.db import models
 
 
+from django.db import models
+from django.contrib.auth.models import User
+
 class IrrigationReport(models.Model):
-    technician = models.CharField(max_length=255)
-    customer = models.CharField(max_length=255)
-    report_type = models.CharField(max_length=255)
-    controller_name = models.CharField(max_length=255)
-    date = models.DateField()
+    technician = models.CharField(max_length=255)  # Will be prefilled but editable
+    customer = models.CharField(max_length=100)  # Limit set to 100
+    report_type = models.CharField(max_length=30)  # Limit set to 30
+    controller_name = models.CharField(max_length=30)  # Limit set to 30
+    date = models.DateField()  # We will enforce the date validation in the form
     programs_needed = models.BooleanField(default=False)
     
     weather_sensor_checked = models.BooleanField(default=False)
@@ -20,7 +23,7 @@ class IrrigationReport(models.Model):
         ],
         blank=True, null=True
     )
-    controller_make_model = models.CharField(max_length=255, blank=True, null=True)
+    controller_make_model = models.CharField(max_length=30, blank=True, null=True)  # Limit set to 30
     
     poc_info = models.CharField(
         max_length=50, choices=[
@@ -35,19 +38,20 @@ class IrrigationReport(models.Model):
     pump_status_type = models.CharField(
         max_length=50, choices=[
             ('pressurized', 'Pressurized'),
+            ('reclaimed', 'Reclaimed'),
             ('pumpStart', 'Pump Start'),
             ('centrifugal', 'Centrifugal'),
-            ('submersible', 'Submersible')
+            ('submersible', 'Submersible'),
+            ('meterPoc', 'Meter POC')
         ]
     )
 
-
 class IrrigationProgram(models.Model):
     report = models.ForeignKey(IrrigationReport, on_delete=models.CASCADE, related_name="programs", null=True, blank=True)
-    program_name = models.CharField(max_length=10)
+    program_name = models.CharField(max_length=30)  # Limit set to 30
     start_time = models.TimeField(null=True, blank=True)
     seasonal_adjustment = models.CharField(max_length=10, null=True, blank=True)
-    run_days = models.JSONField(default=list)
+    run_days = models.JSONField(default=list)  # Stores selected run days as a JSON list
 
 class IrrigationZone(models.Model):
     report = models.ForeignKey(IrrigationReport, on_delete=models.CASCADE, related_name="zones", null=True, blank=True)
@@ -59,7 +63,7 @@ class IrrigationZone(models.Model):
     run_time_schedule = models.CharField(max_length=255, blank=True, null=True)
     run_days = models.CharField(max_length=255, blank=True, null=True)
     
-    power_type = models.CharField(max_length=50, choices=[('Battery', 'Battery'), ('Doubler', 'Doubler')], blank=True, null=True)
+    power_type = models.CharField(max_length=50, choices=[('Battery', 'Battery'), ('Solar', 'Solar'), ('Hardwire', 'Hardwire')], blank=True, null=True)
     zone_faults = models.BooleanField(default=False, null=True, blank=True)
     checked_filters = models.BooleanField(default=False, null=True, blank=True)
     clogged_nozzles = models.BooleanField(default=False, null=True, blank=True)
@@ -69,8 +73,9 @@ class IrrigationZone(models.Model):
     head_broken_6 = models.IntegerField(default=0, null=True, blank=True)
     head_broken_12 = models.IntegerField(default=0, null=True, blank=True)
     broken_riser = models.IntegerField(default=0, null=True, blank=True)
-    upgrade_46_popup = models.IntegerField(default=0, null=True, blank=True)
-    upgrade_612_popup = models.IntegerField(default=0, null=True, blank=True)
+    upgrade_4_popup = models.IntegerField(default=0, null=True, blank=True)
+    upgrade_6_popup = models.IntegerField(default=0, null=True, blank=True)
+    upgrade_12_popup = models.IntegerField(default=0, null=True, blank=True)
     nozzle_mpr = models.IntegerField(default=0, null=True, blank=True)
     nozzle_mp_rotator = models.IntegerField(default=0, null=True, blank=True)
     

@@ -1,1 +1,8 @@
 env/
+DTE/accounts/__pycache__/
+DTE/staticfiles/
+DTE/venv/
+DTE/accounts/migrations/__pycache__/
+
+DTE/accounts/__pycache__
+DTE/accounts/__pycache__/*

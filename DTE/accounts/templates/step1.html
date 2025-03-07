@@ -2,18 +2,26 @@
 {% block title %}Step 1: Irrigation Report{% endblock %}
 {% block content %}
 {% load widget_tweaks %}
+<!-- Toastr CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<!-- jQuery (Required for Toastr) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include Toastr JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <div class="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-6 mt-6">
     <h2 class="text-2xl font-semibold text-gray-800 mb-6">Step 1: Irrigation Report</h2>
-    
     <form method="post" class="space-y-4">
         {% csrf_token %}
         
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
                 <label class="text-gray-700 font-medium">Technician <span class="text-red-500">*</span></label>
-                {{ form.technician|add_class:"w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200" }}
+                <input type="text" name="technician" 
+                       class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200" 
+                       value="{{ form.technician.value|default:user.username }}">
             </div>
+            
             <div>
                 <label class="text-gray-700 font-medium">Customer <span class="text-red-500">*</span></label>
                 {{ form.customer|add_class:"w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200" }}
@@ -64,7 +72,7 @@
         </div>
         
         <div id="controller-make-model-field" class="hidden">
-            <label class="text-gray-700 font-medium">Controller Make/Model</label>
+            <label class="text-gray-700 font-medium">Controller Make/Model <span class="text-red-500">*</span></label>
             {{ form.controller_make_model|add_class:"w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200" }}
         </div>
         
@@ -98,30 +106,105 @@
             <h3 class="text-lg font-semibold text-gray-700">Program A</h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                 <div>
-                    <label class="text-gray-700 font-medium">Program Name</label>
+                    <label class="text-gray-700 font-medium">Program Name <span class="text-red-500">*</span></label>
                     <input type="text" name="program_1" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
                 </div>
                 <div>
-                    <label class="text-gray-700 font-medium">Start Time</label>
+                    <label class="text-gray-700 font-medium">Start Time <span class="text-red-500">*</span></label>
                     <input type="time" name="start_time_1" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
                 </div>
                 <div>
                     <label class="text-gray-700 font-medium">Seasonal Adjustment</label>
                     <input type="text" name="seasonal_adjustment_1" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
                 </div>
-                <div>
-                    <label class="text-gray-700 font-medium">Run Days</label>
-                    <select name="run_days_1" multiple class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
-                        <option value="monday">Monday</option>
-                        <option value="tuesday">Tuesday</option>
-                        <option value="wednesday">Wednesday</option>
-                        <option value="thursday">Thursday</option>
-                        <option value="friday">Friday</option>
-                        <option value="saturday">Saturday</option>
-                        <option value="sunday">Sunday</option>
-                    </select>
-                </div>
-            </div>
+                <div class="relative w-full">
+                    <!-- Dropdown Button -->
+                    <label class="text-gray-700 font-medium">Run days <span class="text-red-500">*</span></label>
+                    <button id="dropdownButton" class="w-full p-2 border rounded-md flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
+                        <span id="selectedValues">Select Days</span>
+                        <svg class="w-4 h-4 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                
+                    
+<div id="dropdownMenu" class="absolute w-full bg-white border rounded-md shadow-md hidden mt-1 z-10">
+    <div class="p-2 max-h-48 overflow-y-auto">
+        <label class="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
+            <input type="checkbox" name="run_days_1" value="monday" class="form-checkbox text-blue-500 prevent-submit">
+            <span>Monday</span>
+        </label>
+        <label class="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
+            <input type="checkbox" name="run_days_1" value="tuesday" class="form-checkbox text-blue-500 prevent-submit">
+            <span>Tuesday</span>
+        </label>
+        <label class="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
+            <input type="checkbox" name="run_days_1" value="wednesday" class="form-checkbox text-blue-500 prevent-submit">
+            <span>Wednesday</span>
+        </label>
+        <label class="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
+            <input type="checkbox" name="run_days_1" value="thursday" class="form-checkbox text-blue-500 prevent-submit">
+            <span>Thursday</span>
+        </label>
+        <label class="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
+            <input type="checkbox" name="run_days_1" value="friday" class="form-checkbox text-blue-500 prevent-submit">
+            <span>Friday</span>
+        </label>
+        <label class="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
+            <input type="checkbox" name="run_days_1" value="saturday" class="form-checkbox text-blue-500 prevent-submit">
+            <span>Saturday</span>
+        </label>
+        <label class="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
+            <input type="checkbox" name="run_days_1" value="sunday" class="form-checkbox text-blue-500 prevent-submit">
+            <span>Sunday</span>
+        </label>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const dropdownButton = document.getElementById("dropdownButton");
+    const dropdownMenu = document.getElementById("dropdownMenu");
+    const checkboxes = dropdownMenu.querySelectorAll("input[type='checkbox']");
+    const selectedValues = document.getElementById("selectedValues");
+
+    // Prevent checkboxes from submitting the form
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener("click", function (event) {
+            event.stopPropagation(); // Stop event from bubbling
+        });
+    });
+
+    // Toggle dropdown visibility
+    dropdownButton.addEventListener("click", function (event) {
+        event.preventDefault(); // Prevent default button behavior
+        dropdownMenu.classList.toggle("hidden");
+    });
+
+    // Update selected values display
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener("change", function () {
+            let selectedOptions = [];
+            checkboxes.forEach(chk => {
+                if (chk.checked) {
+                    selectedOptions.push(chk.nextElementSibling.innerText);
+                }
+            });
+            selectedValues.innerText = selectedOptions.length > 0 ? selectedOptions.join(", ") : "Select Days";
+        });
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener("click", function (event) {
+        if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+            dropdownMenu.classList.add("hidden");
+        }
+    });
+});
+</script>
+
+</div></div>
+            
 
             <div id="more-programs" class="mt-6"></div>
             
@@ -133,86 +216,167 @@
         <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-md text-lg font-semibold shadow-md hover:bg-green-700 transition duration-200">
             Next ➡️
         </button>
+        {% if messages %}
+        {% for message in messages %}
+            <div class="toast-message" data-message="{{ message }}" data-tag="{{ message.tags }}"></div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Include jQuery -->
+    
+
+    <script>
+        $(document).ready(function() {
+            $('.toast-message').each(function() {
+                var message = $(this).data('message');
+                var tag = $(this).data('tag');
+                if (tag) {
+                    toastr[tag](message);
+                } else {
+                    toastr.info(message);
+                }
+            });
+        });
+    </script>
+        
     </form>
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const programsYes = document.getElementById("programs_yes");
-        const programsNo = document.getElementById("programs_no");
-        const programFields = document.getElementById("program-fields");
-        const addMoreProgramBtn = document.getElementById("add-more-program");
-        const moreProgramsDiv = document.getElementById("more-programs");
-    
-        let programCount = 1;  // Program A is already set
-        const maxPrograms = 4; // A to D
-    
-        // Map of days for easy display in the form
-        const dayNames = {
-            "monday": "Monday",
-            "tuesday": "Tuesday",
-            "wednesday": "Wednesday",
-            "thursday": "Thursday",
-            "friday": "Friday",
-            "saturday": "Saturday",
-            "sunday": "Sunday"
-        };
-    
-        function toggleProgramFields() {
-            programFields.style.display = programsYes.checked ? "block" : "none";
-            moreProgramsDiv.innerHTML = ""; // Clear additional fields
-            programCount = 1;
-        }
-    
-        programsYes.addEventListener("change", toggleProgramFields);
-        programsNo.addEventListener("change", toggleProgramFields);
-    
-        addMoreProgramBtn.addEventListener("click", function() {
-            if (programCount < maxPrograms) {
-                programCount++;
-                const programLetter = String.fromCharCode(64 + programCount); // A = 65 in ASCII
-                
-                const newField = document.createElement("div");
-                newField.classList.add("bg-gray-100", "p-4", "rounded-md", "shadow-sm", "mt-6");
-    
-                newField.innerHTML = `
-                    <h3 class="text-lg font-semibold text-gray-700">Program ${programLetter}</h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-                        <div>
-                            <label class="text-gray-700 font-medium">Program Name</label>
-                            <input type="text" name="program_${programCount}" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
-                        </div>
-                        <div>
-                            <label class="text-gray-700 font-medium">Start Time</label>
-                            <input type="time" name="start_time_${programCount}" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
-                        </div>
-                        <div>
-                            <label class="text-gray-700 font-medium">Seasonal Adjustment</label>
-                            <input type="text" name="seasonal_adjustment_${programCount}" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
-                        </div>
-                        <div>
-                            <label class="text-gray-700 font-medium">Run Days</label>
-                            <select name="run_days_${programCount}" multiple class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
-                                <option value="monday">Monday</option>
-                                <option value="tuesday">Tuesday</option>
-                                <option value="wednesday">Wednesday</option>
-                                <option value="thursday">Thursday</option>
-                                <option value="friday">Friday</option>
-                                <option value="saturday">Saturday</option>
-                                <option value="sunday">Sunday</option>
-                            </select>
+   document.addEventListener("DOMContentLoaded", function () {
+    const programsYes = document.getElementById("programs_yes");
+    const programsNo = document.getElementById("programs_no");
+    const programFields = document.getElementById("program-fields");
+    const addMoreProgramBtn = document.getElementById("add-more-program");
+    const moreProgramsDiv = document.getElementById("more-programs");
+
+    let programCount = 1;  // Program A is already set
+    const maxPrograms = 4; // A to D
+
+    const dayNames = {
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday",
+        "sunday": "Sunday"
+    };
+
+    function toggleProgramFields() {
+        programFields.style.display = programsYes.checked ? "block" : "none";
+        moreProgramsDiv.innerHTML = ""; // Clear additional fields
+        programCount = 1;
+    }
+
+    programsYes.addEventListener("change", toggleProgramFields);
+    programsNo.addEventListener("change", toggleProgramFields);
+
+    addMoreProgramBtn.addEventListener("click", function () {
+    if (programCount < maxPrograms) {
+        programCount++;
+        const programLetter = String.fromCharCode(64 + programCount); // A = 65 in ASCII
+
+        const newField = document.createElement("div");
+        newField.classList.add("bg-gray-100", "p-4", "rounded-md", "shadow-sm", "mt-6");
+
+        newField.innerHTML = `
+            <h3 class="text-lg font-semibold text-gray-700">Program ${programLetter}</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                <div>
+                    <label class="text-gray-700 font-medium">Program Name <span class="text-red-500">*</span></label>
+                    <input type="text" name="program_${programCount}" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
+                </div>
+                <div>
+                    <label class="text-gray-700 font-medium">Start Time <span class="text-red-500">*</span></label>
+                    <input type="time" name="start_time_${programCount}" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
+                </div>
+                <div>
+                    <label class="text-gray-700 font-medium">Seasonal Adjustment</label>
+                    <input type="text" name="seasonal_adjustment_${programCount}" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
+                </div>
+                <div>
+                    <label class="text-gray-700 font-medium">Run Days <span class="text-red-500">*</span></label>
+                    <div class="relative w-full">
+                        <button type="button" class="dropdown-btn w-full p-2 border rounded-md flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
+                            <span class="selected-values">Select Days</span>
+                            <svg class="w-4 h-4 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu absolute w-full bg-white border rounded-md shadow-md hidden mt-1 z-10">
+                            <div class="p-2 max-h-48 overflow-y-auto">
+                                ${Object.keys(dayNames).map(day => `
+                                    <label class="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
+                                        <input type="checkbox" name="run_days_${programCount}" value="${day}" class="form-checkbox text-blue-500">
+                                        <span>${dayNames[day]}</span>
+                                    </label>
+                                `).join("")}
+                            </div>
                         </div>
                     </div>
-                `;
-                moreProgramsDiv.appendChild(newField);
-            }
-            if (programCount === maxPrograms) {
-                addMoreProgramBtn.style.display = "none";
+                </div>
+            </div>
+            <!-- Add Delete Button -->
+            <button type="button" 
+        class="delete-program-btn mt-4 px-4 py-2 text-white bg-red-500 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300 transition duration-300 ease-in-out">
+    Delete Program ${programLetter}
+</button>
+
+        `;
+
+        moreProgramsDiv.appendChild(newField);
+        initializeDropdown(newField); // Ensure new dropdown works
+
+        // Add the delete button functionality
+        const deleteButton = newField.querySelector(".delete-program-btn");
+        deleteButton.addEventListener("click", function() {
+            newField.remove(); // Remove the program field
+            programCount--; // Decrease the program count
+            if (programCount < maxPrograms) {
+                addMoreProgramBtn.style.display = "inline-block"; // Show "Add More" button if space is available
             }
         });
-    
-        toggleProgramFields(); // Ensure initial state is correct
-    
+    }
+    if (programCount === maxPrograms) {
+        addMoreProgramBtn.style.display = "none"; // Hide the "Add More" button if max programs reached
+    }
+});
+
+
+    toggleProgramFields(); // Ensure initial state is correct
+
+    function initializeDropdown(context) {
+        const dropdownButton = context.querySelector(".dropdown-btn");
+        const dropdownMenu = context.querySelector(".dropdown-menu");
+        const checkboxes = dropdownMenu.querySelectorAll("input[type='checkbox']");
+        const selectedValues = context.querySelector(".selected-values");
+
+        dropdownButton.addEventListener("click", function () {
+            dropdownMenu.classList.toggle("hidden");
+        });
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener("change", function () {
+                let selectedOptions = [];
+                checkboxes.forEach(chk => {
+                    if (chk.checked) {
+                        selectedOptions.push(chk.nextElementSibling.innerText);
+                    }
+                });
+                selectedValues.innerText = selectedOptions.length > 0 ? selectedOptions.join(", ") : "Select Days";
+            });
+        });
+
+        document.addEventListener("click", function (event) {
+            if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.classList.add("hidden");
+            }
+        });
+    }
+
+    initializeDropdown(document);
+
         // Map selected run days to full names when form is submitted
         function getSelectedDays(selectElement) {
             const selectedOptions = Array.from(selectElement.selectedOptions);
