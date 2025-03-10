@@ -217,7 +217,7 @@ def step2(request, zone_id=None):
         request,
         "step2.html",
         {
-            "form": IrrigationZoneForm(instance=current_zone),
+            "form": IrrigationZoneForm(instance=current_zone, report=report),
             "current_zone": current_zone,
             "prev_zone": prev_zone,
             "next_zone": next_zone,

@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
+import os
 
 from pathlib import Path
 
@@ -25,7 +26,9 @@ SECRET_KEY = 'django-insecure-$ad2q6n%w)-oxe3+lrzn@$w8w$ma%f7zhu5_x!arri@oeq)t0y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = ['160.153.175.117']
+
 
 
 # Application definition
@@ -70,6 +73,15 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'DTE.wsgi.application'
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'debug',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'error',
+}
 
 
 # Database
@@ -81,6 +93,16 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'dte',  # The name of your database
+#         'USER': 'dte_user',  # The username you created
+#         'PASSWORD': '12345',  # The password for the user
+#         'HOST': 'localhost',  # The host, usually localhost
+#         'PORT': '5432',  # Default PostgreSQL port
+#     }
+# }
 
 
 # Password validation
@@ -116,8 +138,20 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
+# settings.py
 
-STATIC_URL = 'static/'
+# The URL to use when referring to static files (e.g., in a web browser)
+STATIC_URL = '/static/'
+
+# settings.py
+
+# The directory where static files will be collected during `collectstatic` (in production)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Additional directories to search for static files (don't include STATIC_ROOT here)
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # Your custom static directory
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

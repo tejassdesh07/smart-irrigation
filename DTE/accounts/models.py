@@ -59,7 +59,7 @@ class IrrigationZone(models.Model):
     zone_type = models.CharField(max_length=50, choices=[
         ('Spray', 'Spray'), ('Rotor', 'Rotor'), ('MP', 'MP'), ('Drip', 'Drip'), ('Bubbler', 'Bubbler')
     ], null=True, blank=True)
-    program_type = models.CharField(max_length=10, choices=[('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D'), ('House', 'House')], null=True, blank=True)
+    program_type = models.CharField(max_length=10, null=True, blank=True)
     run_time_schedule = models.CharField(max_length=255, blank=True, null=True)
     run_days = models.CharField(max_length=255, blank=True, null=True)
     

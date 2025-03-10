@@ -104,11 +104,14 @@ class IrrigationProgramForm(forms.ModelForm):
 
 from django import forms
 from .models import IrrigationZone
+import string
+
 class StyledRadioSelect(forms.RadioSelect):
     template_name = "widgets/styled_radio.html"  # Create this template
 
 class IrrigationZoneForm(forms.ModelForm):
     YES_NO_CHOICES = [(True, 'Yes'), (False, 'No')]
+    
     zone_number = forms.IntegerField(required=True, label="Zone Number")  # Ensure it's required
     zone_faults = forms.ChoiceField(choices=YES_NO_CHOICES, widget=StyledRadioSelect(), label="Zone Faults?", required=False, initial=False)
     checked_filters = forms.ChoiceField(choices=YES_NO_CHOICES, widget=StyledRadioSelect(), label="Checked Filters?", required=False, initial=True)
@@ -129,6 +132,8 @@ class IrrigationZoneForm(forms.ModelForm):
     rain_sensor_operating = forms.ChoiceField(choices=YES_NO_CHOICES, widget=StyledRadioSelect(), label="Rain Sensor Operating?", required=False, initial=False)
     controller_operating = forms.ChoiceField(choices=YES_NO_CHOICES, widget=StyledRadioSelect(), label="Controller Operating?", required=False, initial=False)
 
+    program_type = forms.ChoiceField(choices=[], widget=forms.Select(attrs={'class': 'w-full p-2 border rounded-md'}), label="Program Type")
+
     class Meta:
         model = IrrigationZone
         exclude = ['report']
@@ -136,16 +141,21 @@ class IrrigationZoneForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         report = kwargs.pop('report', None)
         super().__init__(*args, **kwargs)
-        self.fields['program_type'].choices = self.get_program_type_choices(report)
+        self.fields['program_type'].choices = [('', 'Select a Program')] + self.get_program_type_choices(report)
+
 
     def get_program_type_choices(self, report):
+        """Generates dynamic choices based on the number of programs for the report."""
         base_choices = [('House', 'House')]
+        print(report)
         if report:
             program_count = IrrigationProgram.objects.filter(report=report).count()
-            program_choices = [('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D')][:program_count]
+            program_choices = [(letter, letter) for letter in string.ascii_uppercase[:program_count]]
+            print(program_choices)
+            print(program_count)
+            print(program_choices + base_choices)
             return program_choices + base_choices
         return base_choices
-
 
 class AccountManagerContactForm(forms.ModelForm):
     class Meta:

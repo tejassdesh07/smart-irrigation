@@ -2132,3 +2132,472 @@ System check identified 1 issue (0 silenced).
 [07/Mar/2025 13:35:57] "GET /accounts/reports/70/ HTTP/1.1" 200 17194
 [07/Mar/2025 13:36:01] "GET /accounts/reports/70/ HTTP/1.1" 200 17194
 [07/Mar/2025 13:36:07] "GET /accounts/report/70/pdf/ HTTP/1.1" 200 7189
+[07/Mar/2025 13:40:54,345] - Broken pipe from ('63.209.124.42', 57480)
+[07/Mar/2025 13:40:54,345] - Broken pipe from ('63.209.124.42', 57474)
+[07/Mar/2025 13:44:35] "GET / HTTP/1.1" 302 0
+[07/Mar/2025 13:47:06] "POST /accounts/signin/ HTTP/1.1" 302 0
+[07/Mar/2025 13:47:06] "GET /accounts/ HTTP/1.1" 200 27860
+[07/Mar/2025 13:48:16] "POST /accounts/ HTTP/1.1" 302 0
+[07/Mar/2025 13:48:16] "GET /accounts/step2/ HTTP/1.1" 200 47477
+[07/Mar/2025 13:49:22] "POST /accounts/step2/ HTTP/1.1" 200 58143
+[07/Mar/2025 13:49:40] "POST /accounts/step2/ HTTP/1.1" 200 68815
+[07/Mar/2025 13:49:56] "POST /accounts/step2/ HTTP/1.1" 200 79486
+[07/Mar/2025 13:51:39] "POST /accounts/step2/ HTTP/1.1" 302 0
+[07/Mar/2025 13:51:39] "GET /accounts/step3/ HTTP/1.1" 200 9292
+[07/Mar/2025 13:52:14] "POST /accounts/step2/ HTTP/1.1" 200 47624
+[07/Mar/2025 13:52:18] "POST /accounts/step2/ HTTP/1.1" 200 47624
+[07/Mar/2025 13:52:43] "POST /accounts/step2/ HTTP/1.1" 200 47624
+[07/Mar/2025 13:52:49] "POST /accounts/step2/ HTTP/1.1" 200 47624
+[07/Mar/2025 13:52:54] "POST /accounts/step2/ HTTP/1.1" 200 47624
+[07/Mar/2025 13:53:08] "POST /accounts/step2/ HTTP/1.1" 200 47624
+[07/Mar/2025 13:53:11] "POST /accounts/step2/ HTTP/1.1" 200 47624
+[07/Mar/2025 13:53:32] "POST /accounts/step2/ HTTP/1.1" 200 47624
+[07/Mar/2025 13:53:36] "POST /accounts/step2/ HTTP/1.1" 200 47624
+[07/Mar/2025 13:53:44] "GET /accounts/step2/ HTTP/1.1" 200 90154
+[07/Mar/2025 13:53:47] "POST /accounts/step2/ HTTP/1.1" 200 47624
+[07/Mar/2025 13:53:49] "POST /accounts/step2/ HTTP/1.1" 200 47624
+[07/Mar/2025 13:53:49] "POST /accounts/step2/ HTTP/1.1" 200 47624
+[07/Mar/2025 13:53:50] "POST /accounts/step2/ HTTP/1.1" 200 47624
+[07/Mar/2025 13:53:50] "POST /accounts/step2/ HTTP/1.1" 200 47624
+[07/Mar/2025 13:53:58] "GET /accounts/reports/ HTTP/1.1" 200 40010
+[07/Mar/2025 13:54:02] "GET /accounts/reports/73/ HTTP/1.1" 200 19588
+[07/Mar/2025 13:54:07] "GET /accounts/report/73/pdf/ HTTP/1.1" 200 7765
+[07/Mar/2025 13:54:34] "GET /accounts/ HTTP/1.1" 200 27737
+[07/Mar/2025 14:27:20] code 400, message Bad request syntax ('MGLNDD_160.153.175.117_8000')
+[07/Mar/2025 14:27:20] "MGLNDD_160.153.175.117_8000" 400 -
+[07/Mar/2025 15:54:31] "GET /accounts/ HTTP/1.1" 302 0
+[07/Mar/2025 15:54:32] "GET /accounts/login/?next=/accounts/ HTTP/1.1" 200 1964
+Not Found: /favicon.ico
+[07/Mar/2025 15:54:33] "GET /favicon.ico HTTP/1.1" 404 2506
+[07/Mar/2025 15:54:33] "GET /accounts/ HTTP/1.1" 302 0
+[07/Mar/2025 15:54:35] "GET /accounts/ HTTP/1.1" 302 0
+Not Found: /favicon.ico
+[07/Mar/2025 15:54:39] "GET /favicon.ico HTTP/1.1" 404 2506
+[07/Mar/2025 15:54:39] "GET /accounts/ HTTP/1.1" 302 0
+[07/Mar/2025 15:54:39] "GET /accounts/login/?next=/accounts/ HTTP/1.1" 200 1964
+[07/Mar/2025 15:55:12] "GET /accounts/ HTTP/1.1" 200 28328
+[07/Mar/2025 15:56:27] "POST /accounts/ HTTP/1.1" 302 0
+[07/Mar/2025 15:56:27] "GET /accounts/step2/ HTTP/1.1" 200 47477
+[07/Mar/2025 15:56:46] "POST /accounts/step2/ HTTP/1.1" 200 58149
+[07/Mar/2025 15:57:28] "POST /accounts/step2/ HTTP/1.1" 302 0
+[07/Mar/2025 15:57:29] "GET /accounts/step3/ HTTP/1.1" 200 9292
+[07/Mar/2025 15:57:31] "POST /accounts/step3/ HTTP/1.1" 302 0
+[07/Mar/2025 15:57:31] "GET /accounts/reports/ HTTP/1.1" 200 40489
+[07/Mar/2025 15:57:33] "GET /accounts/reports/74/ HTTP/1.1" 200 15947
+[07/Mar/2025 15:57:37] "GET /accounts/report/74/pdf/ HTTP/1.1" 200 7408
+[07/Mar/2025 16:27:25] code 400, message Bad request version ('À\x14À')
+[07/Mar/2025 16:27:25] You're accessing the development server over HTTPS, but it only supports HTTP.
+[07/Mar/2025 16:27:25] code 400, message Bad request version ('À\x14À')
+[07/Mar/2025 16:27:25] You're accessing the development server over HTTPS, but it only supports HTTP.
+[07/Mar/2025 16:27:25] "GET / HTTP/1.1" 302 0
+[07/Mar/2025 16:27:25] "GET /accounts/login/ HTTP/1.1" 200 1964
+Not Found: /login
+[07/Mar/2025 16:27:25] "GET /login HTTP/1.1" 404 2488
+Not Found: /playlist.m3u
+[07/Mar/2025 23:21:35] "HEAD /playlist.m3u HTTP/1.1" 404 0
+[07/Mar/2025 23:22:32] "GET / HTTP/1.0" 302 0
+[08/Mar/2025 01:05:32] "GET / HTTP/1.0" 302 0
+[08/Mar/2025 02:41:22] "GET / HTTP/1.1" 302 0
+[08/Mar/2025 02:43:08,155] - Broken pipe from ('198.235.24.46', 64122)
+[08/Mar/2025 05:53:41] code 400, message Bad request syntax ('MGLNDD_160.153.175.117_8000')
+[08/Mar/2025 05:53:41] "MGLNDD_160.153.175.117_8000" 400 -
+[08/Mar/2025 07:45:20] "GET / HTTP/1.0" 302 0
+[08/Mar/2025 08:06:51] "GET / HTTP/1.1" 302 0
+[08/Mar/2025 08:06:52] "GET /accounts/login/ HTTP/1.1" 200 1964
+[08/Mar/2025 09:03:27] "GET / HTTP/1.1" 302 0
+[08/Mar/2025 09:03:28] "GET /accounts/login/ HTTP/1.1" 200 1964
+[08/Mar/2025 09:32:45] "GET / HTTP/1.1" 302 0
+[08/Mar/2025 09:32:49] "GET / HTTP/1.1" 302 0
+[08/Mar/2025 09:32:49] "GET /accounts/login/ HTTP/1.1" 200 1964
+Not Found: /favicon.ico
+[08/Mar/2025 09:32:59] "GET /favicon.ico HTTP/1.1" 404 2506
+Invalid HTTP_HOST header: 'api.ipify.org'. You may need to add 'api.ipify.org' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/dteforms/smart-irrigation/DTE/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dteforms/smart-irrigation/DTE/venv/lib/python3.12/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dteforms/smart-irrigation/DTE/venv/lib/python3.12/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/dteforms/smart-irrigation/DTE/venv/lib/python3.12/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'api.ipify.org'. You may need to add 'api.ipify.org' to ALLOWED_HOSTS.
+Bad Request: /http:/api.ipify.org/
+[08/Mar/2025 09:33:01] "GET http://api.ipify.org/?format=json HTTP/1.1" 400 66111
+Invalid HTTP_HOST header: 'www.shadowserver.org'. You may need to add 'www.shadowserver.org' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/dteforms/smart-irrigation/DTE/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dteforms/smart-irrigation/DTE/venv/lib/python3.12/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dteforms/smart-irrigation/DTE/venv/lib/python3.12/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/dteforms/smart-irrigation/DTE/venv/lib/python3.12/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'www.shadowserver.org'. You may need to add 'www.shadowserver.org' to ALLOWED_HOSTS.
+Bad Request: /www.shadowserver.org:443
+[08/Mar/2025 09:33:04] "CONNECT www.shadowserver.org:443 HTTP/1.1" 400 66289
+[08/Mar/2025 09:45:28] "GET / HTTP/1.1" 302 0
+[08/Mar/2025 09:45:28] "GET /accounts/login/ HTTP/1.1" 200 1964
+[08/Mar/2025 13:32:29] "GET / HTTP/1.1" 302 0
+[08/Mar/2025 13:32:50,186] - Broken pipe from ('147.185.132.112', 61458)
+[08/Mar/2025 14:36:10] code 400, message Bad request version ('\x00\x9eÌ¨Ìª\x003\x00=\x00\x16À')
+[08/Mar/2025 14:36:10] You're accessing the development server over HTTPS, but it only supports HTTP.
+[08/Mar/2025 14:36:20] "GET / HTTP/1.1" 302 0
+[08/Mar/2025 14:36:38] "GET /accounts/login/ HTTP/1.1" 200 1964
+Not Found: /favicon.ico
+[08/Mar/2025 14:36:39] "GET /favicon.ico HTTP/1.1" 404 2506
+Not Found: /robots.txt
+[08/Mar/2025 14:36:39] "GET /robots.txt HTTP/1.1" 404 2503
+Not Found: /sitemap.xml
+[08/Mar/2025 14:36:40] "GET /sitemap.xml HTTP/1.1" 404 2506
+Not Found: /config.json
+[08/Mar/2025 14:36:40] "GET /config.json HTTP/1.1" 404 2506
+[08/Mar/2025 18:30:31] "GET / HTTP/1.1" 302 0
+[08/Mar/2025 18:30:34] code 505, message Invalid HTTP version (2.0)
+[08/Mar/2025 18:30:34] "PRI * HTTP/2.0" 505 -
+[08/Mar/2025 18:30:44] "GET /accounts/login/ HTTP/1.1" 200 1964
+Not Found: /favicon.ico
+[08/Mar/2025 18:30:54] "GET /favicon.ico HTTP/1.1" 404 2506
+[08/Mar/2025 18:30:56] code 505, message Invalid HTTP version (2.0)
+[08/Mar/2025 18:30:56] "PRI * HTTP/2.0" 505 -
+Not Found: /favicon.ico
+[08/Mar/2025 18:31:11] "GET /favicon.ico HTTP/1.1" 404 2506
+[08/Mar/2025 18:31:12] code 400, message Bad request version ('À\x14À')
+[08/Mar/2025 18:31:12] You're accessing the development server over HTTPS, but it only supports HTTP.
+[08/Mar/2025 18:34:40] "GET / HTTP/1.1" 302 0
+[08/Mar/2025 18:34:43] code 505, message Invalid HTTP version (2.0)
+[08/Mar/2025 18:34:43] "PRI * HTTP/2.0" 505 -
+[08/Mar/2025 18:35:09] "GET /accounts/login/ HTTP/1.1" 200 1964
+Not Found: /favicon.ico
+[08/Mar/2025 18:35:17] "GET /favicon.ico HTTP/1.1" 404 2506
+[08/Mar/2025 18:35:20] code 505, message Invalid HTTP version (2.0)
+[08/Mar/2025 18:35:20] "PRI * HTTP/2.0" 505 -
+Not Found: /favicon.ico
+[08/Mar/2025 18:35:28] "GET /favicon.ico HTTP/1.1" 404 2506
+[08/Mar/2025 18:35:31] code 400, message Bad request version ('À\x14À')
+[08/Mar/2025 18:35:31] You're accessing the development server over HTTPS, but it only supports HTTP.
+[08/Mar/2025 18:38:48] code 400, message Bad request version ('À\x14À')
+[08/Mar/2025 18:38:48] You're accessing the development server over HTTPS, but it only supports HTTP.
+[08/Mar/2025 18:38:48] code 400, message Bad request version ('À\x14À')
+[08/Mar/2025 18:38:48] You're accessing the development server over HTTPS, but it only supports HTTP.
+[08/Mar/2025 18:38:49] "GET / HTTP/1.1" 302 0
+[08/Mar/2025 18:38:49] "GET /accounts/login/ HTTP/1.1" 200 1964
+Not Found: /login
+[08/Mar/2025 18:38:49] "GET /login HTTP/1.1" 404 2488
+[08/Mar/2025 18:51:45] code 400, message Bad request version ('À\x13À')
+[08/Mar/2025 18:51:45] You're accessing the development server over HTTPS, but it only supports HTTP.
+[08/Mar/2025 18:51:45] code 400, message Bad request version ('À(À$À\x14À')
+[08/Mar/2025 18:51:45] You're accessing the development server over HTTPS, but it only supports HTTP.
+Invalid HTTP_HOST header: 'ifconfig.co:443'. You may need to add 'ifconfig.co' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/dteforms/smart-irrigation/DTE/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dteforms/smart-irrigation/DTE/venv/lib/python3.12/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dteforms/smart-irrigation/DTE/venv/lib/python3.12/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/dteforms/smart-irrigation/DTE/venv/lib/python3.12/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'ifconfig.co:443'. You may need to add 'ifconfig.co' to ALLOWED_HOSTS.
+Bad Request: /ifconfig.co:443
+[08/Mar/2025 19:13:16] "CONNECT ifconfig.co:443 HTTP/1.1" 400 65591
+[08/Mar/2025 19:13:16] code 400, message Bad request version ('¶À+õ×\x8eC¿x\x8b\x98P<x\x8b')
+[08/Mar/2025 19:13:16] You're accessing the development server over HTTPS, but it only supports HTTP.
+[08/Mar/2025 20:36:48] "GET / HTTP/1.1" 302 0
+[08/Mar/2025 20:36:48] "GET /accounts/login/ HTTP/1.1" 200 1964
+[08/Mar/2025 20:56:38] code 400, message Bad request syntax ('\x05\x01\x00')
+[08/Mar/2025 20:56:38] " " 400 -
+[08/Mar/2025 20:56:39] code 400, message Bad request syntax ('\x04\x01\x01»¬C¨j\x00')
+[08/Mar/2025 20:56:39] "»¬C¨j " 400 -
+[08/Mar/2025 23:31:08] "GET / HTTP/1.1" 302 0
+[09/Mar/2025 01:56:32] "GET / HTTP/1.1" 302 0
+[09/Mar/2025 01:56:32] "GET /accounts/login/ HTTP/1.1" 200 1964
+[09/Mar/2025 02:29:55] "GET / HTTP/1.1" 302 0
+[09/Mar/2025 02:30:12,130] - Broken pipe from ('198.235.24.209', 57714)
+[09/Mar/2025 02:49:21] "GET / HTTP/1.1" 302 0
+[09/Mar/2025 02:49:21] "GET /accounts/login/ HTTP/1.1" 200 1964
+Not Found: /favicon.ico
+[09/Mar/2025 02:49:22] "GET /favicon.ico HTTP/1.1" 404 2506
+[09/Mar/2025 04:41:58] "GET / HTTP/1.0" 302 0
+[09/Mar/2025 04:50:46] "GET / HTTP/1.1" 302 0
+[09/Mar/2025 04:50:55] "GET / HTTP/1.1" 302 0
+[09/Mar/2025 04:50:55] "GET /accounts/login/ HTTP/1.1" 200 1964
+Not Found: /favicon.ico
+[09/Mar/2025 04:51:04] "GET /favicon.ico HTTP/1.1" 404 2506
+Invalid HTTP_HOST header: 'api.ipify.org'. You may need to add 'api.ipify.org' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/dteforms/smart-irrigation/DTE/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dteforms/smart-irrigation/DTE/venv/lib/python3.12/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dteforms/smart-irrigation/DTE/venv/lib/python3.12/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/dteforms/smart-irrigation/DTE/venv/lib/python3.12/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'api.ipify.org'. You may need to add 'api.ipify.org' to ALLOWED_HOSTS.
+Bad Request: /http:/api.ipify.org/
+[09/Mar/2025 04:51:07] "GET http://api.ipify.org/?format=json HTTP/1.1" 400 66366
+Invalid HTTP_HOST header: 'www.shadowserver.org'. You may need to add 'www.shadowserver.org' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/dteforms/smart-irrigation/DTE/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dteforms/smart-irrigation/DTE/venv/lib/python3.12/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dteforms/smart-irrigation/DTE/venv/lib/python3.12/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/dteforms/smart-irrigation/DTE/venv/lib/python3.12/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'www.shadowserver.org'. You may need to add 'www.shadowserver.org' to ALLOWED_HOSTS.
+Bad Request: /www.shadowserver.org:443
+[09/Mar/2025 04:51:10] "CONNECT www.shadowserver.org:443 HTTP/1.1" 400 66545
+[09/Mar/2025 08:42:33] "GET / HTTP/1.1" 302 0
+[09/Mar/2025 08:42:33] "GET /accounts/login/ HTTP/1.1" 200 1964
+Not Found: /accounts/login/favicon.ico
+[09/Mar/2025 08:42:34] "GET /accounts/login/favicon.ico HTTP/1.1" 404 7055
+[09/Mar/2025 09:10:50] "GET / HTTP/1.1" 302 0
+[09/Mar/2025 10:05:27] code 400, message Bad request syntax ('JDWP-Handshake')
+[09/Mar/2025 10:05:27] "JDWP-Handshake" 400 -
+[09/Mar/2025 11:09:21,477] - Broken pipe from ('167.94.145.97', 60060)
+[09/Mar/2025 11:09:24] "GET / HTTP/1.1" 302 0
+[09/Mar/2025 11:09:32,532] - Broken pipe from ('167.94.145.97', 60174)
+[09/Mar/2025 11:09:36] "GET / HTTP/1.1" 302 0
+[09/Mar/2025 11:09:36] code 505, message Invalid HTTP version (2.0)
+[09/Mar/2025 11:09:36] "PRI * HTTP/2.0" 505 -
+[09/Mar/2025 11:09:41] "GET /accounts/login/ HTTP/1.1" 200 1964
+Not Found: /favicon.ico
+[09/Mar/2025 11:09:42] "GET /favicon.ico HTTP/1.1" 404 2506
+[09/Mar/2025 11:09:42] code 505, message Invalid HTTP version (2.0)
+[09/Mar/2025 11:09:42] "PRI * HTTP/2.0" 505 -
+Not Found: /favicon.ico
+[09/Mar/2025 11:09:47] "GET /favicon.ico HTTP/1.1" 404 2506
+[09/Mar/2025 11:09:47] code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x00÷\x01\x00\x00ó\x03\x03ÏAÐ\x95;\x08\x8aï@y\x1aNUW-;kSÎL\x17|\x1a¶\x9c\x87\x12\x81?\x18³¯')
+[09/Mar/2025 11:09:47] You're accessing the development server over HTTPS, but it only supports HTTP.
+[09/Mar/2025 13:36:09] "GET / HTTP/1.1" 302 0
+[09/Mar/2025 13:36:42,189] - Broken pipe from ('147.185.132.135', 62502)
+[09/Mar/2025 13:49:28] code 400, message Bad request version ('À\x14À')
+[09/Mar/2025 13:49:28] You're accessing the development server over HTTPS, but it only supports HTTP.
+[09/Mar/2025 13:49:28] code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x00{\x01\x00\x00w\x03\x03\x98\x82@\x039*°#ÐÁ^È\x81\x81æU\x1a\x8fD\x0e93èÂy"¸ì¨¡^\'\x00\x00\x1aÀ/À+À\x11À\x07À\x13À')
+[09/Mar/2025 13:49:28] You're accessing the development server over HTTPS, but it only supports HTTP.
+[09/Mar/2025 13:49:28] "GET / HTTP/1.1" 302 0
+[09/Mar/2025 13:49:29] "GET /accounts/login/ HTTP/1.1" 200 1964
+Not Found: /login
+[09/Mar/2025 13:49:29] "GET /login HTTP/1.1" 404 2488
+[09/Mar/2025 14:12:30] code 400, message Bad request version ('À\x14À')
+[09/Mar/2025 14:12:30] You're accessing the development server over HTTPS, but it only supports HTTP.
+[09/Mar/2025 16:43:26] "GET / HTTP/1.1" 302 0
+[09/Mar/2025 16:43:27] "GET /accounts/login/ HTTP/1.1" 200 1964
+[09/Mar/2025 19:22:54] "GET / HTTP/1.1" 302 0
+[09/Mar/2025 19:22:55] "GET /accounts/login/ HTTP/1.1" 200 1964
+[09/Mar/2025 19:28:01] code 400, message Bad request syntax ('MGLNDD_160.153.175.117_8000')
+[09/Mar/2025 19:28:01] "MGLNDD_160.153.175.117_8000" 400 -
+[10/Mar/2025 01:33:20] "GET / HTTP/1.1" 302 0
+[10/Mar/2025 01:33:20] "GET /accounts/login/ HTTP/1.1" 200 1964
+[10/Mar/2025 02:29:57] "GET / HTTP/1.0" 302 0
+[10/Mar/2025 02:34:50] "GET / HTTP/1.1" 302 0
+[10/Mar/2025 02:35:08,759] - Broken pipe from ('198.235.24.73', 60998)
+[10/Mar/2025 04:40:30,402] - Broken pipe from ('167.94.138.113', 35386)
+[10/Mar/2025 04:40:34] "GET / HTTP/1.1" 302 0
+[10/Mar/2025 04:40:40,464] - Broken pipe from ('167.94.138.113', 38990)
+[10/Mar/2025 04:40:46] "GET / HTTP/1.1" 302 0
+[10/Mar/2025 04:40:48] code 505, message Invalid HTTP version (2.0)
+[10/Mar/2025 04:40:48] "PRI * HTTP/2.0" 505 -
+[10/Mar/2025 04:41:01] "GET /accounts/login/ HTTP/1.1" 200 1964
+Not Found: /favicon.ico
+[10/Mar/2025 04:41:03] "GET /favicon.ico HTTP/1.1" 404 2506
+[10/Mar/2025 04:41:06] code 505, message Invalid HTTP version (2.0)
+[10/Mar/2025 04:41:06] "PRI * HTTP/2.0" 505 -
+Not Found: /favicon.ico
+[10/Mar/2025 04:41:14] "GET /favicon.ico HTTP/1.1" 404 2506
+[10/Mar/2025 04:41:16] code 400, message Bad request version ('ß\x8f;ßIÙ«Úý}ÅÎ\x0e:üo\x93\x8aslu\x8bJ\x9d')
+[10/Mar/2025 04:41:16] You're accessing the development server over HTTPS, but it only supports HTTP.
+[10/Mar/2025 04:42:39] code 400, message Bad request version ('À\x14À')
+[10/Mar/2025 04:42:39] You're accessing the development server over HTTPS, but it only supports HTTP.
+[10/Mar/2025 05:18:40] "GET /accounts/signin/ HTTP/1.1" 200 1964
+Not Found: /favicon.ico
+[10/Mar/2025 05:18:41] "GET /favicon.ico HTTP/1.1" 404 2506
+[10/Mar/2025 05:18:46] "POST /accounts/signin/ HTTP/1.1" 302 0
+[10/Mar/2025 05:18:47] "GET /accounts/ HTTP/1.1" 200 27860
+[10/Mar/2025 05:19:06] "POST /accounts/ HTTP/1.1" 302 0
+[10/Mar/2025 05:19:06] "GET /accounts/step2/ HTTP/1.1" 200 47477
+[10/Mar/2025 05:19:10] "POST /accounts/step2/ HTTP/1.1" 200 58146
+[10/Mar/2025 05:26:31] "POST /accounts/step2/ HTTP/1.1" 200 47635
+Not Found: /favicon.ico
+[10/Mar/2025 05:26:37] "GET /favicon.ico HTTP/1.1" 404 2506
+[10/Mar/2025 05:26:55] "POST /accounts/step2/ HTTP/1.1" 200 47635
+[10/Mar/2025 05:27:05] "POST /accounts/step2/ HTTP/1.1" 200 68827
+[10/Mar/2025 05:27:15] "POST /accounts/step2/ HTTP/1.1" 200 47637
+[10/Mar/2025 05:27:26] "POST /accounts/step2/ HTTP/1.1" 200 79498
+[10/Mar/2025 05:28:16] "POST /accounts/step2/ HTTP/1.1" 200 47683
+[10/Mar/2025 05:28:22] "POST /accounts/step2/ HTTP/1.1" 200 90214
+[10/Mar/2025 05:28:48] "POST /accounts/step2/ HTTP/1.1" 200 47690
+[10/Mar/2025 05:28:53] "POST /accounts/step2/ HTTP/1.1" 200 47690
+[10/Mar/2025 05:28:56] "POST /accounts/step2/ HTTP/1.1" 302 0
+[10/Mar/2025 05:28:57] "GET /accounts/step3/ HTTP/1.1" 200 9292
+[10/Mar/2025 05:29:04] "POST /accounts/step2/ HTTP/1.1" 200 111566
+[10/Mar/2025 05:29:25] "POST /accounts/step2/ HTTP/1.1" 302 0
+[10/Mar/2025 05:29:26] "GET /accounts/step3/ HTTP/1.1" 200 9292
+[10/Mar/2025 05:29:33] "POST /accounts/step2/ HTTP/1.1" 200 132919
+/home/dteforms/smart-irrigation/DTE/accounts/forms.py changed, reloading.
+Performing system checks...
+
+March 07, 2025 - 13:35:29
+Django version 5.1.6, using settings 'DTE.settings'
+Starting development server at http://160.153.175.117:8000/
+Quit the server with CONTROL-C.
+
+admin
+admin
+admin
+admin
+admin
+<QuerySet []>
+Checking for existing zone with number: 1
+Existing zone found: None
+<QuerySet [<IrrigationZone: IrrigationZone object (123)>]>
+Checking for existing zone with number: 2
+Existing zone found: None
+<QuerySet [<IrrigationZone: IrrigationZone object (123)>, <IrrigationZone: IrrigationZone object (124)>]>
+Checking for existing zone with number: 3
+Existing zone found: None
+<QuerySet [<IrrigationZone: IrrigationZone object (123)>, <IrrigationZone: IrrigationZone object (124)>, <IrrigationZone: IrrigationZone object (125)>]>
+Checking for existing zone with number: 4
+Existing zone found: None
+Checking for existing zone with number: 4
+Existing zone found: IrrigationZone object (126)
+Checking for existing zone with number: 4
+Existing zone found: IrrigationZone object (126)
+Checking for existing zone with number: 4
+Existing zone found: IrrigationZone object (126)
+Checking for existing zone with number: 4
+Existing zone found: IrrigationZone object (126)
+Checking for existing zone with number: 4
+Existing zone found: IrrigationZone object (126)
+Checking for existing zone with number: 4
+Existing zone found: IrrigationZone object (126)
+Checking for existing zone with number: 4
+Existing zone found: IrrigationZone object (126)
+Checking for existing zone with number: 4
+Existing zone found: IrrigationZone object (126)
+Checking for existing zone with number: 4
+Existing zone found: IrrigationZone object (126)
+<QuerySet [<IrrigationZone: IrrigationZone object (123)>, <IrrigationZone: IrrigationZone object (124)>, <IrrigationZone: IrrigationZone object (125)>, <IrrigationZone: IrrigationZone object (126)>]>
+Checking for existing zone with number: 1
+Existing zone found: IrrigationZone object (123)
+Checking for existing zone with number: 1
+Existing zone found: IrrigationZone object (123)
+Checking for existing zone with number: 1
+Existing zone found: IrrigationZone object (123)
+Checking for existing zone with number: 1
+Existing zone found: IrrigationZone object (123)
+Checking for existing zone with number: 1
+Existing zone found: IrrigationZone object (123)
+admin
+admin
+admin
+admin
+<QuerySet []>
+Checking for existing zone with number: 1
+Existing zone found: None
+<QuerySet [<IrrigationZone: IrrigationZone object (127)>]>
+Checking for existing zone with number: 2
+Existing zone found: None
+admin
+admin
+admin
+<QuerySet []>
+Checking for existing zone with number: 1
+Existing zone found: None
+<QuerySet [<IrrigationZone: IrrigationZone object (129)>]>
+Checking for existing zone with number: 1
+Existing zone found: IrrigationZone object (129)
+Checking for existing zone with number: 1
+Existing zone found: IrrigationZone object (129)
+Checking for existing zone with number: 12
+Existing zone found: None
+<QuerySet [<IrrigationZone: IrrigationZone object (129)>, <IrrigationZone: IrrigationZone object (130)>]>
+Checking for existing zone with number: 12
+Existing zone found: IrrigationZone object (130)
+Checking for existing zone with number: 122
+Existing zone found: None
+<QuerySet [<IrrigationZone: IrrigationZone object (129)>, <IrrigationZone: IrrigationZone object (130)>, <IrrigationZone: IrrigationZone object (131)>]>
+Checking for existing zone with number: 122
+Existing zone found: IrrigationZone object (131)
+Checking for existing zone with number: 1223
+Existing zone found: None
+<QuerySet [<IrrigationZone: IrrigationZone object (129)>, <IrrigationZone: IrrigationZone object (130)>, <IrrigationZone: IrrigationZone object (131)>, <IrrigationZone: IrrigationZone object (132)>]>
+Checking for existing zone with number: 1223
+Existing zone found: IrrigationZone object (132)
+Checking for existing zone with number: 1223
+Existing zone found: IrrigationZone object (132)
+Checking for existing zone with number: 12232
+Existing zone found: None
+Checking for existing zone with number: 122322
+Existing zone found: None
+<QuerySet [<IrrigationZone: IrrigationZone object (129)>, <IrrigationZone: IrrigationZone object (130)>, <IrrigationZone: IrrigationZone object (131)>, <IrrigationZone: IrrigationZone object (132)>, <IrrigationZone: IrrigationZone object (133)>, <IrrigationZone: IrrigationZone object (134)>]>
+Checking for existing zone with number: 2222
+Existing zone found: None
+Checking for existing zone with number: 22222
+Existing zone found: None
+<QuerySet [<IrrigationZone: IrrigationZone object (129)>, <IrrigationZone: IrrigationZone object (130)>, <IrrigationZone: IrrigationZone object (131)>, <IrrigationZone: IrrigationZone object (132)>, <IrrigationZone: IrrigationZone object (133)>, <IrrigationZone: IrrigationZone object (134)>, <IrrigationZone: IrrigationZone object (135)>, <IrrigationZone: IrrigationZone object (136)>]>
+Watching for file changes with StatReloader
+System check identified some issues:
+
+WARNINGS:
+?: (staticfiles.W004) The directory '/home/dteforms/smart-irrigation/DTE/static' in the STATICFILES_DIRS setting does not exist.
+
+System check identified 1 issue (0 silenced).
+[10/Mar/2025 05:31:22] "GET /accounts/login/?next=/accounts/ HTTP/1.1" 200 1964
+Not Found: /favicon.ico
+[10/Mar/2025 05:31:23] "GET /favicon.ico HTTP/1.1" 404 2506
+[10/Mar/2025 05:31:25] "POST /accounts/login/?next=/accounts/ HTTP/1.1" 302 0
+[10/Mar/2025 05:31:26] "GET /accounts/ HTTP/1.1" 200 27879
+Forbidden (CSRF token from POST incorrect.): /accounts/login/
+[10/Mar/2025 05:31:26] "POST /accounts/login/?next=/accounts/ HTTP/1.1" 403 2503
+Forbidden (CSRF token from POST incorrect.): /accounts/login/
+[10/Mar/2025 05:31:32] "POST /accounts/login/?next=/accounts/ HTTP/1.1" 403 2503
+[10/Mar/2025 05:31:34] "GET /accounts/login/?next=/accounts/ HTTP/1.1" 200 1964
+[10/Mar/2025 05:31:38] "POST /accounts/login/?next=/accounts/ HTTP/1.1" 302 0
+[10/Mar/2025 05:31:39] "GET /accounts/ HTTP/1.1" 200 27988
+/home/dteforms/smart-irrigation/DTE/DTE/settings.py changed, reloading.
+Performing system checks...
+
+March 10, 2025 - 05:31:15
+Django version 5.1.6, using settings 'DTE.settings'
+Starting development server at http://160.153.175.117:8000/
+Quit the server with CONTROL-C.
+
+admin
+admin
+System check identified some issues:
+
+WARNINGS:
+?: (staticfiles.W004) The directory '/home/dteforms/smart-irrigation/DTE/static' in the STATICFILES_DIRS setting does not exist.
+
+System check identified 1 issue (0 silenced).
+[10/Mar/2025 06:01:59] "GET / HTTP/1.1" 302 0
+[10/Mar/2025 06:18:07] code 400, message Bad request syntax ('nil')
+[10/Mar/2025 06:18:07] "nil" 400 -
+[10/Mar/2025 06:18:07] "GET / HTTP/1.0" 302 0
+[10/Mar/2025 06:18:08] "GET / HTTP/1.1" 302 0
+[10/Mar/2025 06:18:08] "GET /favicon.ico HTTP/1.1" 404 179
+[10/Mar/2025 06:18:08] "GET /accounts/login/ HTTP/1.1" 200 1964
+[10/Mar/2025 06:18:09] "GET /favicon.ico HTTP/1.1" 404 179
+[10/Mar/2025 06:18:14] "GET / HTTP/1.1" 302 0
+[10/Mar/2025 06:18:15] "GET /accounts/login/ HTTP/1.1" 200 1964
+[10/Mar/2025 06:18:16] "GET /favicon.ico HTTP/1.1" 404 179

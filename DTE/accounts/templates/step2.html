@@ -33,14 +33,7 @@
                     </div>
                     <div>
                         <label class="text-gray-700 font-medium">Which Program?:</label>
-                        <select name="program_type_0" class="program-type w-full p-2 border rounded-md">
-                            <option value="">Select Option</option>
-                            <option value="House">House</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="D">D</option>
-                        </select>
+                        {{ form.program_type|add_class:"w-full p-2 border rounded-md" }}
                     </div>
                 </div>
 
@@ -533,46 +526,45 @@ document.getElementById('confirmDeleteBtn').addEventListener('click', function (
         const prevButton = document.getElementById('prev-button');
         const nextButton = document.getElementById('next-button');
         const addAnotherZoneBtn = document.querySelector('button[name="add_another_zone"]');
-
+    
         function updateForms() {
             zoneForms = document.querySelectorAll('.zone-entry');
         }
-
+    
         function showForm(index) {
             updateForms(); // Update form list
-
-            if (zoneForms.length > 1) {
-                prevButton.style.display = 'inline-block';
-                nextButton.style.display = 'inline-block';
-            } else {
-                prevButton.style.display = 'none';
-                nextButton.style.display = 'none';
-            }
-
+    
+            // Always show "Next" if there's more forms ahead
+            nextButton.style.display = zoneForms.length > 1 ? 'inline-block' : 'none';
+    
+            // Only show "Prev" if there’s something to go back to
+            prevButton.style.display = index > 0 ? 'inline-block' : 'none';
+    
             zoneForms.forEach((form, i) => {
                 form.classList.toggle('hidden', i !== index);
             });
-
+    
             prevButton.disabled = index === 0;
             nextButton.disabled = index >= zoneForms.length - 1;
         }
-
+    
         prevButton.addEventListener('click', () => {
             if (currentIndex > 0) {
                 currentIndex--;
                 showForm(currentIndex);
             }
         });
-
+    
         nextButton.addEventListener('click', () => {
             if (currentIndex < zoneForms.length - 1) {
                 currentIndex++;
                 showForm(currentIndex);
             }
         });
-
+    
         showForm(currentIndex);
     </script>
+    
 
 
 
