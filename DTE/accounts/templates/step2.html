@@ -183,21 +183,26 @@
                         {{ form.additional_labor|add_class:"w-full p-2 border rounded-md" }}
                     </div>
                 </div>
+
+                <button type="submit" name="add_another_zone"
+                class="w-full bg-blue-500 text-white py-2 rounded-md font-semibold shadow-md hover:bg-blue-700 mt-5">
+                + Add Another Zone
+            </button>
+    
+            <!-- Button to Proceed to Step 3 -->
+            <button type="submit" name="next_button_clicked"
+                class="w-full bg-green-600 text-white py-3 rounded-md text-lg font-semibold shadow-md hover:bg-green-700 mt-4">
+                Next ➡️
+            </button>
             </div>
+
+
+
         </div>
 
 
         <!-- Button to Add Another Zone -->
-        <button type="submit" name="add_another_zone"
-            class="w-full bg-blue-500 text-white py-2 rounded-md font-semibold shadow-md hover:bg-blue-700">
-            + Add Another Zone
-        </button>
-
-        <!-- Button to Proceed to Step 3 -->
-        <button type="submit" name="next_button_clicked"
-            class="w-full bg-green-600 text-white py-3 rounded-md text-lg font-semibold shadow-md hover:bg-green-700 mt-4">
-            Next ➡️
-        </button>
+      
 
 
 

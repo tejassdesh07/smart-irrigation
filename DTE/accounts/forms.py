@@ -44,7 +44,7 @@ class IrrigationReportForm(forms.ModelForm):
         widgets = {
             'date': forms.DateInput(attrs={
                 'type': 'date', 
-                'max': date.today().strftime('%Y-%m-%d')  # Set max date to today's date
+                'max': date.today().strftime('%Y-%m-%d')
             }),
             'customer': forms.TextInput(attrs={'maxlength': '100'}),
             'report_type': forms.TextInput(attrs={'maxlength': '30'}),
@@ -57,9 +57,9 @@ class IrrigationReportForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         if user and user.is_authenticated:
             self.fields['technician'].initial = user.username
-
-
-   
+        
+        # Set the default value of 'date' to today
+        self.fields['date'].initial = date.today().strftime('%Y-%m-%d')
 
     def clean_controller_make_model(self):
         """Ensure controller_make_model is required if controller_status is 'working'"""
