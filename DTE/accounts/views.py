@@ -14,6 +14,11 @@ from .forms import EditUserForm, SignupForm, SigninForm, IrrigationReportForm, I
 
 # ------------------- Authentication Views -------------------
 
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import SignupForm
+from .models import Branch
+
 def signup(request):
     """Handles user sign-up and automatic login after registration."""
     if request.method == 'POST':
@@ -29,7 +34,12 @@ def signup(request):
             messages.error(request, "Signup failed. Please correct the errors below.")
     else:
         form = SignupForm()
-    return render(request, 'accounts/signup.html', {'form': form})
+
+    # Query all branches and send them to the template
+    branches = Branch.objects.all()
+
+    return render(request, 'accounts/signup.html', {'form': form, 'branches': branches})
+
 
 def signin(request):
     """Handles user sign-in."""

@@ -32,11 +32,17 @@
                         <input type="password" name="password" class="mt-2 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Enter your password" required>
                     </div>
                     <!-- In your signup.html template -->
+
 <div class="flex flex-col">
     <label for="branch" class="text-gray-700 font-medium text-lg">Branch</label>
-    {{ form.branch }}  <!-- This will render the dropdown -->
+    <select name="branch" class="mt-2 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400" required>
+        <option value="" disabled selected>Select your branch</option>
+        <!-- You can dynamically populate options here using Django template tags -->
+        {% for branch in branches %}
+            <option value="{{ branch.id }}">{{ branch.name }}</option>
+        {% endfor %}
+    </select>
 </div>
-
                 </div>
 
                 <!-- Submit Button -->
