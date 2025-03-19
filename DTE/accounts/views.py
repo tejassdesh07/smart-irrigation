@@ -158,11 +158,13 @@ def step2(request, zone_id=None):
     if not report_id:
         messages.warning(request, "Please complete Step 1 first.")
         return redirect('step1')
-
+    
     # Get the report and the current zone being edited
     report = IrrigationReport.objects.get(id=report_id)
     current_zone = None
     
+    if "next_button_clicked" in request.POST:
+        return redirect('step3')
     # Fetch the current zone if zone_id is provided
     if zone_id:
         current_zone = IrrigationZone.objects.filter(id=zone_id, report=report).first()
@@ -174,7 +176,9 @@ def step2(request, zone_id=None):
         if form.is_valid():
             zone = form.save(commit=False)
             zone.report = report  # Associate the zone with the report
-         
+            if not zone.zone_number:
+                messages.warning(request, "Please enter a zone number.")
+                return render(request, "step2.html", {"form": form, "report": report})
             # **Checking for existing zone with the same number**
             existing_zone = IrrigationZone.objects.filter(
                 report=report, zone_number=zone.zone_number
@@ -189,8 +193,7 @@ def step2(request, zone_id=None):
 
             zone.save()
 
-            if "next_button_clicked" in request.POST:
-                return redirect('step3')
+           
 
             # Check if the "Next" button was clicked
             if "next_zone" in request.POST and current_zone:

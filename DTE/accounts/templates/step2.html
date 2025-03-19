@@ -12,11 +12,19 @@
 
 
 <div class="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-6 mt-6">
-    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Step 2: Zone Entry</h2>
 
     <form method="post" id="zone-form" class="space-y-4">
         {% csrf_token %}
-
+        <div class="flex flex-wrap items-center justify-between mb-6">
+            <h2 class="text-lg md:text-xl font-semibold text-gray-800 w-full md:w-auto">Step 2: Zone Entry</h2>
+            <button type="submit" name="add_another_zone"
+                class="text-sm md:text-base py-2 px-4 bg-blue-500 text-white rounded-md font-semibold shadow-md hover:bg-blue-700 w-auto">
+                + Add Another Zone
+            </button>
+        </div>
+        
+        
+     
         <div id="zone-entries">
             <div class="zone-entry bg-gray-50 p-4 rounded-md shadow-md mb-4" data-zone-index="0">
                 <!-- <h3 class="text-lg font-semibold text-gray-700">Zone 1</h3> -->
@@ -60,6 +68,10 @@
                         {{ form.zone_faults|add_class:"w-full" }}
                     </div>
                     <div>
+                        <label class="text-gray-700 font-medium">Zone Runtime</label>
+                        {{ form.zone_runtime|add_class:"w-full" }}
+                    </div>
+                    <div>
                         <label class="text-gray-700 font-medium">Checked Filters</label>
                         {{ form.checked_filters|add_class:"w-full" }}
                     </div>
@@ -79,13 +91,13 @@
                     <div class="flex space-x-4 mt-2">
                         <label class="flex items-center space-x-2 cursor-pointer">
                             <input type="radio" name="billable_repairs_0" value="True"
-                                class="billable-repairs hidden peer">
+                                class="billable-repairs hidden peer" id="billable_yes">
                             <div class="w-5 h-5 border-2 border-gray-400 rounded-full peer-checked:bg-blue-600"></div>
                             <span class="text-gray-800">Yes</span>
                         </label>
                         <label class="flex items-center space-x-2 cursor-pointer">
                             <input type="radio" name="billable_repairs_0" value="False"
-                                class="billable-repairs hidden peer" checked>
+                                class="billable-repairs hidden peer" checked id="billable_no" >
                             <div class="w-5 h-5 border-2 border-gray-400 rounded-full peer-checked:bg-blue-600"></div>
                             <span class="text-gray-800">No</span>
                         </label>
@@ -93,7 +105,7 @@
                 </div>
 
                 <!-- Billable Fields -->
-                <div class="billable-fields hidden grid grid-cols-1 sm:grid-cols-2 gap-2 mt-4">
+                <div class="billable-fields  grid grid-cols-1 sm:grid-cols-2 gap-2 mt-4" id="billable_fields">
                     <div>
                         <label class="text-gray-700 font-medium">Head Broken (6")</label>
                         {{ form.head_broken_6|add_class:"w-full p-2 border rounded-md" }}
@@ -117,6 +129,14 @@
                     <div>
                         <label class="text-gray-700 font-medium">Upgrade 12" Popup</label>
                         {{ form.upgrade_12_popup|add_class:"w-full p-2 border rounded-md" }}
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Upgrade 6” rotor</label>
+                        {{ form.upgrade_6_rotor|add_class:"w-full p-2 border rounded-md" }}
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Upgrade 12” rotor</label>
+                        {{ form.upgrade_12_rotor|add_class:"w-full p-2 border rounded-md" }}
                     </div>
 
                     <div>
@@ -177,23 +197,63 @@
                     </div>
                 </div>
 
-                <button type="submit" name="add_another_zone"
-                class="w-full bg-blue-500 text-white py-2 rounded-md font-semibold shadow-md hover:bg-blue-700 mt-5">
-                + Add Another Zone
-            </button>
-    
-            <!-- Button to Proceed to Step 3 -->
-            <button type="submit" name="next_button_clicked"
-                class="w-full bg-green-600 text-white py-3 rounded-md text-lg font-semibold shadow-md hover:bg-green-700 mt-4">
-                Next ➡️
-            </button>
+               <div class="flex flex-col md:flex-row gap-4 mt-4">
+                    <button type="submit" id="save_button"
+                        class="w-full md:w-1/2 bg-green-600 text-white py-3 rounded-md text-lg font-semibold shadow-md hover:bg-green-700 opacity-0 pointer-events-none transition-all duration-300">
+                        Save 
+                    </button>
+                
+                    <button type="submit" name="next_button_clicked"
+                        class="w-full md:w-1/2 bg-blue-600 text-white py-3 rounded-md text-lg font-semibold shadow-md hover:bg-green-700">
+                        Next ➡️
+                    </button>
+                </div>
+                
             </div>
 
 
 
         </div>
-
-
+        <script>
+            const billableYes = document.getElementById('billable_yes');
+            const billableNo = document.getElementById('billable_no');
+            const billableFields = document.getElementById('billable_fields');
+        
+            // Function to toggle visibility of billable fields based on radio selection
+            function toggleBillableFields() {
+                if (billableYes.checked) {
+                    billableFields.classList.remove('hidden');  // Show fields
+                } else {
+                    billableFields.classList.add('hidden');  // Hide fields
+                }
+            }
+        
+            // Add event listeners to radio buttons
+            billableYes.addEventListener('change', toggleBillableFields);
+            billableNo.addEventListener('change', toggleBillableFields);
+        
+            // Initialize the visibility based on the default selection
+            toggleBillableFields();
+        </script>
+        <script>
+            // Get references to the input and the buttons
+            const zoneInput = document.getElementById('id_zone_number');
+            const saveButton = document.getElementById('save_button');
+        
+            // Add event listener to the input field to monitor changes
+            zoneInput.addEventListener('input', function() {
+                // Check if the input field has a value
+                if (zoneInput.value) {
+                    // Show the Save button by adjusting opacity and enabling pointer events
+                    saveButton.classList.remove('opacity-0', 'pointer-events-none');
+                    saveButton.classList.add('opacity-100', 'pointer-events-auto');
+                } else {
+                    // Hide the Save button by making it transparent and disabling pointer events
+                    saveButton.classList.remove('opacity-100', 'pointer-events-auto');
+                    saveButton.classList.add('opacity-0', 'pointer-events-none');
+                }
+            });
+        </script>
         <!-- Button to Add Another Zone -->
       
 
@@ -202,9 +262,13 @@
     </form>
     <form method="post" id="update-zone-form" class="space-y-2 bg-white p-4 rounded-lg shadow-lg">
         {% csrf_token %}
-
+        <h6 class="text-xl sm:text-4xl md:text-2xl font-extrabold text-gray-800 text-center mt-6 mb-4 border-b-2 border-gray-800 mb-2">
+            previous zone
+        </h6>
+        
+        
         {% for zone in zones %}
-        <div class="zone-entry bg-gray-100 p-4 rounded-md shadow-sm mb-4" id="zone-form-{{ forloop.counter0 }}"
+        <div class="zone-entry-update bg-gray-100 p-4 rounded-md shadow-sm mb-4" id="zone-form-{{ forloop.counter0 }}"
             data-zone-index="{{ forloop.counter0 }}">
 
             <div class="flex justify-between items-center mb-4">
@@ -285,7 +349,6 @@
                                 <span class="font-semibold text-gray-700 text-xs sm:text-sm">Billable Repairs:</span>
                                 <span class="text-xs sm:text-sm">{{ zone.billable_repairs }}</span>
                             </div>
-
                             <div class="flex justify-between mb-2">
                                 <span class="font-semibold text-gray-700 text-xs sm:text-sm">Head Broken (6"):</span>
                                 <span class="text-xs sm:text-sm">{{ zone.head_broken_6 }}</span>
@@ -389,6 +452,7 @@
                                 <span class="font-semibold text-gray-700 text-xs sm:text-sm">Additional Labor:</span>
                                 <span class="text-xs sm:text-sm">{{ zone.additional_labor }}</span>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -407,18 +471,18 @@
         </script>
 
 
-
-<div class="flex justify-between mt-6 flex-wrap">
+<div class="flex justify-between mt-6">
     <button type="button" id="prev-button"
-        class="w-full sm:w-1/3 bg-blue-600 text-white py-2 px-4 text-sm rounded-md font-semibold shadow-md hover:bg-blue-700 mb-4 sm:mb-0" disabled>
-        ⬅ Go Back
+        class="w-1/4 sm:w-auto text-white py-2 px-4 text-sm rounded-md font-semibold shadow-md hover:bg-blue-100 mb-4 sm:mb-0 h-12">
+        ⬅ 
     </button>
 
     <button type="button" id="next-button"
-        class="w-full sm:w-1/3 bg-blue-600 text-white py-2 px-4 text-sm rounded-md font-semibold shadow-md hover:bg-blue-700 sm:ml-4">
-        See Previous Zones ➡️
+        class="w-1/4 sm:w-auto text-white py-2 px-4 text-sm rounded-md font-semibold shadow-md hover:bg-blue-100 sm:mb-0 h-12">
+        ➡️
     </button>
 </div>
+
 
 
 <div id="confirmDeleteModal" class="fixed inset-0 flex justify-center items-center bg-gray-600 bg-opacity-50 hidden z-50" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
@@ -489,7 +553,7 @@ document.getElementById('confirmDeleteBtn').addEventListener('click', function (
     formData.append('zone_id', zoneIdToDelete);
     formData.append('csrfmiddlewaretoken', csrfToken);
 
-    fetch(`/zone/delete/102/`, {
+    fetch(`/zone/delete/${zoneIdToDelete}/`, {
         method: 'POST',
         body: formData
     })
@@ -522,13 +586,14 @@ document.getElementById('confirmDeleteBtn').addEventListener('click', function (
 
     <script>
         let currentIndex = 0;
-        let zoneForms = document.querySelectorAll('.zone-entry');
+        let zoneForms = document.querySelectorAll('.zone-entry-update');
         const prevButton = document.getElementById('prev-button');
+        const backToFormButton = document.getElementById('back-to-form-button');
         const nextButton = document.getElementById('next-button');
         const addAnotherZoneBtn = document.querySelector('button[name="add_another_zone"]');
     
         function updateForms() {
-            zoneForms = document.querySelectorAll('.zone-entry');
+            zoneForms = document.querySelectorAll('.zone-entry-update');
         }
     
         function showForm(index) {

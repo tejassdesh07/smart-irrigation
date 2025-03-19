@@ -75,6 +75,7 @@
                         <th class="px-4 py-2 text-left border border-gray-300">Run Days</th>
                         <th class="px-4 py-2 text-left border border-gray-300">Power Type</th>
                         <th class="px-4 py-2 text-left border border-gray-300">Zone Faults</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Zone Runtime</th>
                         <th class="px-4 py-2 text-left border border-gray-300">Checked Filters</th>
                         <th class="px-4 py-2 text-left border border-gray-300">Clogged Nozzles</th>
                         <th class="px-4 py-2 text-left border border-gray-300">Head Adjusted</th>
@@ -110,6 +111,7 @@
                         <td class="px-4 py-2 border border-gray-300">{{ zone.run_days }}</td>
                         <td class="px-4 py-2 border border-gray-300">{{ zone.get_power_type_display }}</td>
                         <td class="px-4 py-2 border border-gray-300">{{ zone.zone_faults|yesno:"Yes,No" }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.zone_runtime }}</td>
                         <td class="px-4 py-2 border border-gray-300">{{ zone.checked_filters|yesno:"Yes,No" }}</td>
                         <td class="px-4 py-2 border border-gray-300">{{ zone.clogged_nozzles|yesno:"Yes,No" }}</td>
                         <td class="px-4 py-2 border border-gray-300">{{ zone.head_adjusted|yesno:"Yes,No" }}</td>

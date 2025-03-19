@@ -323,6 +323,13 @@ tbody tr:hover {
                         {% endfor %}
                     </tr>
     
+                    <!-- Zone Runtime -->
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Zone Runtime</td>
+                       {% for zone in chunk %}
+                            <td class="px-4 py-2 border border-gray-300">{{ zone.zone_runtime }}</td>
+                       {% endfor %}
+                   </tr>
                     <!-- Checked Filters -->
                     <tr>
                          <td class="px-4 py-2 border border-gray-300">Checked Filters</td>

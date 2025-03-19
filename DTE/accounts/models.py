@@ -1,6 +1,5 @@
-from django.db import models
 
-
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -55,7 +54,7 @@ class IrrigationProgram(models.Model):
 
 class IrrigationZone(models.Model):
     report = models.ForeignKey(IrrigationReport, on_delete=models.CASCADE, related_name="zones", null=True, blank=True)
-    zone_number = models.IntegerField(blank=True)
+    zone_number = models.IntegerField(null=True, blank=True)
     zone_type = models.CharField(max_length=50, choices=[
         ('Spray', 'Spray'), ('Rotor', 'Rotor'), ('MP', 'MP'), ('Drip', 'Drip'), ('Bubbler', 'Bubbler')
     ], null=True, blank=True)
@@ -65,6 +64,7 @@ class IrrigationZone(models.Model):
     
     power_type = models.CharField(max_length=50, choices=[('Battery', 'Battery'), ('Solar', 'Solar'), ('Hardwire', 'Hardwire')], blank=True, null=True)
     zone_faults = models.BooleanField(default=False, null=True, blank=True)
+    zone_runtime = models.TimeField(default=None, null=True, blank=True)
     checked_filters = models.BooleanField(default=False, null=True, blank=True)
     clogged_nozzles = models.BooleanField(default=False, null=True, blank=True)
     head_adjusted = models.BooleanField(default=False, null=True, blank=True)
@@ -76,6 +76,8 @@ class IrrigationZone(models.Model):
     upgrade_4_popup = models.IntegerField(default=0, null=True, blank=True)
     upgrade_6_popup = models.IntegerField(default=0, null=True, blank=True)
     upgrade_12_popup = models.IntegerField(default=0, null=True, blank=True)
+    upgrade_6_rotor = models.IntegerField(default=0, null=True, blank=True)
+    upgrade_12_rotor = models.IntegerField(default=0, null=True, blank=True)
     nozzle_mpr = models.IntegerField(default=0, null=True, blank=True)
     nozzle_mp_rotator = models.IntegerField(default=0, null=True, blank=True)
     
@@ -106,3 +108,11 @@ class AccountManagerContact(models.Model):
         blank=True, null=True
     )
     additional_comments = models.TextField(blank=True, null=True)
+
+
+class Branch(models.Model):
+    name = models.CharField(max_length=100, unique=True)  # Name of the branch
+
+    def __str__(self):
+        return self.name
+

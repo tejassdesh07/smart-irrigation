@@ -2,16 +2,18 @@ from django import forms
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.forms import inlineformset_factory
-from .models import IrrigationReport, IrrigationProgram, IrrigationZone, AccountManagerContact
+from .models import IrrigationReport, IrrigationProgram, IrrigationZone, AccountManagerContact, Branch
 from datetime import datetime
+from django.forms.widgets import TimeInput
 
 # Sign-up form
 class SignupForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
+    branch = forms.ModelChoiceField(queryset=Branch.objects.all(), empty_label="Select Branch")
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password']
+        fields = ['username', 'email', 'password', 'branch']
 
 
 class EditUserForm(forms.ModelForm):
@@ -112,8 +114,18 @@ class StyledRadioSelect(forms.RadioSelect):
 class IrrigationZoneForm(forms.ModelForm):
     YES_NO_CHOICES = [(True, 'Yes'), (False, 'No')]
     
-    zone_number = forms.IntegerField(required=True, label="Zone Number")  # Ensure it's required
+    zone_number = forms.IntegerField(required=False,  label="Zone Number")  # Ensure it's required
     zone_faults = forms.ChoiceField(choices=YES_NO_CHOICES, widget=StyledRadioSelect(), label="Zone Faults?", required=False, initial=False)
+    zone_runtime = forms.TimeField(
+        widget=TimeInput(attrs={
+            'type': 'time',
+            'class': 'w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500',
+            'placeholder': 'Select Time'
+        }),
+        label="Zone Run Time",
+        required=False,
+        initial=None
+    )
     checked_filters = forms.ChoiceField(choices=YES_NO_CHOICES, widget=StyledRadioSelect(), label="Checked Filters?", required=False, initial=True)
     clogged_nozzles = forms.ChoiceField(choices=YES_NO_CHOICES, widget=StyledRadioSelect(), label="Clogged Nozzles?", required=False, initial=False)
     head_adjusted = forms.ChoiceField(choices=YES_NO_CHOICES, widget=StyledRadioSelect(), label="Head Adjusted?", required=False, initial=False)
@@ -132,7 +144,7 @@ class IrrigationZoneForm(forms.ModelForm):
     rain_sensor_operating = forms.ChoiceField(choices=YES_NO_CHOICES, widget=StyledRadioSelect(), label="Rain Sensor Operating?", required=False, initial=False)
     controller_operating = forms.ChoiceField(choices=YES_NO_CHOICES, widget=StyledRadioSelect(), label="Controller Operating?", required=False, initial=False)
 
-    program_type = forms.ChoiceField(choices=[], widget=forms.Select(attrs={'class': 'w-full p-2 border rounded-md'}), label="Program Type")
+    program_type = forms.ChoiceField(choices=[], widget=forms.Select(attrs={'class': 'w-full p-2 border rounded-md'}), required=False,  label="Program Type" )
 
     class Meta:
         model = IrrigationZone
