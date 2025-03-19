@@ -116,3 +116,8 @@ class Branch(models.Model):
     def __str__(self):
         return self.name
 
+class Customer(models.Model):
+    name = models.CharField(max_length=100, unique=True)  # Name of the customer
+
+    def __str__(self):
+        return self.name  # Represent the customer by their name
