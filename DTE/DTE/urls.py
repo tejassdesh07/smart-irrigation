@@ -22,5 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('', lambda request: redirect('signin')),  
-
+    path('django-select2/', include('django_select2.urls')), 
 ]

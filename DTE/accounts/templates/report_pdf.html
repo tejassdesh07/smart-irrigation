@@ -195,7 +195,9 @@ tbody tr:hover {
 .zone-page-break {
     page-break-before: always;
 }
-
+.account-page-break{
+    page-break-before: always;
+}
     </style>
 </head>
 <body>
@@ -210,6 +212,7 @@ tbody tr:hover {
             <div class="grid-item">
                 <p><strong>Technician:</strong> {{ report.technician }}</p>
                 <p><strong>Customer:</strong> {{ report.customer }}</p>
+                <p><strong>Branch:</strong> {{ report.branch }}</p>
                 <p><strong>Report Type:</strong> {{ report.report_type }}</p>
                 <p><strong>Controller Name:</strong> {{ report.controller_name }}</p>
                 <p><strong>Date:</strong> {{ report.date }}</p>
@@ -388,17 +391,38 @@ tbody tr:hover {
     
                     <!-- Upgrade 46 Popup -->
                     <tr>
-                         <td class="px-4 py-2 border border-gray-300">Upgrade 46 Popup</td>
+                         <td class="px-4 py-2 border border-gray-300">Upgrade 4 Popup</td>
                         {% for zone in chunk %}
-                             <td class="px-4 py-2 border border-gray-300">{{ zone.upgrade_46_popup }}</td>
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.upgrade_4_popup }}</td>
                         {% endfor %}
                     </tr>
     
                     <!-- Upgrade 612 Popup -->
                     <tr>
-                         <td class="px-4 py-2 border border-gray-300">Upgrade 612 Popup</td>
+                         <td class="px-4 py-2 border border-gray-300">Upgrade 6 Popup</td>
                         {% for zone in chunk %}
-                             <td class="px-4 py-2 border border-gray-300">{{ zone.upgrade_612_popup }}</td>
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.upgrade_6_popup }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Upgrade 12 Popup</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.upgrade_12_popup }}</td>
+                        {% endfor %}
+                    </tr>
+    
+                    <!-- Upgrade 612 Popup -->
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Upgrade 6 Rotor</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.upgrade_6_rotor }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                         <td class="px-4 py-2 border border-gray-300">Upgrade 12 Rotor</td>
+                        {% for zone in chunk %}
+                             <td class="px-4 py-2 border border-gray-300">{{ zone.upgrade_6_rotor }}</td>
                         {% endfor %}
                     </tr>
     
@@ -521,15 +545,18 @@ tbody tr:hover {
     
 
     <div class="account-manager">
-        <h3>Account Manager Contact</h3>
-        {% for contact in report.account_manager_contact.all %}
-            <p><strong>Contacted Manager:</strong> {{ contact.contacted_manager|yesno:"Yes,No" }}</p>
-            <p><strong>Contact Time:</strong> {{ contact.contact_time }}</p>
-            <p><strong>Communication Type:</strong> {{ contact.get_communication_type_display }}</p>
-            <p><strong>Additional Comments:</strong> {{ contact.additional_comments }}</p>
-        {% empty %}
-            <p>No contact details available.</p>
-        {% endfor %}
+        <div class="account-page-break">
+            <h3>Account Manager Contact</h3>
+            {% for contact in report.account_manager_contact.all %}
+                <p><strong>Contacted Manager:</strong> {{ contact.contacted_manager|yesno:"Yes,No" }}</p>
+                <p><strong>Contact Time:</strong> {{ contact.contact_time }}</p>
+                <p><strong>Communication Type:</strong> {{ contact.get_communication_type_display }}</p>
+                <p><strong>Additional Comments:</strong> {{ contact.additional_comments }}</p>
+            {% empty %}
+                <p>No contact details available.</p>
+            {% endfor %}
+        </div>
+   
     </div>
 
 </body>

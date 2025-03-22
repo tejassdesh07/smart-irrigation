@@ -20,8 +20,8 @@ class Branch(models.Model):
 
 class IrrigationReport(models.Model):
     technician = models.CharField(max_length=255)  # Will be prefilled but editable
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE , default=1) # Linking to Customer model
-    branch = models.ForeignKey(Branch, on_delete=models.CASCADE , default=1)  # Linking to Branch model
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE) # Linking to Customer model
+    branch = models.ForeignKey(Branch, on_delete=models.CASCADE)  # Linking to Branch model
     report_type = models.CharField(max_length=30)  # Limit set to 30
     controller_name = models.CharField(max_length=30)  # Limit set to 30
     date = models.DateField()  # We will enforce the date validation in the form
@@ -133,7 +133,7 @@ class AccountManagerContact(models.Model):
 
 class UserBranch(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    branch = models.ForeignKey(Branch, on_delete=models.CASCADE, default=1)
+    branch = models.ForeignKey(Branch, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.user.username} - {self.branch.name}"

@@ -22,6 +22,7 @@
         <h3 class="text-xl font-semibold text-gray-700">General Information</h3>
         <p><strong>Technician:</strong> {{ report.technician }}</p>
         <p><strong>Customer:</strong> {{ report.customer }}</p>
+        <p><strong>Branch:</strong> {{ report.branch }}</p>
         <p><strong>Report Type:</strong> {{ report.report_type }}</p>
         <p><strong>Controller Name:</strong> {{ report.controller_name }}</p>
         <p><strong>Date:</strong> {{ report.date }}</p>
@@ -83,8 +84,11 @@
                         <th class="px-4 py-2 text-left border border-gray-300">Head Broken (6)</th>
                         <th class="px-4 py-2 text-left border border-gray-300">Head Broken (12)</th>
                         <th class="px-4 py-2 text-left border border-gray-300">Broken Riser</th>
-                        <th class="px-4 py-2 text-left border border-gray-300">Upgrade 46 Popup</th>
-                        <th class="px-4 py-2 text-left border border-gray-300">Upgrade 612 Popup</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Upgrade 4 Popup</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Upgrade 6 Popup</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Upgrade 12 Popup</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Upgrade 6 Rotor</th>
+                        <th class="px-4 py-2 text-left border border-gray-300">Upgrade 12 Rotor</th>
                         <th class="px-4 py-2 text-left border border-gray-300">Nozzle MPR</th>
                         <th class="px-4 py-2 text-left border border-gray-300">Nozzle MP Rotator</th>
                         <th class="px-4 py-2 text-left border border-gray-300">Spray Nozzle Repair</th>
@@ -119,8 +123,11 @@
                         <td class="px-4 py-2 border border-gray-300">{{ zone.head_broken_6 }}</td>
                         <td class="px-4 py-2 border border-gray-300">{{ zone.head_broken_12 }}</td>
                         <td class="px-4 py-2 border border-gray-300">{{ zone.broken_riser }}</td>
-                        <td class="px-4 py-2 border border-gray-300">{{ zone.upgrade_46_popup }}</td>
-                        <td class="px-4 py-2 border border-gray-300">{{ zone.upgrade_612_popup }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.upgrade_4_popup }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.upgrade_6_popup }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.upgrade_12_popup }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.upgrade_6_rotor }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ zone.upgrade_12_rotor }}</td>
                         <td class="px-4 py-2 border border-gray-300">{{ zone.nozzle_mpr }}</td>
                         <td class="px-4 py-2 border border-gray-300">{{ zone.nozzle_mp_rotator }}</td>
                         <td class="px-4 py-2 border border-gray-300">{{ zone.spray_nozzle_repair|yesno:"Yes,No" }}</td>

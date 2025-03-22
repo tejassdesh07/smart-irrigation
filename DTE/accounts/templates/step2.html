@@ -262,12 +262,16 @@
     </form>
     <form method="post" id="update-zone-form" class="space-y-2 bg-white p-4 rounded-lg shadow-lg">
         {% csrf_token %}
-        <h6 class="text-xl sm:text-4xl md:text-2xl font-extrabold text-gray-800 text-center mt-6 mb-4 border-b-2 border-gray-800 mb-2">
-            previous zone
-        </h6>
-        
+        {% if zones|length > 0 %}
+    <h6 class="text-xl sm:text-4xl md:text-2xl font-extrabold text-gray-800 text-center mt-6 mb-4 border-b-2 border-gray-800 mb-2">
+        Previous Zone
+    </h6>
+    {% endif %}
+ 
         
         {% for zone in zones %}
+   
+        
         <div class="zone-entry-update bg-gray-100 p-4 rounded-md shadow-sm mb-4" id="zone-form-{{ forloop.counter0 }}"
             data-zone-index="{{ forloop.counter0 }}">
 

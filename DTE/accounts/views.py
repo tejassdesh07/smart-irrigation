@@ -11,6 +11,7 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 from .models import IrrigationProgram, IrrigationReport, IrrigationZone, AccountManagerContact, UserBranch
 from .forms import EditUserForm, SignupForm, SigninForm, IrrigationReportForm, IrrigationZoneForm, AccountManagerContactForm
+from django.views.decorators.csrf import csrf_exempt
 
 # ------------------- Authentication Views -------------------
 
@@ -117,15 +118,14 @@ def home(request):
 
 
 @login_required
+@csrf_exempt
 def step1(request):
     """Handles Step 1: Irrigation Report."""
     if request.method == "POST":
         form = IrrigationReportForm(request.POST, user=request.user)  # Pass user
-        print(request.user)
         if form.is_valid():
             report = form.save(commit=False)
             report.technician = f"{request.user}"  # Ensure technician field is filled
-            print( report.technician)
             report.save()  # Save the report instance first
             request.session['report_id'] = report.id  # Store report ID in session
 
@@ -137,7 +137,7 @@ def step1(request):
                     program_name = request.POST.get(f"program_{program_count}", "").strip()
                     start_time = request.POST.get(f"start_time_{program_count}", None)
                     seasonal_adjustment = request.POST.get(f"seasonal_adjustment_{program_count}", "").strip()
-                    
+
                     # Retrieve multiple selected values for run_days
                     run_days = request.POST.getlist(f"run_days_{program_count}")  # Retrieves a list
 
@@ -151,15 +151,14 @@ def step1(request):
                         )
 
                     program_count += 1
-            
+
             return redirect('step2')  # Redirect to step2 after saving data
         else:
             messages.error(request, "Please correct the errors below.")
     else:
         form = IrrigationReportForm(user=request.user)  # Pass user here too
-    user_data= request.user
-    print(user_data)
-    return render(request, 'step1.html', {'form': form, 'user': user_data})
+    return render(request, 'step1.html', {'form': form, 'user': request.user})
+
 
 
 
@@ -313,10 +312,18 @@ def generate_pdf(request, report_id):
     # Load the template and render the context to it
     template = get_template(template_path)
     html = template.render(context)
+    branch = report.branch.name.replace(" ", "_") if report.branch else 'UnknownBranch'
+    customer = report.customer.name.replace(" ", "_") if report.customer else 'UnknownCustomer'
+    report_type = report.report_type.replace(" ", "_") if report.report_type else 'UnknownReportType'
+    technician = report.technician.replace(" ", "_") if report.technician else 'UnknownTechnician'
+    date_str = report.date.strftime('%Y-%m-%d') if report.date else datetime.now().strftime('%Y-%m-%d')
     
-    # Create a PDF from the rendered HTML
+    # Create a filename based on the fields
+    filename = f"{branch}-{date_str}-{customer}-{report_type}-{technician}.pdf"
+    
+    # Create the PDF response with the generated filename
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    response['Content-Disposition'] = f'attachment; filename="{filename}"'
     pisa_status = pisa.CreatePDF(html, dest=response)
 
     # Handle errors during PDF generation

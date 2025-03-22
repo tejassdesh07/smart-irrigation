@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.forms import inlineformset_factory
-from .models import Customer, IrrigationReport, IrrigationProgram, IrrigationZone, AccountManagerContact, Branch
+from .models import Customer, IrrigationReport, IrrigationProgram, IrrigationZone, AccountManagerContact, Branch, UserBranch
 from datetime import datetime
 from django.forms.widgets import TimeInput
 
@@ -31,6 +31,7 @@ class SigninForm(forms.Form):
 
 
 from datetime import date  # <-- Add this import
+from django_select2.forms import ModelSelect2Widget
 
 class IrrigationReportForm(forms.ModelForm):
     technician = forms.CharField(
@@ -44,7 +45,7 @@ class IrrigationReportForm(forms.ModelForm):
         widget=forms.Select(attrs={
             'class': 'select2 w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200'
         }),
-        empty_label="Select Customer"
+
     )
     branch = forms.ModelChoiceField(
         queryset=Branch.objects.all(),
@@ -53,6 +54,7 @@ class IrrigationReportForm(forms.ModelForm):
         }),
         empty_label="Select Branch"
     )
+    
     class Meta:
         model = IrrigationReport
         fields = '__all__'
@@ -70,9 +72,17 @@ class IrrigationReportForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
+        
         if user and user.is_authenticated:
             self.fields['technician'].initial = user.username
-        
+            
+            # Fetch the branch associated with the user
+            try:
+                user_branch = UserBranch.objects.get(user=user)
+                self.fields['branch'].initial = user_branch.branch  # Set the branch field to the user's branch
+            except UserBranch.DoesNotExist:
+                self.fields['branch'].initial = None  # If no branch is found, leave it empty
+
         # Set the default value of 'date' to today
         self.fields['date'].initial = date.today().strftime('%Y-%m-%d')
 
@@ -84,6 +94,7 @@ class IrrigationReportForm(forms.ModelForm):
         if status == 'working' and not make_model:
             raise forms.ValidationError("Controller Make/Model is required when status is 'Working'.")
         return make_model
+
 
 class IrrigationProgramForm(forms.ModelForm):
     class Meta:
