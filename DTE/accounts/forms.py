@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.forms import inlineformset_factory
-from .models import IrrigationReport, IrrigationProgram, IrrigationZone, AccountManagerContact, Branch
+from .models import Customer, IrrigationReport, IrrigationProgram, IrrigationZone, AccountManagerContact, Branch
 from datetime import datetime
 from django.forms.widgets import TimeInput
 
@@ -39,7 +39,20 @@ class IrrigationReportForm(forms.ModelForm):
             'class': 'w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200'
         })
     )
-
+    customer = forms.ModelChoiceField(
+        queryset=Customer.objects.all(),
+        widget=forms.Select(attrs={
+            'class': 'select2 w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200'
+        }),
+        empty_label="Select Customer"
+    )
+    branch = forms.ModelChoiceField(
+        queryset=Branch.objects.all(),
+        widget=forms.Select(attrs={
+            'class': 'select2 w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200'
+        }),
+        empty_label="Select Branch"
+    )
     class Meta:
         model = IrrigationReport
         fields = '__all__'

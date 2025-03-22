@@ -38,6 +38,10 @@
                 <label class="text-gray-700 font-medium">Date <span class="text-red-500">*</span></label>
                 {{ form.date|add_class:"w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200" }}
             </div>
+            <div>
+                <label class="text-gray-700 font-medium">Branch <span class="text-red-500">*</span></label>
+                {{ form.branch|add_class:"select2 w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200" }}
+            </div>
         </div>
 
       
@@ -241,7 +245,13 @@ document.addEventListener("DOMContentLoaded", function () {
         
     </form>
 </div>
-
+<script>
+    $(document).ready(function() {
+        $('.select2').select2({
+            placeholder: "Select an option"
+        });
+    });
+</script>
 <script>
    document.addEventListener("DOMContentLoaded", function () {
     const programsYes = document.getElementById("programs_yes");

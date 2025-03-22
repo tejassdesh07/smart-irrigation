@@ -3,9 +3,25 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.contrib.auth.models import User
 
+
+
+class Customer(models.Model):
+    name = models.CharField(max_length=100, unique=True)  # Name of the customer
+
+    def __str__(self):
+        return self.name  # Represent the customer by their name
+
+class Branch(models.Model):
+    name = models.CharField(max_length=100, unique=True)  # Name of the branch
+
+    def __str__(self):
+        return self.name
+
+
 class IrrigationReport(models.Model):
     technician = models.CharField(max_length=255)  # Will be prefilled but editable
-    customer = models.CharField(max_length=100)  # Limit set to 100
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE , default=1) # Linking to Customer model
+    branch = models.ForeignKey(Branch, on_delete=models.CASCADE , default=1)  # Linking to Branch model
     report_type = models.CharField(max_length=30)  # Limit set to 30
     controller_name = models.CharField(max_length=30)  # Limit set to 30
     date = models.DateField()  # We will enforce the date validation in the form
@@ -110,14 +126,14 @@ class AccountManagerContact(models.Model):
     additional_comments = models.TextField(blank=True, null=True)
 
 
-class Branch(models.Model):
-    name = models.CharField(max_length=100, unique=True)  # Name of the branch
+
+
+
+
+
+class UserBranch(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    branch = models.ForeignKey(Branch, on_delete=models.CASCADE, default=1)
 
     def __str__(self):
-        return self.name
-
-class Customer(models.Model):
-    name = models.CharField(max_length=100, unique=True)  # Name of the customer
-
-    def __str__(self):
-        return self.name  # Represent the customer by their name
+        return f"{self.user.username} - {self.branch.name}"

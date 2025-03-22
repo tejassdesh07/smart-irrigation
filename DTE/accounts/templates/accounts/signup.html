@@ -1,58 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Include Select2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
+<!-- Include jQuery (required for Select2) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Include Select2 JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
 </head>
+
 <body class="bg-gray-50 font-sans">
 
     <div class="flex items-center justify-center min-h-screen bg-gray-100">
         <div class="bg-white p-8 rounded-lg shadow-2xl max-w-lg w-full">
             <h2 class="text-4xl font-extrabold text-center text-gray-800 mb-8">Create an Account</h2>
-            
+
             <form method="POST" class="space-y-6">
                 {% csrf_token %}
-                
+
                 <div class="space-y-4">
                     <!-- Form Fields -->
                     <div class="flex flex-col">
                         <label for="username" class="text-gray-700 font-medium text-lg">Username</label>
-                        <input type="text" name="username" class="mt-2 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Enter your username" required>
+                        <input type="text" name="username"
+                            class="mt-2 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            placeholder="Enter your username" required>
                     </div>
-                    
+
                     <div class="flex flex-col">
                         <label for="email" class="text-gray-700 font-medium text-lg">Email</label>
-                        <input type="email" name="email" class="mt-2 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Enter your email" required>
+                        <input type="email" name="email"
+                            class="mt-2 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            placeholder="Enter your email" required>
                     </div>
 
                     <div class="flex flex-col">
                         <label for="password" class="text-gray-700 font-medium text-lg">Password</label>
-                        <input type="password" name="password" class="mt-2 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Enter your password" required>
+                        <input type="password" name="password"
+                            class="mt-2 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            placeholder="Enter your password" required>
                     </div>
                     <!-- In your signup.html template -->
-
-<div class="flex flex-col">
-    <label for="branch" class="text-gray-700 font-medium text-lg">Branch</label>
-    <select name="branch" class="mt-2 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400" required>
-        <option value="" disabled selected>Select your branch</option>
-        <!-- You can dynamically populate options here using Django template tags -->
-        {% for branch in branches %}
-            <option value="{{ branch.id }}">{{ branch.name }}</option>
-        {% endfor %}
-    </select>
-</div>
+                    <div class="flex flex-col">
+                        <label for="branch" class="text-gray-700 font-medium text-lg">Branch</label>
+                        <select name="branch" id="branch"
+                                class="mt-2 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                required>
+                            <option value="" disabled selected>Select your branch</option>
+                            <!-- Dynamically populate options using Django template tags -->
+                            {% for branch in branches %}
+                            <option value="{{ branch.id }}">{{ branch.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    
                 </div>
 
                 <!-- Submit Button -->
                 <div class="text-center">
-                    <button type="submit" class="w-full py-3 px-6 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-200">Sign Up</button>
+                    <button type="submit"
+                        class="w-full py-3 px-6 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-200">Sign
+                        Up</button>
                 </div>
             </form>
 
         </div>
     </div>
+<script>
+    $(document).ready(function() {
+    $('#branch').select2({
+        placeholder: 'Select your branch',
+        allowClear: true,
+        width: '100%',
+    });
+});
+
+</script>
 
 </body>
+
 </html>

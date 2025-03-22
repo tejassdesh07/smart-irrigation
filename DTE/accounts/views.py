@@ -9,7 +9,7 @@ from datetime import datetime
 from django.contrib import messages
 from django.template.loader import get_template
 from xhtml2pdf import pisa
-from .models import IrrigationProgram, IrrigationReport, IrrigationZone, AccountManagerContact
+from .models import IrrigationProgram, IrrigationReport, IrrigationZone, AccountManagerContact, UserBranch
 from .forms import EditUserForm, SignupForm, SigninForm, IrrigationReportForm, IrrigationZoneForm, AccountManagerContactForm
 
 # ------------------- Authentication Views -------------------
@@ -27,6 +27,11 @@ def signup(request):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password'])  # Encrypt password
             user.save()
+            print(form.cleaned_data)
+            branch = form.cleaned_data['branch']
+            print(branch)
+
+            UserBranch.objects.create(user=user, branch=branch)
             # login(request, user)  # Auto login
             messages.success(request, "Signup successful. Welcome!")
             return redirect('user_list')
